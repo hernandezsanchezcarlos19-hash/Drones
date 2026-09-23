@@ -1,9 +1,249 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title> Ivestigación 2 </title>
-    </head>
-    <body>
-        <h1> Sistemas y complegididad del dron </h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigación #2: Materiales y Electrónica - Dron TCN-01</title>
+    <style>
+        :root {
+            --primary-color: #00d2ff;
+            --primary-hover: #0099ff;
+            --bg-color: #0a0e17;
+            --card-bg: rgba(16, 23, 38, 0.85);
+            --text-color: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: rgba(0, 210, 255, 0.2);
+            --accent-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            /* Fondo tecnológico: Cuadrícula con luces de neón */
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(0, 210, 255, 0.15) 0%, transparent 50%),
+                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            background-position: 0 0, 0 0, 0 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            max-width: 850px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
+        }
+
+        .header-nav {
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .btn-back:hover {
+            color: var(--primary-hover);
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .section-card {
+            background-color: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 1.35rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        li strong {
+            color: #ffffff;
+        }
+
+        /* Galería de capturas de código con enlaces */
+        .code-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .code-gallery a {
+            display: block;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .code-gallery img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .code-gallery a:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .code-gallery a:hover img {
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn-prev {
+            background-color: var(--primary-color);
+            color: #0a0e17;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-prev:hover {
+            background-color: var(--primary-hover);
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(0, 210, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        
+        <nav class="header-nav">
+            <a href="index.html" class="btn-back">← Volver al Inicio</a>
+        </nav>
+
+        <h1>Sistemas y Complejidad del Dron</h1>
+        <p class="subtitle">Investigación #2: Selección de materiales, arquitectura de electrónica y programación</p>
+
+        <!-- Sección de Materiales -->
+        <section class="section-card">
+            <h2>Materiales Recomendados</h2>
+            <ul>
+                <li><strong>Chasís y Zonas de Carga:</strong> Triplay de abedul de 3 mm o placas de fibra de carbono/G10 en la bancada del motor y montantes.</li>
+                <li><strong>Estructura Propulsora y Cola:</strong> Tubos y varillas de fibra de carbono para soportar la flexión de las alas y sostener el empenaje.</li>
+                <li><strong>Cuerpo y Recubrimientos:</strong> Espuma XPS (unicel de alta densidad) o impresión 3D ligera (LW-PLA) para dar volumen aerodinámico sin sumar peso innecesario.</li>
+                <li><strong>Ensamble:</strong> Resina epóxica para uniones de alta fuerza mecánica y cianocrilato con activador para el perfilado en espuma/madera.</li>
+            </ul>
+        </section>
+
+        <!-- Sección de Electrónica y Sistemas -->
+        <section class="section-card">
+            <h2>Electrónica, Sistemas y Mecanismos</h2>
+            <ul>
+                <li><strong>Procesamiento y Recepción:</strong> Un microcontrolador (Arduino) conectado a un módulo RF (nRF24L01+PA+LNA) para la recepción de mandos mediante SPI.</li>
+                <li><strong>Propulsión:</strong> Motor Brushless controlado por un ESC que regula la aceleración mediante señales PWM.</li>
+                <li><strong>Actuadores:</strong> Servomotores para mover las superficies de control (alerones/elevador) y accionar el mecanismo de apertura o liberación de la compuerta de carga.</li>
+                <li><strong>Ubicación de Masas:</strong> La carga útil se ubica exactamente sobre el Centro de Gravedad (CG), mientras que la batería y electrónica se montan en la nariz como contrapeso.</li>
+            </ul>
+
+            <h3>Ejemplos de los primeros códigos utilizados:</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">(Haz clic en cualquier imagen para verla en tamaño completo)</p>
+            
+            <div class="code-gallery">
+                <a href="Captura de pantalla 2026-03-19 003654.png" target="_blank" title="Abrir imagen completa">
+                    <img src="Captura de pantalla 2026-03-19 003654.png" alt="Captura de código de control 1">
+                </a>
+                <a href="Captura de pantalla 2026-03-19 003531.png" target="_blank" title="Abrir imagen completa">
+                    <img src="Captura de pantalla 2026-03-19 003531.png" alt="Captura de código de control 2">
+                </a>
+                <a href="Captura de pantalla 2026-03-11 232107.png" target="_blank" title="Abrir imagen completa">
+                    <img src="Captura de pantalla 2026-03-11 232107.png" alt="Captura de código de comunicación RF">
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <a href="1-index.html" class="btn-prev">← Anterior: Estructura</a>
+            <a href="index.html" class="btn-back">Inicio ↑</a>
+        </footer>
+
+    </main>
+
+</body>
+</html>

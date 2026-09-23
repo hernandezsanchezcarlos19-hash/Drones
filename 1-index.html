@@ -1,9 +1,249 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title> Investigación #1 </title>
-    </head>
-    <body>
-        <h1> Aeronaves de ala delta: TIPOS </h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigación #1: Estructura - Dron TCN-01</title>
+    <style>
+        :root {
+            --primary-color: #00d2ff;
+            --primary-hover: #0099ff;
+            --bg-color: #0a0e17;
+            --card-bg: rgba(16, 23, 38, 0.85);
+            --text-color: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: rgba(0, 210, 255, 0.2);
+            --accent-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            /* Fondo tecnológico: Cuadrícula con luces de neón */
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(0, 210, 255, 0.15) 0%, transparent 50%),
+                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            background-position: 0 0, 0 0, 0 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            max-width: 850px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
+        }
+
+        .header-nav {
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .btn-back:hover {
+            color: var(--primary-hover);
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .section-card {
+            background-color: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 1.35rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+            text-align: justify;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        li strong {
+            color: #ffffff;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px 0 10px 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+            border: 1px solid var(--border-color);
+        }
+
+        .image-caption {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        footer {
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn-next {
+            background-color: var(--primary-color);
+            color: #0a0e17;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-next:hover {
+            background-color: var(--primary-hover);
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(0, 210, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        
+        <nav class="header-nav">
+            <a href="index.html" class="btn-back">← Volver al Inicio</a>
+        </nav>
+
+        <h1>Investigación #1: Estructura</h1>
+        <p class="subtitle">Análisis estructural y geometría alar para aeronaves no tripuladas (UAV)</p>
+
+        <section class="section-card">
+            <h2>Introducción y Objetivo</h2>
+            <p>
+                En esta investigación analizamos la estructura de los aviones de ala flechada y la optimización de fuselajes. El propósito fundamental de este trabajo es definir una arquitectura estructural eficiente para un dron de carga no tripulado (UAV).
+            </p>
+            <p>
+                La prioridad del diseño es maximizar el volumen útil interno, garantizar un acceso rápido a la mercancía y mantener una resistencia mecánica adecuada sin penalizar el peso total al despegue (MTOW).
+            </p>
+        </section>
+
+        <section class="section-card">
+            <h2>Configuración General y Fuselaje</h2>
+            <p>
+                Para una aeronave de carga no presurizada, la geometría del fuselaje debe distanciarse del clásico tubo cilíndrico y optar por una forma funcional:
+            </p>
+            <ul>
+                <li>
+                    <strong>Geometría de Sección Rectangular:</strong> Un fuselaje con sección transversal cuadrada o rectangular con bordes redondeados maximiza el espacio útil para paquetes volumétricos.
+                </li>
+                <li>
+                    <strong>Estructura Semimonocasco:</strong> Consiste en mamparos y cuadernas transversales unidos por larguerillos longitudinales. Permite transmitir los esfuerzos a lo largo de la piel exterior dejando el centro hueco para la carga.
+                </li>
+            </ul>
+        </section>
+
+        <section class="section-card">
+            <h2>Disposición Alar y Soporte Mecánico</h2>
+            <p>
+                La interacción entre el ala y el fuselaje define la estabilidad y la resistencia de la estructura:
+            </p>
+            <ul>
+                <li>
+                    <strong>Configuración de Ala Alta:</strong> Posicionar el ala sobre la parte superior del fuselaje crea estabilidad pendular automática y deja el espacio inferior completamente libre para ubicar la masa de la carga útil.
+                </li>
+                <li>
+                    <strong>Larguero Principal (Spar):</strong> Se requiere un tubo continuo de fibra de carbono que atraviese el fuselaje por encima de la bahía de carga.
+                </li>
+                <li>
+                    <strong>Perfil Aerodinámico:</strong> Se deben priorizar perfiles de alta sustentación a velocidades moderadas (principalmente NACA 4412 o Clark Y), optimizados para generar empuje ascendente con cargas pesadas.
+                </li>
+            </ul>
+
+            <div class="image-container">
+                <img src="images.jpg" alt="Esquema estructural y disposición alar del dron">
+                <p class="image-caption">Figura 1: Referencia estructural y perfil aerodinámico de la aeronave.</p>
+            </div>
+        </section>
+
+        <footer>
+            <a href="index.html" class="btn-back">← Inicio</a>
+            <a href="2-index.html" class="btn-next">Siguiente: Materiales y Electrónica →</a>
+        </footer>
+
+    </main>
+
+</body>
+</html>

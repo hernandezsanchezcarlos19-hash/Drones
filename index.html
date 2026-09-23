@@ -1,13 +1,176 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head> 
-        <meta charset="UTF-8">
-        <title> pricipal - inicio </title>
-    </head>
-    <body>
-        <h1> CHINGAO </h1>
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Dron TCN-01 - Inicio</title>
+    <style>
+        :root {
+            --primary-color: #00d2ff;
+            --primary-hover: #0099ff;
+            --bg-color: #0a0e17;
+            --card-bg: rgba(16, 23, 38, 0.85);
+            --text-color: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: rgba(0, 210, 255, 0.2);
+        }
 
-       <h2> <a href="1-index.html"> picale aqui we </a> </h2>
-       <h3> <a href="2-index.html"> ahora aqui we </a> </h3>
-    </body>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            /* Fondo tecnológico: Cuadrícula con luces de neón */
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(0, 210, 255, 0.15) 0%, transparent 50%),
+                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            background-position: 0 0, 0 0, 0 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-top: 0;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #f1f5f9;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .card-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(0, 210, 255, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+        }
+
+        .card-link span {
+            font-size: 0.98rem;
+            font-weight: 500;
+            padding-right: 15px;
+        }
+
+        .btn-action {
+            background-color: var(--primary-color);
+            color: #0a0e17;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .card-link:hover .btn-action {
+            background-color: var(--primary-hover);
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+
+        @media (max-width: 600px) {
+            .card-link {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .btn-action {
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <h1>Proyecto Dron TCN-01</h1>
+
+        <p class="lead-text">
+            En este proyecto buscamos desarrollar un prototipo de dron de carga capaz de transportar objetos pequeños, aplicando conocimientos de tecnología, electrónica y programación, con el fin de fortalecer el aprendizaje en el ámbito aeronáutico y fomentar el intercambio de conocimientos entre diversos estados de la República Mexicana.
+        </p>
+
+        <p>
+            Para esto investigamos los principales componentes y tecnologías empleados en el diseño y funcionamiento de drones, analizando el desarrollo tecnológico dentro del ámbito aeronáutico en México. Además, se diseñó, construyó y evaluó un prototipo funcional, realizando las pruebas pertinentes y observando las posibles mejoras para optimizar su desempeño.
+        </p>
+
+        <p>
+            Durante este proceso se han realizado diversas investigaciones con el fin de contar con el conocimiento básico necesario para el correcto funcionamiento del proyecto. A continuación se muestra un resumen con los enlaces a dichas investigaciones:
+        </p>
+
+        <h2 class="section-title">Investigaciones del Proyecto</h2>
+
+        <div class="links-grid">
+            <a href="1-index.html" class="card-link">
+                <span><strong>1. Estructura de la Aeronave:</strong> Abarca a grandes rasgos el diseño estructural y aerodinámico del dron.</span>
+                <span class="btn-action">Ver investigación</span>
+            </a>
+
+            <a href="2-index.html" class="card-link">
+                <span><strong>2. Materiales y Electrónica:</strong> Enfocada en la selección de materiales, componentes electrónicos y circuito.</span>
+                <span class="btn-action">Ver investigación</span>
+            </a>
+        </div>
+    </main>
+
+</body>
 </html>
