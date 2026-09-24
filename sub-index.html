@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Dron TCN-01 - Investigación 2</title>
+    <title>Proyecto Dron TCN-01 - Superficies de Control</title>
     
     <!-- Favicon y Meta Tags -->
     <link rel="icon" type="image/jpg" href="logo-tcn01.png">
-    <meta name="description" content="Materiales y Electrónica del Dron TCN-01 - Instituto Politécnico Nacional">
-    <meta property="og:title" content="Investigación 2: Materiales y Electrónica - Dron TCN-01">
+    <meta name="description" content="Superficies de Control y Mecánica de Vuelo (Elevons) del Dron TCN-01 - IPN">
+    <meta property="og:title" content="Superficies de Control - Dron TCN-01">
 
     <style>
         :root {
@@ -160,99 +160,30 @@
         .content-relative { position: relative; z-index: 1; }
 
         h1 {
-            color: var(--primary-color); font-size: 2rem; margin-top: 0;
+            color: var(--primary-color); font-size: 1.8rem; margin-top: 0;
             border-bottom: 2px solid var(--border-color); padding-bottom: 12px;
             text-align: center; text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
         }
 
-        .section-title {
-            font-size: 1.3rem;
-            margin-top: 35px;
-            margin-bottom: 20px;
+        h2 {
             color: #ffffff;
+            font-size: 1.25rem;
+            margin-top: 30px;
             border-left: 4px solid var(--primary-color);
             padding-left: 10px;
         }
 
-        p { color: var(--text-muted); margin-bottom: 20px; text-align: justify; }
+        p, li { color: var(--text-muted); margin-bottom: 15px; text-align: justify; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+        li strong { color: var(--text-color); }
 
-        .image-gallery-inline {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
-        }
-
-        .image-gallery-inline img {
-            width: 100%;
-            height: auto;
+        .info-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.15);
-            transition: transform 0.3s ease;
-        }
-
-        .image-gallery-inline img:hover { transform: scale(1.02); }
-
-        .caption-text {
-            font-size: 0.9rem;
-            color: var(--primary-color);
-            text-align: center;
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-
-        /* FICHAS INTERACTIVAS (SUB-RAMAS) */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .research-card {
-            background-color: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: all 0.3s ease;
-        }
-
-        .research-card:hover {
-            border-color: var(--primary-color);
-            background-color: rgba(0, 210, 255, 0.08);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2);
-        }
-
-        .card-number {
-            font-size: 0.8rem; font-weight: 700; color: var(--primary-color);
-            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
-        }
-
-        .card-title { font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; }
-        .card-description { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; text-align: left; }
-
-        .card-footer-btn {
-            align-self: flex-start;
-            background-color: var(--primary-color);
-            color: #0a0e17;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            transition: all 0.2s ease;
-        }
-
-        .research-card:hover .card-footer-btn {
-            background-color: var(--primary-hover);
-            color: #ffffff;
-            box-shadow: 0 0 12px rgba(0, 210, 255, 0.5);
+            padding: 20px;
+            margin: 20px 0;
         }
 
         /* BARRA DE NAVEGACIÓN ENTRE SUBPÁGINAS */
@@ -316,7 +247,6 @@
         @media (max-width: 600px) {
             .container { padding: 20px; }
             .gallery-panel { width: 100%; right: -100%; }
-            .cards-grid { grid-template-columns: 1fr; }
             .page-navigation { flex-direction: column; align-items: stretch; }
             .nav-btn { justify-content: center; }
         }
@@ -387,48 +317,40 @@
     <!-- Contenido Principal -->
     <main class="container">
         <div class="content-relative">
-            <h1>Investigación #2: Materiales y Electrónica</h1>
+            <h1>Superficies de Control y Mecánica de Vuelo (Elevons)</h1>
             
             <p>
-                Esta sección se centra en la selección de materiales ligeros y resistentes, esquemas de circuitos, especificaciones de la batería, controladores de velocidad (ESC) y la integración del sistema de transmisión y control de vuelo.
+                Dado que los diseños de ala delta carecen de cola y estabilizadores horizontales convencionales, las funciones de control recaen principalmente en los <strong>Elevons</strong>.
             </p>
 
-            <div class="image-gallery-inline">
-                <img src="1.png" alt="Circuito Electrónico Arduino y nRF24L01">
-                <img src="3.png" alt="Controlador ESC y Motor Brushless">
-                <img src="2.png" alt="Ensamble Físico de Componentes">
-            </div>
-
-            <p class="caption-text">
-                Las imágenes mostradas corresponden a esquemas y pruebas de los primeros dos códigos de desarrollo del prototipo TCN-01.
+            <h2>Definición y Ubicación</h2>
+            <p>
+                Son superficies aerodinámicas móviles ubicadas en el borde de salida de las alas que combinan las funciones de los elevadores (cabeceo) y los alerones (alabeo).
             </p>
 
-            <!-- FICHAS INTERACTIVAS (SUB-RAMAS DE INVESTIGACIÓN #2) -->
-            <h2 class="section-title">Temas de Investigación de Materiales y Sistemas</h2>
-            <div class="cards-grid">
-                <a href="materiales-index.html" class="research-card">
-                    <div>
-                        <div class="card-number">Sub-rama 2.1</div>
-                        <div class="card-title">Materiales y Estructura</div>
-                        <div class="card-description">Componentes principales, materiales avanzados (fibra de carbono, Kevlar, EPO) y aleaciones.</div>
-                    </div>
-                    <div class="card-footer-btn">Ver tema →</div>
-                </a>
-
-                <a href="sistemas-index.html" class="research-card">
-                    <div>
-                        <div class="card-number">Sub-rama 2.2</div>
-                        <div class="card-title">Transmisión de Datos y Comunicación</div>
-                        <div class="card-description">Telemetría, RF, enlaces UHF, redes celulares (LTE/5G) y comunicación satelital.</div>
-                    </div>
-                    <div class="card-footer-btn">Ver tema →</div>
-                </a>
+            <h2>Modos de Operación</h2>
+            <div class="info-card">
+                <ul>
+                    <li><strong>Deflexión simétrica:</strong> Ambas superficies se mueven en el mismo sentido para controlar el cabeceo (subir o bajar la nariz).</li>
+                    <li><strong>Deflexión diferencial:</strong> Las superficies se mueven en sentidos opuestos para controlar el alabeo (inclinación lateral).</li>
+                </ul>
             </div>
+
+            <h2>Compensación de Guiñada y Algoritmos</h2>
+            <p>
+                Dado que aeronaves tipo ala delta como el dron Geranio prescinden del timón de dirección vertical para ahorrar peso y costos, los elevones (junto con la estabilidad natural del diseño) deben compensar el deslizamiento lateral (<em>sideslip</em>) mediante ajustes finos gestionados por algoritmos y controladores digitales (como bucles PID).
+            </p>
+
+            <h2>Control de Potencia</h2>
+            <p>
+                El motor complementa el control aerodinámico ajustando la velocidad del aire (<em>V<sub>a</sub></em>) y contribuyendo a la regulación indirecta de la altitud.
+            </p>
 
             <!-- BOTONES DE NAVEGACIÓN ENTRE SUBPÁGINAS -->
             <nav class="page-navigation">
-                <a href="1-index.html" class="nav-btn">← Anterior: Estructura</a>
+                <a href="1-index.html" class="nav-btn">← Volver a Investigación #1</a>
                 <a href="index.html" class="nav-btn home">🏠 Inicio</a>
+                <a href="2-sub-index.html" class="nav-btn">Siguiente: Tren de Aterrizaje →</a>
             </nav>
         </div>
     </main>

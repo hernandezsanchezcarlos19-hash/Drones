@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto Dron TCN-01 - Inicio</title>
+    
+    <!-- Favicon y Meta Tags -->
+    <link rel="icon" type="image/jpg" href="logo-tcn01.png">
+    <meta name="description" content="Proyecto Dron de Carga TCN-01 - Instituto Politécnico Nacional">
+    <meta property="og:title" content="Proyecto Dron TCN-01">
+
     <style>
         :root {
             --primary-color: #00d2ff;
@@ -23,7 +29,6 @@
                 linear-gradient(rgba(0, 210, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 210, 255, 0.02) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
-            background-position: 0 0, 0 0, 0 0;
             color: var(--text-color);
             line-height: 1.6; 
             margin: 0;
@@ -35,9 +40,7 @@
             overflow-x: hidden;
         }
 
-        /* ==========================================
-           PANTALLA DE BIENVENIDA (SPLASH SCREEN)
-        ========================================== */
+        /* SPLASH SCREEN */
         .welcome-screen {
             position: fixed;
             top: 0;
@@ -61,7 +64,6 @@
             pointer-events: none;
         }
 
-        /* Contenedor del Avión (Más grande y Vuelo más lento) */
         .plane-wrapper {
             position: absolute;
             width: 1050px;
@@ -70,38 +72,18 @@
             animation: flyAcross 7.5s cubic-bezier(0.35, 0, 0.25, 1) forwards;
         }
 
-        /* Animación de vuelo pausado de Izquierda a Derecha */
         @keyframes flyAcross {
-            0% {
-                left: -1100px;
-                transform: translateY(-50%) rotate(2deg);
-                opacity: 0;
-            }
-            15% {
-                opacity: 1;
-            }
-            50% {
-                left: 50%;
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            85% {
-                opacity: 1;
-            }
-            100% {
-                left: 115vw;
-                transform: translateY(-50%) rotate(-2deg);
-                opacity: 0;
-            }
+            0% { left: -1100px; transform: translateY(-50%) rotate(2deg); opacity: 0; }
+            15% { opacity: 1; }
+            50% { left: 50%; transform: translate(-50%, -50%) rotate(0deg); }
+            85% { opacity: 1; }
+            100% { left: 115vw; transform: translateY(-50%) rotate(-2deg); opacity: 0; }
         }
 
-        .plane-svg {
-            width: 100%;
-            height: auto;
-        }
+        .plane-svg { width: 100%; height: auto; }
 
-        /* Letras sobrias, de alto contraste sobre fondo de ventana claro */
         .window-letter {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             font-size: 13.5px;
             font-weight: 900;
             fill: #0f172a;
@@ -124,9 +106,7 @@
             to { opacity: 0.9; text-shadow: 0 0 8px rgba(0, 210, 255, 0.4); }
         }
 
-        /* ==========================================
-           BARRA SUPERIOR (TOP BAR)
-        ========================================== */
+        /* TOP BAR */
         .top-bar {
             width: 100%;
             height: 70px;
@@ -150,6 +130,7 @@
             gap: 12px;
             position: relative;
             z-index: 10;
+            text-decoration: none;
         }
 
         .brand-logo img {
@@ -177,9 +158,6 @@
             cursor: pointer;
             z-index: 10;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .menu-btn:hover {
@@ -187,15 +165,11 @@
             box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
         }
 
-        /* Flota de 10 filas x 3 aviones */
+        /* FLOTA DE AVIONES */
         .airplanes-fleet {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
         }
 
         .plane-row {
@@ -208,10 +182,7 @@
             animation: flyRow linear infinite;
         }
 
-        .plane-row span {
-            font-size: 0.85rem;
-            opacity: 0.6;
-        }
+        .plane-row span { font-size: 0.85rem; opacity: 0.6; }
 
         @keyframes flyRow {
             0% { left: -200px; }
@@ -229,13 +200,10 @@
         .row-9  { top: 77%; animation-duration: 9.5s; animation-delay: 8.5s; }
         .row-10 { top: 86%; animation-duration: 12.5s; animation-delay: 1.5s; }
 
-        /* Panel Lateral de Galería */
+        /* GALERÍA LATERAL */
         .gallery-panel {
             position: fixed;
-            top: 0;
-            right: -380px;
-            width: 340px;
-            height: 100vh;
+            top: 0; right: -380px; width: 340px; height: 100vh;
             background-color: rgba(10, 14, 23, 0.96);
             backdrop-filter: blur(15px);
             border-left: 1px solid var(--border-color);
@@ -263,18 +231,12 @@
             margin: 0;
             color: var(--primary-color);
             font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .close-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.2s;
+            background: none; border: none;
+            color: var(--text-muted); font-size: 1.5rem;
+            cursor: pointer; transition: color 0.2s;
         }
 
         .close-btn:hover { color: #ffffff; }
@@ -285,12 +247,6 @@
             gap: 12px;
             overflow-y: auto;
             padding-right: 5px;
-        }
-
-        .gallery-grid::-webkit-scrollbar { width: 5px; }
-        .gallery-grid::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 4px;
         }
 
         .gallery-item {
@@ -309,65 +265,38 @@
             border-color: var(--primary-color);
         }
 
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
         .gallery-item-title {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            bottom: 0; left: 0; width: 100%;
             background: rgba(10, 14, 23, 0.85);
             font-size: 0.72rem;
             color: #ffffff;
             padding: 4px 6px;
             box-sizing: border-box;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
         .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 150;
-            display: none;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.5); z-index: 150; display: none;
         }
-
         .overlay.active { display: block; }
 
         .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 300;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(8px);
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.9); z-index: 300; display: none;
+            align-items: center; justify-content: center; backdrop-filter: blur(8px);
         }
-
         .lightbox.active { display: flex; }
-
         .lightbox img {
-            max-width: 90%;
-            max-height: 85%;
-            border-radius: 8px;
-            border: 1px solid var(--primary-color);
+            max-width: 90%; max-height: 85%;
+            border-radius: 8px; border: 1px solid var(--primary-color);
             box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
         }
 
-        /* Contenedor Principal */
+        /* CONTENEDOR PRINCIPAL Y COMPONENTES NUEVOS */
         .container {
             background-color: var(--card-bg);
             backdrop-filter: blur(10px);
@@ -383,26 +312,7 @@
             overflow: hidden;
         }
 
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70%;
-            height: 70%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" stroke="%2300d2ff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.06"><path d="M256 16 L256 496 M120 220 L392 220 M256 120 L50 260 L50 280 L256 220 L462 280 L462 260 Z M180 430 L332 430 M256 380 L180 460 L180 475 L256 450 L332 475 L332 460 Z"/></svg>');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .content-relative {
-            position: relative;
-            z-index: 1;
-        }
+        .content-relative { position: relative; z-index: 1; }
 
         h1 {
             color: var(--primary-color);
@@ -421,11 +331,7 @@
             margin-bottom: 20px;
         }
 
-        p {
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            text-align: justify;
-        }
+        p { color: var(--text-muted); margin-bottom: 20px; text-align: justify; }
 
         .section-title {
             font-size: 1.3rem;
@@ -436,6 +342,60 @@
             padding-left: 10px;
         }
 
+        /* FICHA TÉCNICA (QUICK SPECS) */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .spec-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .spec-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-color);
+        }
+
+        .spec-icon { font-size: 1.5rem; margin-bottom: 5px; }
+        .spec-title { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+        .spec-value { font-size: 1rem; font-weight: 700; color: #ffffff; margin-top: 4px; }
+
+        /* BOTÓN DE DESCARGA PDF */
+        .pdf-download-container {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: #0a0e17;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.6);
+            color: #ffffff;
+        }
+
+        /* TARJETAS DE INVESTIGACIÓN */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -454,8 +414,6 @@
             text-decoration: none;
             color: var(--text-color);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .research-card:hover {
@@ -466,28 +424,12 @@
         }
 
         .card-number {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
+            font-size: 0.8rem; font-weight: 700; color: var(--primary-color);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
         }
 
-        .card-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .card-description {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            flex-grow: 1;
-            text-align: left;
-        }
+        .card-title { font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; }
+        .card-description { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
 
         .card-footer-btn {
             align-self: flex-start;
@@ -498,12 +440,6 @@
             font-size: 0.88rem;
             font-weight: 700;
             transition: all 0.2s ease;
-        }
-
-        .research-card:hover .card-footer-btn {
-            background-color: var(--primary-hover);
-            color: #ffffff;
-            box-shadow: 0 0 12px rgba(0, 210, 255, 0.5);
         }
 
         footer {
@@ -519,17 +455,8 @@
         }
 
         footer strong { color: #ffffff; }
-
-        .footer-authors {
-            margin: 10px 0;
-            line-height: 1.5;
-        }
-
-        .footer-date {
-            font-size: 0.85rem;
-            color: var(--primary-color);
-            margin-top: 8px;
-        }
+        .footer-authors { margin: 10px 0; line-height: 1.5; }
+        .footer-date { font-size: 0.85rem; color: var(--primary-color); margin-top: 8px; }
 
         @media (max-width: 600px) {
             .container { padding: 20px; }
@@ -540,7 +467,7 @@
 </head>
 <body>
 
-    <!-- Pantalla de Bienvenida (Avión Grande con Vuelo Lento) -->
+    <!-- Pantalla de Bienvenida -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="plane-wrapper">
             <svg class="plane-svg" viewBox="0 0 650 180" xmlns="http://www.w3.org/2000/svg">
@@ -560,85 +487,55 @@
                     </linearGradient>
                 </defs>
 
-                <!-- Cola del avión -->
                 <path d="M 70 85 L 20 20 L 55 20 L 110 85 Z" fill="url(#wingGrad)" opacity="0.85"/>
                 <path d="M 65 95 L 30 140 L 55 140 L 95 95 Z" fill="url(#wingGrad)" opacity="0.6"/>
-
-                <!-- Ala Trasera -->
                 <polygon points="260,85 180,10 230,10 330,85" fill="url(#wingGrad)" opacity="0.75"/>
 
-                <!-- Fuselaje Principal -->
                 <path d="M 60 90 C 120 70, 480 70, 580 85 C 620 90, 640 100, 640 100 C 640 100, 600 115, 520 115 C 400 115, 120 110, 60 90 Z" 
                       fill="url(#fuselageGrad)" stroke="#38bdf8" stroke-width="2"/>
 
-                <!-- Parabrisas / Cabina -->
                 <path d="M 570 86 C 590 88, 615 95, 625 100 L 590 100 Z" fill="#38bdf8" opacity="0.9"/>
-
-                <!-- Ala Delantera Principal -->
                 <polygon points="280,95 210,170 260,170 380,95" fill="url(#wingGrad)"/>
 
-                <!-- 10 Ventanas Individuales con fondo claro y letras en tono oscuro brillante (Sin Neón) -->
-                <!-- B -->
+                <!-- 10 Ventanas Individuales -->
                 <rect x="230" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
                 <text x="238.5" y="93.5" class="window-letter">B</text>
-
-                <!-- I -->
                 <rect x="260" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
                 <text x="268.5" y="93.5" class="window-letter">I</text>
-
-                <!-- E -->
                 <rect x="290" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
                 <text x="298.5" y="93.5" class="window-letter">E</text>
-
-                <!-- N -->
                 <rect x="320" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
                 <text x="328.5" y="93.5" class="window-letter">N</text>
-
-                <!-- V -->
                 <rect x="350" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
                 <text x="358.5" y="93.5" class="window-letter">V</text>
-
-                <!-- E -->
                 <rect x="380" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
                 <text x="388.5" y="93.5" class="window-letter">E</text>
-
-                <!-- N -->
                 <rect x="410" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
                 <text x="418.5" y="93.5" class="window-letter">N</text>
-
-                <!-- I -->
                 <rect x="440" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
                 <text x="448.5" y="93.5" class="window-letter">I</text>
-
-                <!-- D -->
                 <rect x="470" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
                 <text x="478.5" y="93.5" class="window-letter">D</text>
-
-                <!-- O -->
                 <rect x="500" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
                 <text x="508.5" y="93.5" class="window-letter">O</text>
 
-                <!-- Turbina de Motor -->
                 <rect x="310" y="120" width="65" height="22" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
             </svg>
         </div>
         <div class="welcome-subtitle-text">Proyecto Dron TCN-01</div>
     </div>
 
-    <!-- Overlay de Fondo para la Galería -->
     <div class="overlay" id="overlay"></div>
 
     <!-- Barra Superior -->
     <header class="top-bar">
-        <div class="brand-logo">
-            <img src="logo.png" alt="Logo TCN-01">
+        <a href="index.html" class="brand-logo">
+            <img src="logo.jpg" alt="Logo TCN-01">
             <span>TCN-01</span>
-        </div>
+        </a>
 
-        <!-- Botón de Tres Líneas (Galería) -->
         <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes">&#9776;</button>
 
-        <!-- Flota de 10 Filas x 3 Aviones -->
         <div class="airplanes-fleet">
             <div class="plane-row row-1"><span>✈</span><span>✈</span><span>✈</span></div>
             <div class="plane-row row-2"><span>✈</span><span>✈</span><span>✈</span></div>
@@ -653,41 +550,37 @@
         </div>
     </header>
 
-    <!-- Panel Lateral: Búsqueda Rápida de Imágenes -->
-  <aside class="gallery-panel" id="galleryPanel">
+    <!-- Panel Lateral: Galería -->
+    <aside class="gallery-panel" id="galleryPanel">
         <div class="gallery-header">
-            <h3>🔍 Galería de Imágenes</h3>
+            <h3>🔍 Galería del Proyecto</h3>
             <button class="close-btn" id="closeGalleryBtn">&times;</button>
         </div>
         <div class="gallery-grid" id="galleryGrid">
-            <!-- Logo principal -->
             <div class="gallery-item">
-                <img src="logo.png" alt="Logo Principal">
-                <div class="gallery-item-title">Logo</div>
-            </div>
-
-            <!-- Imagen de 1-index.html -->
-            <div class="gallery-item">
-                <img src="ima1.jpg" alt="Investigación #1">
-                <div class="gallery-item-title">Investigación #1</div>
-            </div>
-
-            <!-- Imagen de 2-index.html -->
-            <div class="gallery-item">
-                <img src="1.png" alt="Investigación #2">
-                <div class="gallery-item-title">Investigación #2</div>
+                <img src="logo.jpg" alt="Logo Principal TCN-01">
+                <div class="gallery-item-title">Logo TCN-01</div>
             </div>
             <div class="gallery-item">
-                <img src="2.png" alt="Investigación #2">
-                <div class="gallery-item-title"> investigación #2</div>
+                <img src="ima1.jpg" alt="Estructura de Aeronave">
+                <div class="gallery-item-title">Estructura Aerodinámica</div>
             </div>
-                  <div class="gallery-item">
-                <img src="3.png" alt="Investigación #2">
-                <div class="gallery-item-title"> investigación #2</div>
+            <div class="gallery-item">
+                <img src="1.png" alt="Esquema Electrónico Prototipo">
+                <div class="gallery-item-title">Circuito Electrónico</div>
+            </div>
+            <div class="gallery-item">
+                <img src="2.png" alt="Ensamblado Hardware">
+                <div class="gallery-item-title">Ensamblado Hardware</div>
+            </div>
+            <div class="gallery-item">
+                <img src="3.png" alt="Pruebas de Componentes">
+                <div class="gallery-item-title">Pruebas de Sistema</div>
             </div>
         </div>
     </aside>
-    <!-- Visor Lightbox -->
+
+    <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
         <img id="lightboxImg" src="" alt="Vista ampliada">
     </div>
@@ -705,9 +598,37 @@
                 Para esto investigamos los principales componentes y tecnologías empleados en el diseño y funcionamiento de drones, analizando el desarrollo tecnológico dentro del ámbito aeronáutico en México. Además, se diseñó, construyó y evaluó un prototipo funcional, realizando las pruebas pertinentes y observando las posibles mejoras para optimizar su desempeño.
             </p>
 
-            <p>
-                Durante este proceso se han realizado diversas investigaciones con el fin de contar con el conocimiento básico necesario para el correcto funcionamiento del proyecto. A continuación se muestra un resumen con los enlaces a dichas investigaciones:
-            </p>
+            <!-- FICHA TÉCNICA (QUICK SPECS) -->
+            <h2 class="section-title">Especificaciones Técnicas (Quick Specs)</h2>
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <div class="spec-icon">🧠</div>
+                    <div class="spec-title">Controlador</div>
+                    <div class="spec-value">Arduino Nano / ATmega328P</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">📡</div>
+                    <div class="spec-title">Módulo RF</div>
+                    <div class="spec-value">nRF24L01 (2.4 GHz)</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">⚡</div>
+                    <div class="spec-title">Propulsión</div>
+                    <div class="spec-value">Brushless / ESC / Servos</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-icon">📦</div>
+                    <div class="spec-title">Carga Útil</div>
+                    <div class="spec-value">100g – 250g</div>
+                </div>
+            </div>
+
+            <!-- BOTÓN DESCARGA PDF -->
+            <div class="pdf-download-container">
+                <a href="reporte-tecnico-tcn01.pdf" download class="btn-download">
+                    📄 Descargar Reporte Técnico (PDF)
+                </a>
+            </div>
 
             <h2 class="section-title">Investigaciones del Proyecto</h2>
 
@@ -738,20 +659,16 @@
     <footer>
         <p style="margin: 0;"><strong>Instituto Politécnico Nacional</strong></p>
         <div class="footer-authors">
-            <strong>Autores:</strong> Hernández Sánchez Carlos Enrique | Cervantes García Lucero Nicole | Santivañez Urbina Margarito Joaquín
+            <strong>Autores:</strong> Hernández Sánchez Carlos Enrique | Cervantes García Lucero Nicole | Santivañez Urbina Margarito Joaquín | Pablo Bernabe Luis Alberto
         </div>
         <div class="footer-date">23 de septiembre de 2026</div>
     </footer>
 
-    <!-- Scripts de Interacción -->
+    <!-- Scripts -->
     <script>
-        // Ocultar automáticamente la pantalla de bienvenida tras completar el vuelo lento (7 segundos)
         const welcomeScreen = document.getElementById('welcomeScreen');
-        setTimeout(() => {
-            welcomeScreen.classList.add('hidden');
-        }, 7000);
+        setTimeout(() => { welcomeScreen.classList.add('hidden'); }, 7000);
 
-        // Lógica del Panel de Galería y Lightbox
         const openGalleryBtn = document.getElementById('openGalleryBtn');
         const closeGalleryBtn = document.getElementById('closeGalleryBtn');
         const galleryPanel = document.getElementById('galleryPanel');
@@ -769,39 +686,20 @@
         closeGalleryBtn.addEventListener('click', toggleGallery);
         overlay.addEventListener('click', toggleGallery);
 
-        function loadGalleryImages() {
-            galleryGrid.innerHTML = '';
-            const images = document.querySelectorAll('img');
-            
-            images.forEach((img, index) => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                
-                const thumb = document.createElement('img');
-                thumb.src = img.src;
-                thumb.alt = img.alt || `Imagen ${index + 1}`;
-                
-                const title = document.createElement('div');
-                title.className = 'gallery-item-title';
-                title.innerText = img.alt || `Imagen ${index + 1}`;
-                
-                item.appendChild(thumb);
-                item.appendChild(title);
-                
-                item.addEventListener('click', () => {
+        // Lightbox para elementos de galería
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                if(img) {
                     lightboxImg.src = img.src;
                     lightbox.classList.add('active');
-                });
-
-                galleryGrid.appendChild(item);
+                }
             });
-        }
+        });
 
         lightbox.addEventListener('click', () => {
             lightbox.classList.remove('active');
         });
-
-        window.addEventListener('DOMContentLoaded', loadGalleryImages);
     </script>
 </body>
 </html>
