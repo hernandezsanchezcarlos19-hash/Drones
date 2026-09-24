@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Dron TCN-01 - Investigación #2</title>
+    <title>Proyecto Dron TCN-01 - Investigación 2</title>
     <style>
         :root {
             --primary-color: #00d2ff;
@@ -23,8 +23,9 @@
                 linear-gradient(rgba(0, 210, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 210, 255, 0.02) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
+            background-position: 0 0, 0 0, 0 0;
             color: var(--text-color);
-            line-height: 1.6; 
+            line-height: 1.6;
             margin: 0;
             padding: 0;
             display: flex;
@@ -34,75 +35,10 @@
             overflow-x: hidden;
         }
 
-        /* Pantalla de Bienvenida (Vuelo a 3s) */
-        .welcome-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.12) 0%, transparent 75%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
-            overflow: hidden;
-        }
 
-        .welcome-screen.hidden {
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .plane-wrapper {
-            position: absolute;
-            width: 1050px;
-            max-width: 95vw;
-            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
-            animation: flyAcross 3s cubic-bezier(0.35, 0, 0.25, 1) forwards;
-        }
-
-        @keyframes flyAcross {
-            0% {
-                left: -1100px;
-                transform: translateY(-50%) rotate(2deg);
-                opacity: 0;
-            }
-            20% { opacity: 1; }
-            50% {
-                left: 50%;
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            80% { opacity: 1; }
-            100% {
-                left: 115vw;
-                transform: translateY(-50%) rotate(-2deg);
-                opacity: 0;
-            }
-        }
-
-        .plane-svg { width: 100%; height: auto; }
-
-        .welcome-subtitle-text {
-            position: absolute;
-            bottom: 12%;
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            animation: fadeInSub 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes fadeInSub {
-            from { opacity: 0.3; }
-            to { opacity: 0.9; text-shadow: 0 0 8px rgba(0, 210, 255, 0.4); }
-        }
-
-        /* Top Bar */
+        /* ==========================================
+           BARRA SUPERIOR (TOP BAR)
+        ========================================== */
         .top-bar {
             width: 100%;
             height: 70px;
@@ -126,6 +62,7 @@
             gap: 12px;
             position: relative;
             z-index: 10;
+            text-decoration: none;
         }
 
         .brand-logo img {
@@ -163,7 +100,7 @@
             box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
         }
 
-        /* Flota de Aviones de Fondo */
+        /* Flota de Aviones */
         .airplanes-fleet {
             position: absolute;
             top: 0;
@@ -184,7 +121,10 @@
             animation: flyRow linear infinite;
         }
 
-        .plane-row span { font-size: 0.85rem; opacity: 0.6; }
+        .plane-row span {
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
 
         @keyframes flyRow {
             0% { left: -200px; }
@@ -202,7 +142,7 @@
         .row-9  { top: 77%; animation-duration: 9.5s; animation-delay: 8.5s; }
         .row-10 { top: 86%; animation-duration: 12.5s; animation-delay: 1.5s; }
 
-        /* Panel de Galería y Lightbox */
+        /* Panel Galería Lateral */
         .gallery-panel {
             position: fixed;
             top: 0;
@@ -247,13 +187,23 @@
             color: var(--text-muted);
             font-size: 1.5rem;
             cursor: pointer;
+            transition: color 0.2s;
         }
+
+        .close-btn:hover { color: #ffffff; }
 
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .gallery-grid::-webkit-scrollbar { width: 5px; }
+        .gallery-grid::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
         }
 
         .gallery-item {
@@ -264,9 +214,19 @@
             cursor: pointer;
             aspect-ratio: 1;
             background-color: rgba(255, 255, 255, 0.02);
+            transition: transform 0.2s, border-color 0.2s;
         }
 
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            border-color: var(--primary-color);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
         .gallery-item-title {
             position: absolute;
@@ -333,6 +293,12 @@
             box-shadow: 0 0 30px rgba(0, 210, 255, 0.12);
             box-sizing: border-box;
             position: relative;
+            overflow: hidden;
+        }
+
+        .content-relative {
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
@@ -342,25 +308,27 @@
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 12px;
             text-align: center;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
         }
 
-        .back-nav {
+        p {
+            color: var(--text-muted);
             margin-bottom: 20px;
+            text-align: justify;
         }
 
         .back-link {
+            display: inline-block;
+            margin-top: 20px;
             color: var(--primary-color);
             text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            font-weight: 700;
             transition: color 0.2s;
         }
 
-        .back-link:hover { color: var(--primary-hover); }
-
-        p { color: var(--text-muted); margin-bottom: 20px; text-align: justify; }
+        .back-link:hover {
+            color: var(--primary-hover);
+        }
 
         footer {
             width: 100%;
@@ -374,6 +342,19 @@
             box-sizing: border-box;
         }
 
+        footer strong { color: #ffffff; }
+
+        .footer-authors {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .footer-date {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            margin-top: 8px;
+        }
+
         @media (max-width: 600px) {
             .container { padding: 20px; }
             .gallery-panel { width: 100%; right: -100%; }
@@ -382,7 +363,7 @@
 </head>
 <body>
 
-    <!-- Pantalla de Bienvenida Rápida (3s) Sin Texto en Ventanas -->
+    <!-- Pantalla de Bienvenida -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="plane-wrapper">
             <svg class="plane-svg" viewBox="0 0 650 180" xmlns="http://www.w3.org/2000/svg">
@@ -402,50 +383,62 @@
                     </linearGradient>
                 </defs>
 
-                <!-- Cola del avión -->
                 <path d="M 70 85 L 20 20 L 55 20 L 110 85 Z" fill="url(#wingGrad)" opacity="0.85"/>
                 <path d="M 65 95 L 30 140 L 55 140 L 95 95 Z" fill="url(#wingGrad)" opacity="0.6"/>
-
-                <!-- Ala Trasera -->
                 <polygon points="260,85 180,10 230,10 330,85" fill="url(#wingGrad)" opacity="0.75"/>
 
-                <!-- Fuselaje Principal -->
                 <path d="M 60 90 C 120 70, 480 70, 580 85 C 620 90, 640 100, 640 100 C 640 100, 600 115, 520 115 C 400 115, 120 110, 60 90 Z" 
                       fill="url(#fuselageGrad)" stroke="#38bdf8" stroke-width="2"/>
 
-                <!-- Parabrisas / Cabina -->
                 <path d="M 570 86 C 590 88, 615 95, 625 100 L 590 100 Z" fill="#38bdf8" opacity="0.9"/>
-
-                <!-- Ala Delantera Principal -->
                 <polygon points="280,95 210,170 260,170 380,95" fill="url(#wingGrad)"/>
 
-                <!-- 10 Ventanas Individuales Sobrias sin Texto -->
+                <!-- 10 Ventanas Individuales -->
                 <rect x="230" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
-                <rect x="260" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
-                <rect x="290" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
-                <rect x="320" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
-                <rect x="350" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
-                <rect x="380" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
-                <rect x="410" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
-                <rect x="440" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
-                <rect x="470" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
-                <rect x="500" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="238.5" y="93.5" class="window-letter">B</text>
 
-                <!-- Turbina de Motor -->
+                <rect x="260" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="268.5" y="93.5" class="window-letter">I</text>
+
+                <rect x="290" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="298.5" y="93.5" class="window-letter">E</text>
+
+                <rect x="320" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="328.5" y="93.5" class="window-letter">N</text>
+
+                <rect x="350" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="358.5" y="93.5" class="window-letter">V</text>
+
+                <rect x="380" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="388.5" y="93.5" class="window-letter">E</text>
+
+                <rect x="410" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="418.5" y="93.5" class="window-letter">N</text>
+
+                <rect x="440" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="448.5" y="93.5" class="window-letter">I</text>
+
+                <rect x="470" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="478.5" y="93.5" class="window-letter">D</text>
+
+                <rect x="500" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="508.5" y="93.5" class="window-letter">O</text>
+
                 <rect x="310" y="120" width="65" height="22" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
             </svg>
         </div>
-        <div class="welcome-subtitle-text">Investigación #2</div>
+        <div class="welcome-subtitle-text">Proyecto Dron TCN-01</div>
     </div>
 
     <div class="overlay" id="overlay"></div>
 
     <!-- Barra Superior -->
     <header class="top-bar">
-        <div class="brand-logo">
-            <img src="Captura de pantalla 2025-12-03 013150.png" alt="Logo TCN-01">
+        <a href="index.html" class="brand-logo">
+            <img src="logo.png" alt="Logo TCN-01">
             <span>TCN-01</span>
-        </div>
+        </a>
+
         <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes">&#9776;</button>
 
         <div class="airplanes-fleet">
@@ -462,47 +455,77 @@
         </div>
     </header>
 
-    <!-- Panel de Galería -->
-    <aside class="gallery-panel" id="galleryPanel">
+    <!-- Panel Lateral: Búsqueda Rápida -->
+ <aside class="gallery-panel" id="galleryPanel">
         <div class="gallery-header">
-            <h3>🔍 Búsqueda Rápida</h3>
+            <h3>🔍 Galería de Imágenes</h3>
             <button class="close-btn" id="closeGalleryBtn">&times;</button>
         </div>
-        <div class="gallery-grid" id="galleryGrid"></div>
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Logo principal -->
+            <div class="gallery-item">
+                <img src="logo.png" alt="Logo Principal">
+                <div class="gallery-item-title">Logo</div>
+            </div>
+
+            <!-- Imagen de 1-index.html -->
+            <div class="gallery-item">
+                <img src="ima1.jpg" alt="Investigación #1">
+                <div class="gallery-item-title">Investigación #1</div>
+            </div>
+
+            <!-- Imagen de 2-index.html -->
+            <div class="gallery-item">
+                <img src="1.png" alt="Investigación #2">
+                <div class="gallery-item-title">Investigación #2</div>
+            </div>
+            <div class="gallery-item">
+                <img src="2.png" alt="Investigación #2">
+                <div class="gallery-item-title"> investigación #2</div>
+            </div>
+                  <div class="gallery-item">
+                <img src="3.png" alt="Investigación #2">
+                <div class="gallery-item-title"> investigación #2</div>
+            </div>
+        </div>
     </aside>
 
+    <!-- Visor Lightbox -->
     <div class="lightbox" id="lightbox">
         <img id="lightboxImg" src="" alt="Vista ampliada">
     </div>
 
-    <!-- Contenido de Investigación #2 -->
+    <!-- Contenido Principal -->
     <main class="container">
-        <div class="back-nav">
-            <a href="index.html" class="back-link">← Volver al Inicio</a>
+        <div class="content-relative">
+            <h1>Investigación #2: Materiales y Electrónica</h1>
+            
+            <p>
+                Esta sección se centra en la selección de materiales ligeros y resistentes, esquemas de circuitos, especificaciones de la batería, controladores de velocidad (ESC) y la integración del sistema de transmisión y control de vuelo.</p>
+            <p>    <img src="1.png"> <img src="3.png">
+                <img src="2.png">
+            </p>
+            <p> Las imagenes mostradas son ejemplos de los primeros 2 codigos del prototipo </p>
+
+            <a href="index.html" class="back-link">← Volver al inicio</a>
         </div>
-
-        <h1>Investigación #2: Materiales y Electrónica</h1>
-
-        <p>
-            Esta sección está dedicada a la selección de materiales ligeros y de alta resistencia (como polímeros reforzados y fibra de vidrio) junto con el diseño del circuito electrónico principal.
-        </p>
-
-        <p>
-            Se detallan las especificaciones técnicas del sistema de propulsión brushless, controladores de velocidad (ESC), servomotores de control de alerones, microcontroladores y el módulo de radiofrecuencia para la telemetría y comunicación remota.
-        </p>
     </main>
 
+    <!-- Pie de Página -->
     <footer>
-        <p style="margin:0;"><strong>Instituto Politécnico Nacional</strong></p>
-        <p style="margin:5px 0 0 0; font-size: 0.85rem; color: var(--primary-color);">23 de septiembre de 2026</p>
+        <p style="margin: 0;"><strong>Instituto Politécnico Nacional</strong></p>
+        <div class="footer-authors">
+            <strong>Autores:</strong> Hernández Sánchez Carlos Enrique | Cervantes García Lucero Nicole | Santivañez Urbina Margarito Joaquín
+        </div>
+        <div class="footer-date">23 de septiembre de 2026</div>
     </footer>
 
     <script>
-        // Ocultar pantalla de bienvenida a los 2.8s
         const welcomeScreen = document.getElementById('welcomeScreen');
-        setTimeout(() => { welcomeScreen.classList.add('hidden'); }, 2800);
+        setTimeout(() => {
+            welcomeScreen.classList.add('hidden');
+        }, 7000);
 
-        // Lógica de Galería
         const openGalleryBtn = document.getElementById('openGalleryBtn');
         const closeGalleryBtn = document.getElementById('closeGalleryBtn');
         const galleryPanel = document.getElementById('galleryPanel');
@@ -523,26 +546,35 @@
         function loadGalleryImages() {
             galleryGrid.innerHTML = '';
             const images = document.querySelectorAll('img');
+            
             images.forEach((img, index) => {
                 const item = document.createElement('div');
                 item.className = 'gallery-item';
+                
                 const thumb = document.createElement('img');
                 thumb.src = img.src;
                 thumb.alt = img.alt || `Imagen ${index + 1}`;
+                
                 const title = document.createElement('div');
                 title.className = 'gallery-item-title';
                 title.innerText = img.alt || `Imagen ${index + 1}`;
+                
                 item.appendChild(thumb);
                 item.appendChild(title);
+                
                 item.addEventListener('click', () => {
                     lightboxImg.src = img.src;
                     lightbox.classList.add('active');
                 });
+
                 galleryGrid.appendChild(item);
             });
         }
 
-        lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
         window.addEventListener('DOMContentLoaded', loadGalleryImages);
     </script>
 </body>
