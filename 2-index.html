@@ -1,249 +1,549 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investigación #2: Materiales y Electrónica - Dron TCN-01</title>
+    <title>Proyecto Dron TCN-01 - Investigación #2</title>
     <style>
         :root {
             --primary-color: #00d2ff;
             --primary-hover: #0099ff;
             --bg-color: #0a0e17;
-            --card-bg: rgba(16, 23, 38, 0.85);
+            --card-bg: rgba(16, 23, 38, 0.88);
             --text-color: #e2e8f0;
             --text-muted: #94a3b8;
             --border-color: rgba(0, 210, 255, 0.2);
-            --accent-bg: rgba(255, 255, 255, 0.02);
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
-            /* Fondo tecnológico: Cuadrícula con luces de neón */
             background-image: 
-                radial-gradient(circle at 50% 20%, rgba(0, 210, 255, 0.15) 0%, transparent 50%),
-                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
-            background-size: 100% 100%, 30px 30px, 30px 30px;
-            background-position: 0 0, 0 0, 0 0;
+                radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
+                linear-gradient(rgba(0, 210, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
             color: var(--text-color);
-            line-height: 1.6;
+            line-height: 1.6; 
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
+        /* Pantalla de Bienvenida (Vuelo a 3s) */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.12) 0%, transparent 75%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
+            overflow: hidden;
+        }
+
+        .welcome-screen.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .plane-wrapper {
+            position: absolute;
+            width: 1050px;
+            max-width: 95vw;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
+            animation: flyAcross 3s cubic-bezier(0.35, 0, 0.25, 1) forwards;
+        }
+
+        @keyframes flyAcross {
+            0% {
+                left: -1100px;
+                transform: translateY(-50%) rotate(2deg);
+                opacity: 0;
+            }
+            20% { opacity: 1; }
+            50% {
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            80% { opacity: 1; }
+            100% {
+                left: 115vw;
+                transform: translateY(-50%) rotate(-2deg);
+                opacity: 0;
+            }
+        }
+
+        .plane-svg { width: 100%; height: auto; }
+
+        .welcome-subtitle-text {
+            position: absolute;
+            bottom: 12%;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            animation: fadeInSub 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes fadeInSub {
+            from { opacity: 0.3; }
+            to { opacity: 0.9; text-shadow: 0 0 8px rgba(0, 210, 255, 0.4); }
+        }
+
+        /* Top Bar */
+        .top-bar {
+            width: 100%;
+            height: 70px;
+            background-color: rgba(10, 14, 23, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand-logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .brand-logo span {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+        }
+
+        .menu-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            padding: 4px 12px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-btn:hover {
+            background-color: rgba(0, 210, 255, 0.15);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+        }
+
+        /* Flota de Aviones de Fondo */
+        .airplanes-fleet {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .plane-row {
+            position: absolute;
+            left: -180px;
+            display: flex;
+            gap: 25px;
+            color: var(--primary-color);
+            filter: drop-shadow(0 0 4px var(--primary-color));
+            animation: flyRow linear infinite;
+        }
+
+        .plane-row span { font-size: 0.85rem; opacity: 0.6; }
+
+        @keyframes flyRow {
+            0% { left: -200px; }
+            100% { left: 105%; }
+        }
+
+        .row-1  { top: 5%;  animation-duration: 10s; animation-delay: 0s; }
+        .row-2  { top: 14%; animation-duration: 12s; animation-delay: 2.5s; }
+        .row-3  { top: 23%; animation-duration: 9s;  animation-delay: 5s; }
+        .row-4  { top: 32%; animation-duration: 11s; animation-delay: 1s; }
+        .row-5  { top: 41%; animation-duration: 13s; animation-delay: 7s; }
+        .row-6  { top: 50%; animation-duration: 8.5s; animation-delay: 3s; }
+        .row-7  { top: 59%; animation-duration: 10.5s; animation-delay: 6s; }
+        .row-8  { top: 68%; animation-duration: 11.5s; animation-delay: 4s; }
+        .row-9  { top: 77%; animation-duration: 9.5s; animation-delay: 8.5s; }
+        .row-10 { top: 86%; animation-duration: 12.5s; animation-delay: 1.5s; }
+
+        /* Panel de Galería y Lightbox */
+        .gallery-panel {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 340px;
+            height: 100vh;
+            background-color: rgba(10, 14, 23, 0.96);
+            backdrop-filter: blur(15px);
+            border-left: 1px solid var(--border-color);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+            z-index: 200;
+            transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-panel.active { right: 0; }
+
+        .gallery-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .gallery-header h3 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .gallery-item-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 23, 0.85);
+            font-size: 0.72rem;
+            color: #ffffff;
+            padding: 4px 6px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 150;
+            display: none;
+        }
+
+        .overlay.active { display: block; }
+
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 300;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 8px;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
+        }
+
+        /* Contenedor Principal */
         .container {
             background-color: var(--card-bg);
             backdrop-filter: blur(10px);
             max-width: 850px;
-            width: 100%;
+            width: 90%;
+            margin: 40px 20px;
             padding: 40px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
-        }
-
-        .header-nav {
-            margin-bottom: 20px;
-        }
-
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.2s ease;
-        }
-
-        .btn-back:hover {
-            color: var(--primary-hover);
-            text-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.12);
+            box-sizing: border-box;
+            position: relative;
         }
 
         h1 {
             color: var(--primary-color);
-            font-size: 2.2rem;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .section-card {
-            background-color: var(--accent-bg);
-            border: 1px solid var(--border-color);
-            border-left: 5px solid var(--primary-color);
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-
-        h2 {
-            color: #ffffff;
-            font-size: 1.35rem;
+            font-size: 2rem;
             margin-top: 0;
-            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            text-align: center;
         }
 
-        h3 {
+        .back-nav {
+            margin-bottom: 20px;
+        }
+
+        .back-link {
             color: var(--primary-color);
-            font-size: 1.1rem;
-            margin-top: 25px;
-            margin-bottom: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
         }
 
-        ul {
-            margin: 0;
-            padding-left: 20px;
-            color: var(--text-muted);
-        }
+        .back-link:hover { color: var(--primary-hover); }
 
-        li {
-            margin-bottom: 12px;
-            text-align: justify;
-        }
-
-        li:last-child {
-            margin-bottom: 0;
-        }
-
-        li strong {
-            color: #ffffff;
-        }
-
-        /* Galería de capturas de código con enlaces */
-        .code-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .code-gallery a {
-            display: block;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .code-gallery img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .code-gallery a:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-            transform: translateY(-3px);
-        }
-
-        .code-gallery a:hover img {
-            transform: scale(1.05);
-        }
+        p { color: var(--text-muted); margin-bottom: 20px; text-align: justify; }
 
         footer {
-            margin-top: 35px;
-            padding-top: 20px;
+            width: 100%;
+            margin-top: auto;
+            background-color: rgba(10, 14, 23, 0.95);
             border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            padding: 25px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            box-sizing: border-box;
         }
 
-        .btn-prev {
-            background-color: var(--primary-color);
-            color: #0a0e17;
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn-prev:hover {
-            background-color: var(--primary-hover);
-            color: #ffffff;
-            box-shadow: 0 0 12px rgba(0, 210, 255, 0.5);
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            .gallery-panel { width: 100%; right: -100%; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Pantalla de Bienvenida Rápida (3s) Sin Texto en Ventanas -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="plane-wrapper">
+            <svg class="plane-svg" viewBox="0 0 650 180" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="fuselageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#1e293b"/>
+                        <stop offset="50%" stop-color="#0f172a"/>
+                        <stop offset="100%" stop-color="#020617"/>
+                    </linearGradient>
+                    <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#38bdf8"/>
+                        <stop offset="100%" stop-color="#0f172a"/>
+                    </linearGradient>
+                    <linearGradient id="windowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="100%" stop-color="#cbd5e1"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Cola del avión -->
+                <path d="M 70 85 L 20 20 L 55 20 L 110 85 Z" fill="url(#wingGrad)" opacity="0.85"/>
+                <path d="M 65 95 L 30 140 L 55 140 L 95 95 Z" fill="url(#wingGrad)" opacity="0.6"/>
+
+                <!-- Ala Trasera -->
+                <polygon points="260,85 180,10 230,10 330,85" fill="url(#wingGrad)" opacity="0.75"/>
+
+                <!-- Fuselaje Principal -->
+                <path d="M 60 90 C 120 70, 480 70, 580 85 C 620 90, 640 100, 640 100 C 640 100, 600 115, 520 115 C 400 115, 120 110, 60 90 Z" 
+                      fill="url(#fuselageGrad)" stroke="#38bdf8" stroke-width="2"/>
+
+                <!-- Parabrisas / Cabina -->
+                <path d="M 570 86 C 590 88, 615 95, 625 100 L 590 100 Z" fill="#38bdf8" opacity="0.9"/>
+
+                <!-- Ala Delantera Principal -->
+                <polygon points="280,95 210,170 260,170 380,95" fill="url(#wingGrad)"/>
+
+                <!-- 10 Ventanas Individuales Sobrias sin Texto -->
+                <rect x="230" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <rect x="260" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <rect x="290" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <rect x="320" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <rect x="350" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <rect x="380" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <rect x="410" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <rect x="440" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <rect x="470" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <rect x="500" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+
+                <!-- Turbina de Motor -->
+                <rect x="310" y="120" width="65" height="22" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+            </svg>
+        </div>
+        <div class="welcome-subtitle-text">Investigación #2</div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Barra Superior -->
+    <header class="top-bar">
+        <div class="brand-logo">
+            <img src="Captura de pantalla 2025-12-03 013150.png" alt="Logo TCN-01">
+            <span>TCN-01</span>
+        </div>
+        <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes">&#9776;</button>
+
+        <div class="airplanes-fleet">
+            <div class="plane-row row-1"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-row row-2"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-row row-3"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-row row-4"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-row row-5"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-row row-6"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-row row-7"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-row row-8"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-row row-9"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-row row-10"><span>✈</span><span>✈</span><span>✈</span></div>
+        </div>
+    </header>
+
+    <!-- Panel de Galería -->
+    <aside class="gallery-panel" id="galleryPanel">
+        <div class="gallery-header">
+            <h3>🔍 Búsqueda Rápida</h3>
+            <button class="close-btn" id="closeGalleryBtn">&times;</button>
+        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
+    </aside>
+
+    <div class="lightbox" id="lightbox">
+        <img id="lightboxImg" src="" alt="Vista ampliada">
+    </div>
+
+    <!-- Contenido de Investigación #2 -->
     <main class="container">
-        
-        <nav class="header-nav">
-            <a href="index.html" class="btn-back">← Volver al Inicio</a>
-        </nav>
+        <div class="back-nav">
+            <a href="index.html" class="back-link">← Volver al Inicio</a>
+        </div>
 
-        <h1>Sistemas y Complejidad del Dron</h1>
-        <p class="subtitle">Investigación #2: Selección de materiales, arquitectura de electrónica y programación</p>
+        <h1>Investigación #2: Materiales y Electrónica</h1>
 
-        <!-- Sección de Materiales -->
-        <section class="section-card">
-            <h2>Materiales Recomendados</h2>
-            <ul>
-                <li><strong>Chasís y Zonas de Carga:</strong> Triplay de abedul de 3 mm o placas de fibra de carbono/G10 en la bancada del motor y montantes.</li>
-                <li><strong>Estructura Propulsora y Cola:</strong> Tubos y varillas de fibra de carbono para soportar la flexión de las alas y sostener el empenaje.</li>
-                <li><strong>Cuerpo y Recubrimientos:</strong> Espuma XPS (unicel de alta densidad) o impresión 3D ligera (LW-PLA) para dar volumen aerodinámico sin sumar peso innecesario.</li>
-                <li><strong>Ensamble:</strong> Resina epóxica para uniones de alta fuerza mecánica y cianocrilato con activador para el perfilado en espuma/madera.</li>
-            </ul>
-        </section>
+        <p>
+            Esta sección está dedicada a la selección de materiales ligeros y de alta resistencia (como polímeros reforzados y fibra de vidrio) junto con el diseño del circuito electrónico principal.
+        </p>
 
-        <!-- Sección de Electrónica y Sistemas -->
-        <section class="section-card">
-            <h2>Electrónica, Sistemas y Mecanismos</h2>
-            <ul>
-                <li><strong>Procesamiento y Recepción:</strong> Un microcontrolador (Arduino) conectado a un módulo RF (nRF24L01+PA+LNA) para la recepción de mandos mediante SPI.</li>
-                <li><strong>Propulsión:</strong> Motor Brushless controlado por un ESC que regula la aceleración mediante señales PWM.</li>
-                <li><strong>Actuadores:</strong> Servomotores para mover las superficies de control (alerones/elevador) y accionar el mecanismo de apertura o liberación de la compuerta de carga.</li>
-                <li><strong>Ubicación de Masas:</strong> La carga útil se ubica exactamente sobre el Centro de Gravedad (CG), mientras que la batería y electrónica se montan en la nariz como contrapeso.</li>
-            </ul>
-
-            <h3>Ejemplos de los primeros códigos utilizados:</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">(Haz clic en cualquier imagen para verla en tamaño completo)</p>
-            
-            <div class="code-gallery">
-                <a href="Captura de pantalla 2026-03-19 003654.png" target="_blank" title="Abrir imagen completa">
-                    <img src="Captura de pantalla 2026-03-19 003654.png" alt="Captura de código de control 1">
-                </a>
-                <a href="Captura de pantalla 2026-03-19 003531.png" target="_blank" title="Abrir imagen completa">
-                    <img src="Captura de pantalla 2026-03-19 003531.png" alt="Captura de código de control 2">
-                </a>
-                <a href="Captura de pantalla 2026-03-11 232107.png" target="_blank" title="Abrir imagen completa">
-                    <img src="Captura de pantalla 2026-03-11 232107.png" alt="Captura de código de comunicación RF">
-                </a>
-            </div>
-        </section>
-
-        <footer>
-            <a href="1-index.html" class="btn-prev">← Anterior: Estructura</a>
-            <a href="index.html" class="btn-back">Inicio ↑</a>
-        </footer>
-
+        <p>
+            Se detallan las especificaciones técnicas del sistema de propulsión brushless, controladores de velocidad (ESC), servomotores de control de alerones, microcontroladores y el módulo de radiofrecuencia para la telemetría y comunicación remota.
+        </p>
     </main>
 
+    <footer>
+        <p style="margin:0;"><strong>Instituto Politécnico Nacional</strong></p>
+        <p style="margin:5px 0 0 0; font-size: 0.85rem; color: var(--primary-color);">23 de septiembre de 2026</p>
+    </footer>
+
+    <script>
+        // Ocultar pantalla de bienvenida a los 2.8s
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        setTimeout(() => { welcomeScreen.classList.add('hidden'); }, 2800);
+
+        // Lógica de Galería
+        const openGalleryBtn = document.getElementById('openGalleryBtn');
+        const closeGalleryBtn = document.getElementById('closeGalleryBtn');
+        const galleryPanel = document.getElementById('galleryPanel');
+        const overlay = document.getElementById('overlay');
+        const galleryGrid = document.getElementById('galleryGrid');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+
+        function toggleGallery() {
+            galleryPanel.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        openGalleryBtn.addEventListener('click', toggleGallery);
+        closeGalleryBtn.addEventListener('click', toggleGallery);
+        overlay.addEventListener('click', toggleGallery);
+
+        function loadGalleryImages() {
+            galleryGrid.innerHTML = '';
+            const images = document.querySelectorAll('img');
+            images.forEach((img, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                const thumb = document.createElement('img');
+                thumb.src = img.src;
+                thumb.alt = img.alt || `Imagen ${index + 1}`;
+                const title = document.createElement('div');
+                title.className = 'gallery-item-title';
+                title.innerText = img.alt || `Imagen ${index + 1}`;
+                item.appendChild(thumb);
+                item.appendChild(title);
+                item.addEventListener('click', () => {
+                    lightboxImg.src = img.src;
+                    lightbox.classList.add('active');
+                });
+                galleryGrid.appendChild(item);
+            });
+        }
+
+        lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+        window.addEventListener('DOMContentLoaded', loadGalleryImages);
+    </script>
 </body>
 </html>
