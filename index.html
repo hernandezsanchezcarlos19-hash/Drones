@@ -51,7 +51,7 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
             overflow: hidden;
         }
 
@@ -61,68 +61,67 @@
             pointer-events: none;
         }
 
-        /* Contenedor del Avión 3D/Modelado */
+        /* Contenedor del Avión (Más grande y Vuelo más lento) */
         .plane-wrapper {
             position: absolute;
-            width: 800px;
-            max-width: 90vw;
-            filter: drop-shadow(0 0 25px rgba(0, 210, 255, 0.4));
-            animation: flyAcross 4.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            width: 1050px;
+            max-width: 95vw;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.7));
+            animation: flyAcross 7.5s cubic-bezier(0.35, 0, 0.25, 1) forwards;
         }
 
-        /* Animación de vuelo de Izquierda a Derecha */
+        /* Animación de vuelo pausado de Izquierda a Derecha */
         @keyframes flyAcross {
             0% {
-                left: -850px;
-                transform: translateY(-50%) rotate(3deg);
-                opacity: 0.2;
+                left: -1100px;
+                transform: translateY(-50%) rotate(2deg);
+                opacity: 0;
             }
-            30% {
+            15% {
                 opacity: 1;
             }
             50% {
                 left: 50%;
                 transform: translate(-50%, -50%) rotate(0deg);
             }
-            70% {
+            85% {
                 opacity: 1;
             }
             100% {
-                left: 110vw;
-                transform: translateY(-50%) rotate(-3deg);
-                opacity: 0.2;
+                left: 115vw;
+                transform: translateY(-50%) rotate(-2deg);
+                opacity: 0;
             }
         }
 
-        /* Estilos del gráfico vectorial del Avión y Letras en Ventanas */
         .plane-svg {
             width: 100%;
             height: auto;
         }
 
+        /* Letras sobrias, de alto contraste sobre fondo de ventana claro */
         .window-letter {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 13px;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: 13.5px;
             font-weight: 900;
-            fill: #00d2ff;
+            fill: #0f172a;
             text-anchor: middle;
             dominant-baseline: central;
-            filter: drop-shadow(0 0 3px #00d2ff);
         }
 
         .welcome-subtitle-text {
             position: absolute;
-            bottom: 15%;
-            font-size: 1.2rem;
+            bottom: 12%;
+            font-size: 1.1rem;
             color: var(--text-muted);
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             animation: fadeInSub 2s ease-in-out infinite alternate;
         }
 
         @keyframes fadeInSub {
-            from { opacity: 0.4; }
-            to { opacity: 1; text-shadow: 0 0 10px var(--primary-color); }
+            from { opacity: 0.3; }
+            to { opacity: 0.9; text-shadow: 0 0 8px rgba(0, 210, 255, 0.4); }
         }
 
         /* ==========================================
@@ -541,82 +540,86 @@
 </head>
 <body>
 
-    <!-- Pantalla de Bienvenida (Avión Grande de Izquierda a Derecha) -->
+    <!-- Pantalla de Bienvenida (Avión Grande con Vuelo Lento) -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="plane-wrapper">
             <svg class="plane-svg" viewBox="0 0 650 180" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="fuselageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#182538"/>
+                        <stop offset="0%" stop-color="#1e293b"/>
                         <stop offset="50%" stop-color="#0f172a"/>
-                        <stop offset="100%" stop-color="#080c14"/>
+                        <stop offset="100%" stop-color="#020617"/>
                     </linearGradient>
                     <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#00d2ff"/>
-                        <stop offset="100%" stop-color="#0a121e"/>
+                        <stop offset="0%" stop-color="#38bdf8"/>
+                        <stop offset="100%" stop-color="#0f172a"/>
+                    </linearGradient>
+                    <linearGradient id="windowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="100%" stop-color="#cbd5e1"/>
                     </linearGradient>
                 </defs>
 
                 <!-- Cola del avión -->
-                <path d="M 70 85 L 20 20 L 55 20 L 110 85 Z" fill="url(#wingGrad)" opacity="0.8"/>
-                <path d="M 65 95 L 30 140 L 55 140 L 95 95 Z" fill="url(#wingGrad)" opacity="0.5"/>
+                <path d="M 70 85 L 20 20 L 55 20 L 110 85 Z" fill="url(#wingGrad)" opacity="0.85"/>
+                <path d="M 65 95 L 30 140 L 55 140 L 95 95 Z" fill="url(#wingGrad)" opacity="0.6"/>
 
                 <!-- Ala Trasera -->
-                <polygon points="260,85 180,10 230,10 330,85" fill="url(#wingGrad)" opacity="0.7"/>
+                <polygon points="260,85 180,10 230,10 330,85" fill="url(#wingGrad)" opacity="0.75"/>
 
                 <!-- Fuselaje Principal -->
                 <path d="M 60 90 C 120 70, 480 70, 580 85 C 620 90, 640 100, 640 100 C 640 100, 600 115, 520 115 C 400 115, 120 110, 60 90 Z" 
-                      fill="url(#fuselageGrad)" stroke="#00d2ff" stroke-width="2.5"/>
+                      fill="url(#fuselageGrad)" stroke="#38bdf8" stroke-width="2"/>
 
                 <!-- Parabrisas / Cabina -->
-                <path d="M 570 86 C 590 88, 615 95, 625 100 L 590 100 Z" fill="#00d2ff" opacity="0.9"/>
+                <path d="M 570 86 C 590 88, 615 95, 625 100 L 590 100 Z" fill="#38bdf8" opacity="0.9"/>
 
-                <!-- Ala Delantera Principales -->
+                <!-- Ala Delantera Principal -->
                 <polygon points="280,95 210,170 260,170 380,95" fill="url(#wingGrad)"/>
 
-                <!-- 10 Ventanas Individuales con las letras de B I E N V E N I D O -->
+                <!-- 10 Ventanas Individuales con fondo claro y letras en tono oscuro brillante (Sin Neón) -->
                 <!-- B -->
-                <rect x="230" y="86" width="16" height="16" rx="4" fill="#0a0e17" stroke="#00d2ff" stroke-width="1.5"/>
-                <text x="238" y="94" class="window-letter">B</text>
+                <rect x="230" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="238.5" y="93.5" class="window-letter">B</text>
 
                 <!-- I -->
-                <rect x="260" y="86" width="16" height="16" rx="4" fill="#0a0e17" stroke="#00d2ff" stroke-width="1.5"/>
-                <text x="268" y="94" class="window-letter">I</text>
+                <rect x="260" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="268.5" y="93.5" class="window-letter">I</text>
 
                 <!-- E -->
-                <rect x="290" y="86" width="16" height="16" rx="4" fill="#0a0e17" stroke="#00d2ff" stroke-width="1.5"/>
-                <text x="298" y="94" class="window-letter">E</text>
+                <rect x="290" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="298.5" y="93.5" class="window-letter">E</text>
 
                 <!-- N -->
-                <rect x="320" y="86" width="16" height="16" rx="4" fill="#0a0e17" stroke="#00d2ff" stroke-width="1.5"/>
-                <text x="328" y="94" class="window-letter">N</text>
+                <rect x="320" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="328.5" y="93.5" class="window-letter">N</text>
 
                 <!-- V -->
-                <rect x="350" y="86" width="16" height="16" rx="4" fill="#0a0e17" stroke="#00d2ff" stroke-width="1.5"/>
-                <text x="358" y="94" class="window-letter">V</text>
+                <rect x="350" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="358.5" y="93.5" class="window-letter">V</text>
 
                 <!-- E -->
-                <rect x="380" y="86" width="16" height="16" rx="4" fill="#0a0e17" stroke="#00d2ff" stroke-width="1.5"/>
-                <text x="388" y="94" class="window-letter">E</text>
+                <rect x="380" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="388.5" y="93.5" class="window-letter">E</text>
 
                 <!-- N -->
-                <rect x="410" y="86" width="16" height="16" rx="4" fill="#0a0e17" stroke="#00d2ff" stroke-width="1.5"/>
-                <text x="418" y="94" class="window-letter">N</text>
+                <rect x="410" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="418.5" y="93.5" class="window-letter">N</text>
 
                 <!-- I -->
-                <rect x="440" y="86" width="16" height="16" rx="4" fill="#0a0e17" stroke="#00d2ff" stroke-width="1.5"/>
-                <text x="448" y="94" class="window-letter">I</text>
+                <rect x="440" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="448.5" y="93.5" class="window-letter">I</text>
 
                 <!-- D -->
-                <rect x="470" y="86" width="16" height="16" rx="4" fill="#0a0e17" stroke="#00d2ff" stroke-width="1.5"/>
-                <text x="478" y="94" class="window-letter">D</text>
+                <rect x="470" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="478.5" y="93.5" class="window-letter">D</text>
 
                 <!-- O -->
-                <rect x="500" y="86" width="16" height="16" rx="4" fill="#0a0e17" stroke="#00d2ff" stroke-width="1.5"/>
-                <text x="508" y="94" class="window-letter">O</text>
+                <rect x="500" y="85" width="17" height="17" rx="4" fill="url(#windowGrad)" stroke="#475569" stroke-width="1.2"/>
+                <text x="508.5" y="93.5" class="window-letter">O</text>
 
                 <!-- Turbina de Motor -->
-                <rect x="310" y="120" width="60" height="20" rx="8" fill="#182538" stroke="#00d2ff" stroke-width="1.5"/>
+                <rect x="310" y="120" width="65" height="22" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
             </svg>
         </div>
         <div class="welcome-subtitle-text">Proyecto Dron TCN-01</div>
@@ -628,7 +631,7 @@
     <!-- Barra Superior -->
     <header class="top-bar">
         <div class="brand-logo">
-            <img src="Captura de pantalla 2025-12-03 013150.png" alt="Logo TCN-01">
+            <img src="logo.png" alt="Logo TCN-01">
             <span>TCN-01</span>
         </div>
 
@@ -717,11 +720,11 @@
 
     <!-- Scripts de Interacción -->
     <script>
-        // Ocultar automáticamente la pantalla de bienvenida al terminar el vuelo del avión (3.8 segundos)
+        // Ocultar automáticamente la pantalla de bienvenida tras completar el vuelo lento (7 segundos)
         const welcomeScreen = document.getElementById('welcomeScreen');
         setTimeout(() => {
             welcomeScreen.classList.add('hidden');
-        }, 3800);
+        }, 7000);
 
         // Lógica del Panel de Galería y Lightbox
         const openGalleryBtn = document.getElementById('openGalleryBtn');
