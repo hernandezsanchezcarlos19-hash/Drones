@@ -1,0 +1,2407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Proyecto Dron TCN-01 - Reporte Técnico</title>
+
+    <meta
+        name="description"
+        content="Reporte técnico del prototipo Dron TCN-01: estructura, aerodinámica, propulsión y arquitectura de control."
+    >
+
+    <meta name="theme-color" content="#0a0e17">
+    <meta name="color-scheme" content="dark">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="apple-touch-icon" href="logo.jpg">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Reporte Técnico: Prototipo Dron TCN-01">
+    <meta
+        property="og:description"
+        content="Documentación técnica del prototipo TCN-01."
+    >
+    <meta property="og:image" content="logo.jpg">
+    <meta property="og:type" content="website">
+
+    <style>
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+            --bg: #070b12;
+            --bg-soft: #0b111c;
+            --surface: #101726;
+            --surface-2: #131d2d;
+            --surface-3: #182437;
+
+            --primary: #00d2ff;
+            --primary-strong: #0099ff;
+            --primary-soft: rgba(0, 210, 255, 0.08);
+            --primary-border: rgba(0, 210, 255, 0.22);
+
+            --text: #e7edf5;
+            --text-soft: #b7c2d1;
+            --muted: #8492a6;
+
+            --border: rgba(148, 163, 184, 0.16);
+            --border-strong: rgba(0, 210, 255, 0.25);
+
+            --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+
+            --radius: 12px;
+            --radius-small: 8px;
+
+            --max-width: 1050px;
+        }
+
+
+        /* =========================================================
+           RESET / BASE
+        ========================================================= */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family:
+                Inter,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            line-height: 1.65;
+            color: var(--text);
+
+            background-color: var(--bg);
+
+            background-image:
+                radial-gradient(
+                    circle at 50% 10%,
+                    rgba(0, 210, 255, 0.08),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    rgba(0, 210, 255, 0.018) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(0, 210, 255, 0.018) 1px,
+                    transparent 1px
+                );
+
+            background-size:
+                100% 100%,
+                40px 40px,
+                40px 40px;
+
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button,
+        a {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        ::selection {
+            background: rgba(0, 210, 255, 0.28);
+            color: #ffffff;
+        }
+
+
+        /* =========================================================
+           SVG SPRITE
+        ========================================================= */
+
+        .svg-sprite {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .icon {
+            width: 19px;
+            height: 19px;
+            flex: 0 0 auto;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .icon.small {
+            width: 16px;
+            height: 16px;
+        }
+
+
+        /* =========================================================
+           TOP BAR
+        ========================================================= */
+
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            width: 100%;
+            min-height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 28px;
+
+            background: rgba(7, 11, 18, 0.97);
+            border-bottom: 1px solid var(--primary-border);
+
+            overflow: hidden;
+        }
+
+        .brand-logo {
+            position: relative;
+            z-index: 5;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .brand-logo img {
+            width: 42px;
+            height: 42px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+            border: 1px solid var(--primary-border);
+
+            box-shadow:
+                0 0 18px rgba(0, 210, 255, 0.15);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.15;
+        }
+
+        .brand-text strong {
+            font-size: 1.15rem;
+            letter-spacing: 1.5px;
+        }
+
+        .brand-text small {
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 0.67rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .menu-btn {
+            position: relative;
+            z-index: 5;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 42px;
+            height: 42px;
+
+            color: var(--primary);
+
+            background: rgba(0, 210, 255, 0.05);
+
+            border: 1px solid var(--primary-border);
+            border-radius: var(--radius-small);
+
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .menu-btn:hover {
+            background: rgba(0, 210, 255, 0.12);
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .menu-btn:focus-visible,
+        .gallery-item:focus-visible,
+        .close-btn:focus-visible,
+        .nav-btn:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 3px;
+        }
+
+
+        /* =========================================================
+           FLOTA DE AVIONES
+           5 COLUMNAS × 3 AVIONES
+        ========================================================= */
+
+        .airplanes-fleet {
+            position: absolute;
+            inset: 0;
+
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+
+            pointer-events: none;
+            z-index: 1;
+
+            opacity: 0.48;
+        }
+
+        .plane {
+            width: 17px;
+            height: 17px;
+
+            color: var(--primary);
+
+            align-self: center;
+            justify-self: center;
+
+            animation: planeFloat 4s ease-in-out infinite;
+
+            filter:
+                drop-shadow(
+                    0 0 5px rgba(0, 210, 255, 0.35)
+                );
+        }
+
+        .plane:nth-child(2n) {
+            animation-delay: -1.2s;
+        }
+
+        .plane:nth-child(3n) {
+            animation-delay: -2.4s;
+        }
+
+        .plane:nth-child(5n) {
+            animation-delay: -3.2s;
+        }
+
+        @keyframes planeFloat {
+            0%,
+            100% {
+                transform: translateX(-8px) translateY(0);
+            }
+
+            50% {
+                transform: translateX(8px) translateY(-3px);
+            }
+        }
+
+
+        /* =========================================================
+           GALERÍA LATERAL
+        ========================================================= */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 150;
+
+            background: rgba(0, 0, 0, 0.68);
+
+            opacity: 1;
+            transition: opacity 0.25s ease;
+        }
+
+        .overlay[hidden] {
+            display: none;
+        }
+
+        .gallery-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 200;
+
+            width: min(380px, 100vw);
+            height: 100vh;
+
+            padding: 22px;
+
+            display: flex;
+            flex-direction: column;
+
+            background: #090f19;
+            border-left: 1px solid var(--primary-border);
+
+            box-shadow: -20px 0 50px rgba(0, 0, 0, 0.45);
+
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-panel.is-open {
+            transform: translateX(0);
+        }
+
+        .gallery-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding-bottom: 15px;
+            margin-bottom: 18px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .gallery-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin: 0;
+
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .close-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 38px;
+            height: 38px;
+
+            color: var(--muted);
+
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-small);
+
+            transition:
+                color 0.2s ease,
+                border-color 0.2s ease,
+                background-color 0.2s ease;
+        }
+
+        .close-btn:hover {
+            color: #ffffff;
+            border-color: var(--primary-border);
+            background: var(--primary-soft);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+
+            overflow-y: auto;
+            padding-right: 3px;
+        }
+
+        .gallery-item {
+            position: relative;
+
+            width: 100%;
+            padding: 0;
+
+            aspect-ratio: 1 / 1;
+
+            overflow: hidden;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-small);
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .gallery-item-title {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            padding: 7px 8px;
+
+            color: #ffffff;
+
+            background: rgba(7, 11, 18, 0.9);
+
+            font-size: 0.7rem;
+            font-weight: 600;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+
+        /* =========================================================
+           LIGHTBOX / DIALOG
+        ========================================================= */
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+
+            display: grid;
+            place-items: center;
+
+            padding: 30px;
+
+            background: rgba(2, 5, 10, 0.95);
+        }
+
+        .lightbox[hidden] {
+            display: none;
+        }
+
+        .lightbox-content {
+            position: relative;
+
+            width: min(1100px, 96vw);
+            max-height: 92vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 78vh;
+
+            object-fit: contain;
+
+            border: 1px solid var(--primary-border);
+            border-radius: var(--radius);
+
+            box-shadow:
+                0 20px 70px rgba(0, 0, 0, 0.6);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -48px;
+            right: 0;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 40px;
+            height: 40px;
+
+            color: #ffffff;
+
+            background: rgba(10, 14, 23, 0.9);
+            border: 1px solid var(--primary-border);
+            border-radius: var(--radius-small);
+        }
+
+        .lightbox-caption {
+            margin: 0;
+
+            color: var(--primary);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           CONTENIDO PRINCIPAL
+        ========================================================= */
+
+        .container {
+            position: relative;
+            z-index: 2;
+
+            width: min(var(--max-width), calc(100% - 32px));
+
+            margin: 38px auto 50px;
+            padding: 44px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(16, 23, 38, 0.98),
+                    rgba(10, 16, 27, 0.98)
+                );
+
+            border: 1px solid var(--border-strong);
+            border-radius: 16px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .report-header {
+            padding-bottom: 28px;
+            margin-bottom: 30px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 12px;
+
+            color: var(--primary);
+
+            font-family:
+                "Fira Code",
+                Consolas,
+                monospace;
+
+            font-size: 0.72rem;
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+
+            width: 7px;
+            height: 7px;
+
+            background: var(--primary);
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 10px var(--primary);
+        }
+
+        h1 {
+            margin: 0;
+
+            color: #ffffff;
+
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.12;
+            letter-spacing: -1px;
+        }
+
+        .report-subtitle {
+            max-width: 760px;
+
+            margin: 16px 0 0;
+
+            color: var(--text-soft);
+            font-size: 1rem;
+        }
+
+
+        /* =========================================================
+           RESUMEN TÉCNICO
+        ========================================================= */
+
+        .quick-specs-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(190px, 1fr));
+
+            gap: 13px;
+
+            margin: 0 0 38px;
+        }
+
+        .spec-card {
+            min-height: 126px;
+
+            padding: 18px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(0, 210, 255, 0.07),
+                    rgba(255, 255, 255, 0.015)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .spec-card:hover {
+            border-color: var(--primary-border);
+            transform: translateY(-2px);
+        }
+
+        .spec-icon {
+            display: inline-flex;
+
+            width: fit-content;
+            padding: 7px;
+
+            margin-bottom: 11px;
+
+            color: var(--primary);
+
+            background: var(--primary-soft);
+            border: 1px solid var(--primary-border);
+            border-radius: 7px;
+        }
+
+        .spec-label {
+            margin-bottom: 5px;
+
+            color: var(--muted);
+
+            font-size: 0.68rem;
+            font-weight: 700;
+
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .spec-value {
+            color: #ffffff;
+
+            font-size: 0.98rem;
+            font-weight: 700;
+        }
+
+
+        /* =========================================================
+           TEXTO Y SECCIONES
+        ========================================================= */
+
+        .section {
+            margin-top: 42px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin: 0 0 18px;
+
+            color: #ffffff;
+
+            font-size: 1.35rem;
+            line-height: 1.3;
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 34px;
+            height: 34px;
+
+            color: var(--primary);
+
+            background: var(--primary-soft);
+            border: 1px solid var(--primary-border);
+            border-radius: 8px;
+
+            font-family:
+                "Fira Code",
+                Consolas,
+                monospace;
+
+            font-size: 0.75rem;
+        }
+
+        .subsection-title {
+            margin: 25px 0 12px;
+
+            color: var(--primary);
+
+            font-size: 1.05rem;
+        }
+
+        p,
+        li {
+            color: var(--text-soft);
+        }
+
+        p {
+            margin: 0 0 16px;
+        }
+
+        .section > p {
+            text-align: justify;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 11px;
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        strong {
+            color: var(--text);
+        }
+
+
+        /* =========================================================
+           INFO CARDS
+        ========================================================= */
+
+        .info-card {
+            margin: 22px 0;
+
+            padding: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.025),
+                    rgba(0, 210, 255, 0.025)
+                );
+
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--primary);
+
+            border-radius: var(--radius);
+        }
+
+
+        /* =========================================================
+           MÓDULOS
+        ========================================================= */
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(300px, 1fr));
+
+            gap: 16px;
+
+            margin-top: 22px;
+        }
+
+        .module-card {
+            padding: 22px;
+
+            background: rgba(255, 255, 255, 0.018);
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .module-card:hover {
+            border-color: var(--primary-border);
+            transform: translateY(-2px);
+        }
+
+        .module-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            margin: 0 0 17px;
+            padding-bottom: 12px;
+
+            color: #ffffff;
+
+            font-size: 1rem;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .module-card h3 .icon {
+            color: var(--primary);
+        }
+
+
+        /* =========================================================
+           GALERÍA INTERNA
+        ========================================================= */
+
+        .image-gallery-inline {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 16px;
+
+            margin: 25px 0 10px;
+        }
+
+        .image-frame {
+            overflow: hidden;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: auto;
+
+            transition:
+                transform 0.25s ease;
+        }
+
+        .image-frame:hover img {
+            transform: scale(1.015);
+        }
+
+        .caption-text {
+            margin: 10px 0 0;
+
+            color: var(--primary);
+
+            font-size: 0.78rem;
+            font-style: italic;
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           BOTÓN DE IMPRESIÓN / PDF
+        ========================================================= */
+
+        .document-tools {
+            display: flex;
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-bottom: 26px;
+        }
+
+        .print-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 9px 14px;
+
+            color: var(--primary);
+
+            background: var(--primary-soft);
+
+            border: 1px solid var(--primary-border);
+            border-radius: var(--radius-small);
+
+            font-size: 0.82rem;
+            font-weight: 700;
+
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .print-btn:hover {
+            color: var(--bg);
+            background: var(--primary);
+        }
+
+
+        /* =========================================================
+           NAVEGACIÓN — SOLO INICIO
+        ========================================================= */
+
+        .page-navigation {
+            display: flex;
+            justify-content: center;
+
+            margin-top: 45px;
+            padding-top: 24px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            padding: 11px 20px;
+
+            color: var(--text);
+
+            background: rgba(255, 255, 255, 0.035);
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-small);
+
+            text-decoration: none;
+
+            font-size: 0.86rem;
+            font-weight: 700;
+
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            color: #ffffff;
+
+            background: rgba(0, 210, 255, 0.1);
+            border-color: var(--primary-border);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            width: 100%;
+
+            padding: 28px 20px;
+
+            color: var(--muted);
+
+            background: #080d15;
+            border-top: 1px solid var(--border);
+
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .footer-institution {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .footer-authors {
+            max-width: 900px;
+
+            margin: 10px auto 0;
+
+            font-size: 0.82rem;
+        }
+
+        .footer-date {
+            margin-top: 8px;
+
+            color: var(--primary);
+
+            font-family:
+                "Fira Code",
+                Consolas,
+                monospace;
+
+            font-size: 0.75rem;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 760px) {
+
+            .top-bar {
+                padding: 0 16px;
+            }
+
+            .brand-text small {
+                display: none;
+            }
+
+            .container {
+                width: min(100% - 20px, var(--max-width));
+
+                margin-top: 20px;
+                padding: 24px 20px;
+
+                border-radius: 12px;
+            }
+
+            .report-subtitle {
+                font-size: 0.92rem;
+            }
+
+            .section-title {
+                font-size: 1.18rem;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .image-gallery-inline {
+                grid-template-columns: 1fr;
+            }
+
+            .document-tools {
+                justify-content: stretch;
+            }
+
+            .print-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .lightbox {
+                padding: 18px;
+            }
+
+            .lightbox-close {
+                top: -48px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .brand-logo img {
+                width: 36px;
+                height: 36px;
+            }
+
+            .brand-text strong {
+                font-size: 1rem;
+            }
+
+            .airplanes-fleet {
+                opacity: 0.25;
+            }
+
+            .gallery-panel {
+                width: 100%;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        /* =========================================================
+           REDUCIR MOVIMIENTO
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+
+        /* =========================================================
+           IMPRESIÓN / EXPORTACIÓN A PDF
+        ========================================================= */
+
+        @media print {
+
+            @page {
+                size: A4;
+                margin: 18mm;
+            }
+
+            :root {
+                --text: #111827;
+                --text-soft: #374151;
+                --muted: #4b5563;
+                --primary: #006d8c;
+            }
+
+            html,
+            body {
+                background: #ffffff !important;
+                color: #111827 !important;
+            }
+
+            body {
+                display: block;
+            }
+
+            .top-bar,
+            .gallery-panel,
+            .overlay,
+            .lightbox,
+            .document-tools,
+            .page-navigation,
+            .airplanes-fleet {
+                display: none !important;
+            }
+
+            .container {
+                width: 100%;
+                max-width: none;
+
+                margin: 0;
+                padding: 0;
+
+                background: #ffffff !important;
+
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .report-header {
+                border-bottom: 2px solid #d1d5db;
+            }
+
+            h1,
+            .section-title,
+            .module-card h3 {
+                color: #111827 !important;
+            }
+
+            .eyebrow,
+            .subsection-title,
+            .caption-text,
+            .footer-date {
+                color: #006d8c !important;
+            }
+
+            p,
+            li,
+            .report-subtitle {
+                color: #374151 !important;
+            }
+
+            .spec-card,
+            .info-card,
+            .module-card,
+            .image-frame {
+                background: #ffffff !important;
+
+                border-color: #d1d5db !important;
+                box-shadow: none !important;
+            }
+
+            .spec-value,
+            strong {
+                color: #111827 !important;
+            }
+
+            .spec-label {
+                color: #4b5563 !important;
+            }
+
+            .image-frame {
+                break-inside: avoid;
+            }
+
+            .section {
+                break-inside: auto;
+            }
+
+            .section-title {
+                break-after: avoid;
+            }
+
+            .module-card {
+                break-inside: avoid;
+            }
+
+            footer {
+                margin-top: 30px;
+
+                color: #4b5563 !important;
+
+                background: #ffffff !important;
+
+                border-top: 1px solid #d1d5db;
+            }
+
+            footer .footer-institution {
+                color: #111827 !important;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         SVG SPRITE
+    ========================================================= -->
+
+    <svg class="svg-sprite" aria-hidden="true">
+        <symbol id="icon-menu" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </symbol>
+
+        <symbol id="icon-close" viewBox="0 0 24 24">
+            <path d="M6 6l12 12M18 6L6 18"></path>
+        </symbol>
+
+        <symbol id="icon-home" viewBox="0 0 24 24">
+            <path d="M3 11.5 12 4l9 7.5"></path>
+            <path d="M5.5 10v9h13v-9"></path>
+            <path d="M9.5 19v-5h5v5"></path>
+        </symbol>
+
+        <symbol id="icon-search" viewBox="0 0 24 24">
+            <circle cx="10.8" cy="10.8" r="6.8"></circle>
+            <path d="m16 16 5 5"></path>
+        </symbol>
+
+        <symbol id="icon-plane" viewBox="0 0 24 24">
+            <path d="M21 12 3 7v4l7 1-7 1v4l18-5Z"></path>
+            <path d="m10 12 2-7h2l-2 7 2 7h-2l-2-7Z"></path>
+        </symbol>
+
+        <symbol id="icon-package" viewBox="0 0 24 24">
+            <path d="m4 7 8-4 8 4-8 4-8-4Z"></path>
+            <path d="M4 7v10l8 4 8-4V7"></path>
+            <path d="M12 11v10"></path>
+        </symbol>
+
+        <symbol id="icon-bolt" viewBox="0 0 24 24">
+            <path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"></path>
+        </symbol>
+
+        <symbol id="icon-radio" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="2"></circle>
+            <path d="M7.8 7.8a6 6 0 0 0 0 8.4"></path>
+            <path d="M16.2 7.8a6 6 0 0 1 0 8.4"></path>
+            <path d="M4.7 4.7a10.4 10.4 0 0 0 0 14.6"></path>
+            <path d="M19.3 4.7a10.4 10.4 0 0 1 0 14.6"></path>
+        </symbol>
+
+        <symbol id="icon-printer" viewBox="0 0 24 24">
+            <path d="M6 9V3h12v6"></path>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <path d="M6 14h12v7H6z"></path>
+            <path d="M18 12h.01"></path>
+        </symbol>
+    </svg>
+
+
+    <!-- =========================================================
+         OVERLAY
+    ========================================================= -->
+
+    <div
+        class="overlay"
+        id="overlay"
+        hidden
+        aria-hidden="true">
+    </div>
+
+
+    <!-- =========================================================
+         BARRA SUPERIOR
+    ========================================================= -->
+
+    <header class="top-bar">
+
+        <a
+            href="index.html"
+            class="brand-logo"
+            aria-label="Volver al inicio del proyecto TCN-01">
+
+            <img
+                src="logo.jpg"
+                alt="Logo del proyecto TCN-01"
+                width="42"
+                height="42"
+                decoding="async">
+
+            <span class="brand-text">
+                <strong>TCN-01</strong>
+                <small>Reporte técnico</small>
+            </span>
+        </a>
+
+        <button
+            type="button"
+            class="menu-btn"
+            id="openGalleryBtn"
+            aria-controls="galleryPanel"
+            aria-expanded="false"
+            aria-label="Abrir galería de imágenes"
+            title="Abrir galería">
+
+            <svg class="icon" aria-hidden="true">
+                <use href="#icon-menu"></use>
+            </svg>
+        </button>
+
+
+        <!-- 5 columnas × 3 aviones = 15 aviones -->
+        <div
+            class="airplanes-fleet"
+            aria-hidden="true">
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+
+            <svg class="plane">
+                <use href="#icon-plane"></use>
+            </svg>
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         GALERÍA LATERAL
+    ========================================================= -->
+
+    <aside
+        class="gallery-panel"
+        id="galleryPanel"
+        aria-labelledby="galleryTitle"
+        aria-hidden="true">
+
+        <div class="gallery-header">
+
+            <h2 id="galleryTitle">
+
+                <svg class="icon" aria-hidden="true">
+                    <use href="#icon-search"></use>
+                </svg>
+
+                Galería del proyecto
+
+            </h2>
+
+            <button
+                type="button"
+                class="close-btn"
+                id="closeGalleryBtn"
+                aria-label="Cerrar galería">
+
+                <svg class="icon" aria-hidden="true">
+                    <use href="#icon-close"></use>
+                </svg>
+
+            </button>
+
+        </div>
+
+
+        <div class="gallery-grid">
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-image="logo.jpg"
+                data-title="Logo TCN-01"
+                aria-label="Abrir Logo TCN-01">
+
+                <img
+                    src="logo.jpg"
+                    alt="Logo principal del proyecto TCN-01"
+                    width="300"
+                    height="300"
+                    loading="lazy"
+                    decoding="async">
+
+                <span class="gallery-item-title">
+                    Logo TCN-01
+                </span>
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-image="ima1.jpg"
+                data-title="Estructura aerodinámica"
+                aria-label="Abrir Estructura aerodinámica">
+
+                <img
+                    src="ima1.jpg"
+                    alt="Estructura aerodinámica del prototipo"
+                    width="300"
+                    height="300"
+                    loading="lazy"
+                    decoding="async">
+
+                <span class="gallery-item-title">
+                    Estructura aerodinámica
+                </span>
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-image="1.jpg"
+                data-title="Circuito electrónico"
+                aria-label="Abrir Circuito electrónico">
+
+                <img
+                    src="1.jpg"
+                    alt="Esquema electrónico del prototipo"
+                    width="300"
+                    height="300"
+                    loading="lazy"
+                    decoding="async">
+
+                <span class="gallery-item-title">
+                    Circuito electrónico
+                </span>
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-image="2.jpg"
+                data-title="Ensamblado de hardware"
+                aria-label="Abrir Ensamblado de hardware">
+
+                <img
+                    src="2.jpg"
+                    alt="Ensamblado de hardware"
+                    width="300"
+                    height="300"
+                    loading="lazy"
+                    decoding="async">
+
+                <span class="gallery-item-title">
+                    Ensamblado hardware
+                </span>
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-image="3.jpg"
+                data-title="Pruebas de sistema"
+                aria-label="Abrir Pruebas de sistema">
+
+                <img
+                    src="3.jpg"
+                    alt="Pruebas de componentes y sistema"
+                    width="300"
+                    height="300"
+                    loading="lazy"
+                    decoding="async">
+
+                <span class="gallery-item-title">
+                    Pruebas de sistema
+                </span>
+            </button>
+
+        </div>
+    </aside>
+
+
+    <!-- =========================================================
+         LIGHTBOX
+    ========================================================= -->
+
+    <div
+        class="lightbox"
+        id="lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="lightboxCaption"
+        hidden>
+
+        <div class="lightbox-content">
+
+            <button
+                type="button"
+                class="lightbox-close"
+                id="lightboxClose"
+                aria-label="Cerrar imagen ampliada">
+
+                <svg class="icon" aria-hidden="true">
+                    <use href="#icon-close"></use>
+                </svg>
+
+            </button>
+
+            <img
+                id="lightboxImg"
+                src=""
+                alt=""
+                decoding="async">
+
+            <p
+                class="lightbox-caption"
+                id="lightboxCaption">
+            </p>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================================
+         CONTENIDO PRINCIPAL
+    ========================================================= -->
+
+    <main class="container">
+
+        <header class="report-header">
+
+            <div class="eyebrow">
+                DOCUMENTACIÓN · TCN-01 · REPORTE TÉCNICO
+            </div>
+
+            <h1>
+                Prototipo Dron TCN-01
+            </h1>
+
+            <p class="report-subtitle">
+                Reporte técnico de diseño, construcción, propulsión,
+                alimentación y arquitectura de control del prototipo
+                de aeronave no tripulada.
+            </p>
+
+        </header>
+
+
+        <!-- =====================================================
+             HERRAMIENTA DE DOCUMENTO
+        ====================================================== -->
+
+        <div class="document-tools">
+
+            <button
+                type="button"
+                class="print-btn"
+                id="printBtn">
+
+                <svg class="icon small" aria-hidden="true">
+                    <use href="#icon-printer"></use>
+                </svg>
+
+                Imprimir / Guardar PDF
+
+            </button>
+
+        </div>
+
+
+        <!-- =====================================================
+             PARÁMETROS CLAVE
+        ====================================================== -->
+
+        <section aria-labelledby="specs-title">
+
+            <h2 id="specs-title" class="section-title">
+                <span class="section-number">00</span>
+                Parámetros clave
+            </h2>
+
+            <div class="quick-specs-grid">
+
+                <article class="spec-card">
+
+                    <span class="spec-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#icon-plane"></use>
+                        </svg>
+                    </span>
+
+                    <span class="spec-label">
+                        Estructura
+                    </span>
+
+                    <span class="spec-value">
+                        Papel pluma 3 mm
+                    </span>
+
+                </article>
+
+
+                <article class="spec-card">
+
+                    <span class="spec-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#icon-package"></use>
+                        </svg>
+                    </span>
+
+                    <span class="spec-label">
+                        Payload estimado
+                    </span>
+
+                    <span class="spec-value">
+                        100 g – 250 g
+                    </span>
+
+                </article>
+
+
+                <article class="spec-card">
+
+                    <span class="spec-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#icon-bolt"></use>
+                        </svg>
+                    </span>
+
+                    <span class="spec-label">
+                        Grupo motopropulsor
+                    </span>
+
+                    <span class="spec-value">
+                        Motor 2204 · 1324 KV
+                    </span>
+
+                </article>
+
+
+                <article class="spec-card">
+
+                    <span class="spec-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#icon-radio"></use>
+                        </svg>
+                    </span>
+
+                    <span class="spec-label">
+                        Enlace RF
+                    </span>
+
+                    <span class="spec-value">
+                        nRF24L01+PA · 2.4 GHz
+                    </span>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             1. INTRODUCCIÓN
+        ====================================================== -->
+
+        <section class="section" aria-labelledby="section-1">
+
+            <h2 id="section-1" class="section-title">
+                <span class="section-number">01</span>
+                Introducción
+            </h2>
+
+            <p>
+                El presente proyecto tiene como objetivo el desarrollo
+                de un prototipo de aeronave no tripulada (dron de carga)
+                capaz de transportar objetos pequeños. Mediante la
+                aplicación e integración de conocimientos en electrónica,
+                programación y diseño aerodinámico, este desarrollo busca
+                fortalecer el aprendizaje en el ámbito aeronáutico e
+                incentivar el intercambio tecnológico entre diversos
+                estados de la República Mexicana.
+            </p>
+
+            <p>
+                Para ello, se investigaron e identificaron las tecnologías
+                y componentes clave empleados en la industria aeronáutica
+                moderna, analizando el contexto de desarrollo tecnológico
+                en México. Como resultado, se diseñó, construyó y evaluó
+                un prototipo funcional de ala fija, realizando pruebas de
+                vuelo y evaluación de desempeño para identificar
+                oportunidades de optimización y mejora continua.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================================
+             2. ESTRUCTURA Y AERODINÁMICA
+        ====================================================== -->
+
+        <section class="section" aria-labelledby="section-2">
+
+            <h2 id="section-2" class="section-title">
+                <span class="section-number">02</span>
+                Especificaciones estructurales y aerodinámicas
+            </h2>
+
+            <p>
+                El diseño estructural se basó en una configuración de
+                ala fija optimizada para estabilidad lateral y
+                longitudinal.
+            </p>
+
+            <div class="info-card">
+
+                <ul>
+
+                    <li>
+                        <strong>Material de construcción:</strong>
+                        Estructura fabricada en cartón pluma (papel pluma)
+                        de 3 mm de espesor, ofreciendo una relación
+                        favorable entre rigidez estructural y bajo peso.
+                    </li>
+
+                    <li>
+                        <strong>Geometría alar:</strong>
+                        Configuración de ala fija recta incorporando un
+                        diedro positivo de 2° a 3°, lo que proporciona un
+                        efecto autoestabilizador en el eje de balanceo
+                        (roll).
+                    </li>
+
+                    <li>
+                        <strong>Alerones:</strong>
+                        Dos alerones accionados de manera
+                        asimétrica/alternada mediante dos servomotores
+                        independientes para generar el momento de
+                        balanceo requerido.
+                    </li>
+
+                    <li>
+                        <strong>Timón de profundidad / elevador:</strong>
+                        Integrado en el empenaje horizontal de la aeronave
+                        y accionado por un servomotor dedicado para el
+                        control del eje de cabeceo (pitch).
+                    </li>
+
+                    <li>
+                        <strong>Tren de aterrizaje:</strong>
+                        Configuración fija en modo triciclo, compuesta por
+                        una rueda de nariz y dos ruedas principales,
+                        diseñada para proporcionar estabilidad durante
+                        el carreteo, despegue y aterrizaje.
+                    </li>
+
+                    <li>
+                        <strong>Capacidad de carga útil:</strong>
+                        Estimada entre 100 g y 250 g.
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="image-gallery-inline">
+
+                <figure class="image-frame">
+                    <img
+                        src="ima1.jpg"
+                        alt="Perfil y estructura aerodinámica del dron TCN-01"
+                        width="700"
+                        height="500"
+                        loading="lazy"
+                        decoding="async">
+                </figure>
+
+                <figure class="image-frame">
+                    <img
+                        src="2.jpg"
+                        alt="Ensamblado de componentes y tren de aterrizaje"
+                        width="700"
+                        height="500"
+                        loading="lazy"
+                        decoding="async">
+                </figure>
+
+            </div>
+
+            <p class="caption-text">
+                Figura 1. Vistas del ensamble estructural y disposición
+                geométrica del prototipo TCN-01.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================================
+             3. PROPULSIÓN
+        ====================================================== -->
+
+        <section class="section" aria-labelledby="section-3">
+
+            <h2 id="section-3" class="section-title">
+                <span class="section-number">03</span>
+                Sistema de propulsión y alimentación
+            </h2>
+
+            <p>
+                El grupo motopropulsor fue dimensionado para proporcionar
+                el empuje necesario durante las fases críticas de
+                despegue y ascenso.
+            </p>
+
+            <div class="info-card">
+
+                <ul>
+
+                    <li>
+                        <strong>Motor:</strong>
+                        Motor eléctrico sin escobillas (Brushless DC Motor)
+                        referencia 2204 con una constante de velocidad de
+                        1324 KV (RPM/V).
+                    </li>
+
+                    <li>
+                        <strong>Fuente de energía:</strong>
+                        Batería de Polímero de Litio (LiPo) de 2 celdas
+                        (2S - 7.4 V nominales) con una capacidad de
+                        1800 mAh, encargada de proporcionar la corriente
+                        requerida tanto por el motor principal como por
+                        la electrónica de a bordo.
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             4. AVIÓNICA
+        ====================================================== -->
+
+        <section class="section" aria-labelledby="section-4">
+
+            <h2 id="section-4" class="section-title">
+                <span class="section-number">04</span>
+                Arquitectura de control y radiofrecuencia
+            </h2>
+
+            <p>
+                El enlace de telemetría y mando se implementó mediante
+                una arquitectura maestro-esclavo (Master-Slave) con
+                microcontroladores de arquitectura abierta y módulos de
+                RF de enlace dedicado. La lógica de control y el
+                procesamiento de señales fueron desarrollados e
+                implementados utilizando el entorno Arduino IDE.
+            </p>
+
+
+            <div class="image-gallery-inline">
+
+                <figure class="image-frame">
+                    <img
+                        src="1.jpg"
+                        alt="Esquema circuital de Arduino y radiofrecuencia"
+                        width="700"
+                        height="500"
+                        loading="lazy"
+                        decoding="async">
+                </figure>
+
+                <figure class="image-frame">
+                    <img
+                        src="3.jpg"
+                        alt="Pruebas de banco y variador ESC"
+                        width="700"
+                        height="500"
+                        loading="lazy"
+                        decoding="async">
+                </figure>
+
+            </div>
+
+            <p class="caption-text">
+                Figura 2. Conexiones de aviónica, módulos RF nRF24L01 y
+                controladores de servomotores.
+            </p>
+
+
+            <div class="modules-grid">
+
+                <!-- TRANSMISOR -->
+
+                <article class="module-card">
+
+                    <h3>
+
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#icon-radio"></use>
+                        </svg>
+
+                        4.1. Módulo transmisor
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            <strong>Unidad de procesamiento:</strong>
+                            Microcontrolador Arduino Nano.
+                        </li>
+
+                        <li>
+                            <strong>Interfaz de usuario:</strong>
+                            Módulo joystick de dos ejes para la lectura
+                            analógica de los mandos de vuelo
+                            (cabeceo y balanceo).
+                        </li>
+
+                        <li>
+                            <strong>Módulo de transmisión:</strong>
+                            Módulo de radiofrecuencia nRF24L01 con
+                            amplificador de potencia (PA) y antena externa,
+                            operando en la banda de 2.4 GHz.
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+                <!-- RECEPTOR -->
+
+                <article class="module-card">
+
+                    <h3>
+
+                        <svg class="icon" aria-hidden="true">
+                            <use href="#icon-plane"></use>
+                        </svg>
+
+                        4.2. Módulo receptor
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            <strong>Unidad de procesamiento:</strong>
+                            Microcontrolador Arduino Uno, encargado de
+                            recibir, decodificar las tramas de datos y
+                            generar las señales PWM necesarias para los
+                            servomotores y el variador de velocidad (ESC).
+                        </li>
+
+                        <li>
+                            <strong>Módulo de recepción:</strong>
+                            Módulo nRF24L01 + PA + antena externa,
+                            enlazado de manera sincrónica con el módulo
+                            emisor del mando terrestre.
+                        </li>
+
+                    </ul>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             REGRESO AL INICIO
+        ====================================================== -->
+
+        <nav
+            class="page-navigation"
+            aria-label="Navegación del documento">
+
+            <a
+                href="index.html"
+                class="nav-btn">
+
+                <svg class="icon small" aria-hidden="true">
+                    <use href="#icon-home"></use>
+                </svg>
+
+                Volver al inicio
+
+            </a>
+
+        </nav>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+
+    <footer>
+
+        <p class="footer-institution">
+            Instituto Politécnico Nacional
+        </p>
+
+        <p class="footer-authors">
+            <strong>Autores:</strong>
+            Hernández Sánchez Carlos Enrique |
+            Cervantes García Lucero Nicole |
+            Santivañez Urbina Margarito Joaquín
+        </p>
+
+        <p class="footer-date">
+            23 de septiembre de 2026
+        </p>
+
+    </footer>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
+
+    <script>
+        "use strict";
+
+        /* ---------------------------------------------------------
+           ELEMENTOS
+        --------------------------------------------------------- */
+
+        const openGalleryBtn =
+            document.getElementById("openGalleryBtn");
+
+        const closeGalleryBtn =
+            document.getElementById("closeGalleryBtn");
+
+        const galleryPanel =
+            document.getElementById("galleryPanel");
+
+        const overlay =
+            document.getElementById("overlay");
+
+        const lightbox =
+            document.getElementById("lightbox");
+
+        const lightboxImg =
+            document.getElementById("lightboxImg");
+
+        const lightboxCaption =
+            document.getElementById("lightboxCaption");
+
+        const lightboxClose =
+            document.getElementById("lightboxClose");
+
+        const printBtn =
+            document.getElementById("printBtn");
+
+        let lastGalleryFocus = null;
+        let lastLightboxFocus = null;
+
+
+        /* ---------------------------------------------------------
+           GALERÍA
+        --------------------------------------------------------- */
+
+        function openGallery() {
+
+            lastGalleryFocus = document.activeElement;
+
+            galleryPanel.classList.add("is-open");
+
+            galleryPanel.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            openGalleryBtn.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            overlay.hidden = false;
+
+            requestAnimationFrame(() => {
+                closeGalleryBtn.focus();
+            });
+        }
+
+
+        function closeGallery() {
+
+            galleryPanel.classList.remove("is-open");
+
+            galleryPanel.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            openGalleryBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            overlay.hidden = true;
+
+            if (lastGalleryFocus) {
+                lastGalleryFocus.focus();
+            }
+        }
+
+
+        openGalleryBtn.addEventListener(
+            "click",
+            openGallery
+        );
+
+
+        closeGalleryBtn.addEventListener(
+            "click",
+            closeGallery
+        );
+
+
+        overlay.addEventListener(
+            "click",
+            closeGallery
+        );
+
+
+        /* ---------------------------------------------------------
+           LIGHTBOX
+        --------------------------------------------------------- */
+
+        function openLightbox(image, title, alt) {
+
+            lastLightboxFocus = document.activeElement;
+
+            lightboxImg.src = image;
+            lightboxImg.alt = alt || title;
+            lightboxCaption.textContent = title;
+
+            lightbox.hidden = false;
+
+            document.body.style.overflow = "hidden";
+
+            requestAnimationFrame(() => {
+                lightboxClose.focus();
+            });
+        }
+
+
+        function closeLightbox() {
+
+            lightbox.hidden = true;
+
+            lightboxImg.src = "";
+            lightboxImg.alt = "";
+
+            document.body.style.overflow = "";
+
+            if (lastLightboxFocus) {
+                lastLightboxFocus.focus();
+            }
+        }
+
+
+        document
+            .querySelectorAll(".gallery-item")
+            .forEach(item => {
+
+                item.addEventListener(
+                    "click",
+                    () => {
+
+                        const image =
+                            item.dataset.image;
+
+                        const title =
+                            item.dataset.title;
+
+                        const img =
+                            item.querySelector("img");
+
+                        openLightbox(
+                            image,
+                            title,
+                            img ? img.alt : title
+                        );
+                    }
+                );
+            });
+
+
+        lightboxClose.addEventListener(
+            "click",
+            closeLightbox
+        );
+
+
+        lightbox.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target === lightbox
+                ) {
+                    closeLightbox();
+                }
+            }
+        );
+
+
+        /* ---------------------------------------------------------
+           TECLA ESC
+        --------------------------------------------------------- */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (event.key !== "Escape") {
+                    return;
+                }
+
+                if (!lightbox.hidden) {
+                    closeLightbox();
+                    return;
+                }
+
+                if (
+                    galleryPanel.classList.contains(
+                        "is-open"
+                    )
+                ) {
+                    closeGallery();
+                }
+            }
+        );
+
+
+        /* ---------------------------------------------------------
+           IMPRESIÓN / PDF
+        --------------------------------------------------------- */
+
+        printBtn.addEventListener(
+            "click",
+            () => {
+                window.print();
+            }
+        );
+    </script>
+
+</body>
+</html>
