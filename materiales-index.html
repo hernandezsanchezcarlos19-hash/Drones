@@ -1,407 +1,1922 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Dron TCN-01 - Materiales de Construcción</title>
-    
+
+    <title>TCN-01 | Materiales de Construcción</title>
+
+    <meta
+        name="description"
+        content="Materiales de construcción y componentes estructurales utilizados en el proyecto Dron TCN-01."
+    >
+
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" href="logo.jpg">
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link rel="apple-touch-icon" href="logo.jpg">
 
-    <!-- Metadatos para Redes Sociales (Open Graph) -->
-    <meta name="description" content="Materiales de Construcción y Componentes Estructurales del Dron TCN-01 - Instituto Politécnico Nacional">
-    <meta property="og:title" content="Materiales de Construcción - Dron TCN-01">
-    <meta property="og:description" content="Análisis de fibra de carbono, aleaciones de aluminio, EPO y resinas del Dron TCN-01.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Materiales de Construcción | TCN-01">
+    <meta
+        property="og:description"
+        content="Análisis de materiales estructurales del proyecto Dron TCN-01."
+    >
     <meta property="og:image" content="logo.jpg">
     <meta property="og:type" content="website">
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Materiales de Construcción - Dron TCN-01">
-    <meta name="twitter:description" content="Análisis de materiales estructurales del Dron TCN-01 - IPN.">
+    <meta name="twitter:title" content="Materiales de Construcción | TCN-01">
+    <meta
+        name="twitter:description"
+        content="Materiales y componentes estructurales del Dron TCN-01."
+    >
     <meta name="twitter:image" content="logo.jpg">
 
     <style>
         :root {
-            --primary-color: #00d2ff;
-            --primary-hover: #0099ff;
-            --bg-color: #0a0e17;
-            --card-bg: rgba(16, 23, 38, 0.96);
-            --text-color: #e2e8f0;
-            --text-muted: #94a3b8;
-            --border-color: rgba(0, 210, 255, 0.2);
+            --bg: #070b12;
+            --bg-secondary: #0c121d;
+            --surface: rgba(14, 22, 35, 0.94);
+            --surface-light: rgba(255, 255, 255, 0.035);
+
+            --primary: #00d2ff;
+            --primary-dark: #0099ff;
+            --primary-soft: rgba(0, 210, 255, 0.12);
+
+            --text: #e8eef6;
+            --text-secondary: #a5b1c2;
+            --text-muted: #718096;
+
+            --border: rgba(0, 210, 255, 0.18);
+            --border-strong: rgba(0, 210, 255, 0.42);
+
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+
+            --radius: 14px;
+            --transition: 180ms ease;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
-                linear-gradient(rgba(0, 210, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 210, 255, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 40px 40px, 40px 40px;
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0; padding: 0;
-            display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh; overflow-x: hidden;
+            min-height: 100vh;
+            margin: 0;
+
+            font-family:
+                Inter,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            color: var(--text);
+            background:
+                radial-gradient(
+                    circle at 50% 10%,
+                    rgba(0, 210, 255, 0.10),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    rgba(0, 210, 255, 0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(0, 210, 255, 0.025) 1px,
+                    transparent 1px
+                ),
+                var(--bg);
+
+            background-size:
+                100% 100%,
+                42px 42px,
+                42px 42px;
+
+            line-height: 1.7;
+            overflow-x: hidden;
         }
 
-        /* TOP BAR */
+        a,
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button,
+        a {
+            font: inherit;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 3px;
+        }
+
+        /* =========================================================
+           BARRA SUPERIOR
+        ========================================================= */
+
         .top-bar {
-            width: 100%; height: 70px;
-            background-color: rgba(10, 14, 23, 0.98);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 25px;
-            display: flex; align-items: center; justify-content: space-between;
-            box-sizing: border-box; position: sticky; top: 0; z-index: 100;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            width: 100%;
+            min-height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 28px;
+
+            background: rgba(7, 11, 18, 0.94);
+            border-bottom: 1px solid var(--border);
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            overflow: hidden;
         }
 
-        .brand-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .brand-logo img { height: 40px; width: auto; border-radius: 6px; box-shadow: 0 0 8px rgba(0, 210, 255, 0.3); }
-        .brand-logo span { font-size: 1.4rem; font-weight: 700; color: var(--primary-color); letter-spacing: 1px; }
+        .brand-logo {
+            position: relative;
+            z-index: 10;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .brand-logo img {
+            width: 42px;
+            height: 42px;
+            object-fit: cover;
+
+            border-radius: 8px;
+            border: 1px solid var(--border-strong);
+
+            box-shadow:
+                0 0 20px rgba(0, 210, 255, 0.16);
+        }
+
+        .brand-logo span {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+        }
 
         .menu-btn {
-            background: transparent; border: 1px solid var(--border-color);
-            border-radius: 6px; color: var(--primary-color); font-size: 1.5rem;
-            padding: 4px 12px; cursor: pointer; transition: background-color 0.2s ease;
-        }
-        .menu-btn:hover { background-color: rgba(0, 210, 255, 0.15); }
+            position: relative;
+            z-index: 10;
 
-        /* FLOTA DE AVIONES (Optimizado) */
+            width: 44px;
+            height: 44px;
+
+            display: grid;
+            place-items: center;
+
+            color: var(--primary);
+            background: rgba(0, 210, 255, 0.06);
+
+            border: 1px solid var(--border);
+            border-radius: 10px;
+
+            cursor: pointer;
+            transition:
+                background var(--transition),
+                border-color var(--transition),
+                transform var(--transition);
+        }
+
+        .menu-btn:hover {
+            background: var(--primary-soft);
+            border-color: var(--border-strong);
+            transform: translateY(-1px);
+        }
+
+        .menu-btn svg {
+            width: 21px;
+            height: 21px;
+        }
+
+        /* =========================================================
+           FLOTA DE 30 AVIONES
+           
+           5 columnas x 3 aviones.
+           Cada avión genera un segundo avión mediante ::after,
+           manteniendo 30 elementos visuales sin saturar el DOM.
+        ========================================================= */
+
         .airplanes-fleet {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1;
+            position: absolute;
+            inset: 0;
+
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+
+            gap: 4px;
+
+            pointer-events: none;
+            opacity: 0.42;
+
+            overflow: hidden;
         }
 
-        .plane-row {
-            position: absolute; left: -180px; display: flex; gap: 25px;
-            color: var(--primary-color);
-            animation: flyRow linear infinite;
-            will-change: transform;
-            transform: translateZ(0);
-            opacity: 0.6;
+        .plane-column {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            min-width: 0;
         }
 
-        .plane-row span { font-size: 0.85rem; }
+        .plane {
+            position: relative;
 
-        @keyframes flyRow { 
-            0% { transform: translateX(0); } 
-            100% { transform: translateX(calc(100vw + 380px)); } 
+            display: block;
+            width: 14px;
+            height: 14px;
+
+            color: var(--primary);
+
+            transform: rotate(-12deg);
+
+            animation:
+                planePulse 3.5s ease-in-out infinite;
         }
 
-        .row-1  { top: 5%;  animation-duration: 12s; animation-delay: 0s; }
-        .row-2  { top: 18%; animation-duration: 15s; animation-delay: 3s; }
-        .row-3  { top: 32%; animation-duration: 11s; animation-delay: 6s; }
-        .row-4  { top: 46%; animation-duration: 14s; animation-delay: 1.5s; }
-        .row-5  { top: 60%; animation-duration: 16s; animation-delay: 8s; }
-        .row-6  { top: 74%; animation-duration: 13s; animation-delay: 4s; }
-        .row-7  { top: 88%; animation-duration: 15s; animation-delay: 10s; }
+        .plane::before {
+            content: "✈";
 
-        /* GALERÍA LATERAL */
-        .gallery-panel {
-            position: fixed; top: 0; right: -380px; width: 340px; height: 100vh;
-            background-color: rgba(10, 14, 23, 0.98);
-            border-left: 1px solid var(--border-color); box-shadow: -10px 0 20px rgba(0, 0, 0, 0.8);
-            z-index: 200; transition: transform 0.3s ease-out;
-            will-change: transform;
-            padding: 20px; box-sizing: border-box; display: flex; flex-direction: column;
-        }
+            position: absolute;
+            inset: 0;
 
-        .gallery-panel.active { transform: translateX(-380px); }
-
-        .gallery-header {
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 15px;
-        }
-
-        .gallery-header h3 { margin: 0; color: var(--primary-color); font-size: 1.1rem; }
-        .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
-        .close-btn:hover { color: #ffffff; }
-
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; overflow-y: auto; }
-
-        .gallery-item {
-            position: relative; border: 1px solid var(--border-color); border-radius: 8px;
-            overflow: hidden; cursor: pointer; aspect-ratio: 1; background-color: rgba(255, 255, 255, 0.02);
-            transition: border-color 0.2s;
-        }
-
-        .gallery-item:hover { border-color: var(--primary-color); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        .gallery-item-title {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            background: rgba(10, 14, 23, 0.9); font-size: 0.72rem; color: #ffffff;
-            padding: 4px 6px; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
-        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); z-index: 150; display: none; }
-        .overlay.active { display: block; }
-
-        .lightbox {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.92); z-index: 300; display: none;
-            align-items: center; justify-content: center;
-        }
-        .lightbox.active { display: flex; }
-        .lightbox img { max-width: 90%; max-height: 85%; border-radius: 8px; border: 1px solid var(--primary-color); }
-
-        /* CONTENEDOR PRINCIPAL */
-        .container {
-            background-color: var(--card-bg);
-            max-width: 850px; width: 90%; margin: 40px 20px; padding: 40px;
-            border-radius: 12px; border: 1px solid var(--border-color);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); box-sizing: border-box;
-            position: relative; overflow: hidden;
-        }
-
-        .content-relative { position: relative; z-index: 1; }
-
-        h1 {
-            color: var(--primary-color); font-size: 1.8rem; margin-top: 0;
-            border-bottom: 2px solid var(--border-color); padding-bottom: 12px;
+            font-size: 12px;
+            line-height: 14px;
             text-align: center;
         }
 
-        h2, .section-title {
-            color: #ffffff; font-size: 1.25rem; margin-top: 30px;
-            border-left: 4px solid var(--primary-color); padding-left: 10px;
+        .plane::after {
+            content: "✈";
+
+            position: absolute;
+            left: 52px;
+            top: 0;
+
+            font-size: 12px;
+            line-height: 14px;
+            text-align: center;
+
+            opacity: 0.7;
+
+            animation:
+                planeMove 6s linear infinite;
         }
 
-        p, li { color: var(--text-muted); margin-bottom: 15px; text-align: justify; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 10px; }
-        li strong { color: var(--text-color); }
-
-        .info-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 8px; padding: 20px; margin: 20px 0;
+        .plane:nth-child(2)::after {
+            animation-delay: -2s;
         }
 
-        /* QUICK SPECS */
+        .plane:nth-child(3)::after {
+            animation-delay: -4s;
+        }
+
+        @keyframes planePulse {
+            0%,
+            100% {
+                opacity: 0.25;
+            }
+
+            50% {
+                opacity: 0.75;
+            }
+        }
+
+        @keyframes planeMove {
+            0% {
+                transform: translateX(-18px);
+            }
+
+            100% {
+                transform: translateX(24px);
+            }
+        }
+
+        /* =========================================================
+           GALERÍA LATERAL
+        ========================================================= */
+
+        .gallery-panel {
+            position: fixed;
+            inset: 0 0 0 auto;
+
+            width: min(380px, 92vw);
+
+            z-index: 220;
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 24px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(12, 20, 32, 0.98),
+                    rgba(7, 11, 18, 0.99)
+                );
+
+            border-left: 1px solid var(--border);
+
+            box-shadow:
+                -20px 0 50px rgba(0, 0, 0, 0.45);
+
+            transform: translateX(105%);
+            transition: transform 260ms ease;
+
+            visibility: hidden;
+        }
+
+        .gallery-panel.active {
+            transform: translateX(0);
+            visibility: visible;
+        }
+
+        .gallery-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding-bottom: 16px;
+            margin-bottom: 18px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .gallery-header h2 {
+            margin: 0;
+
+            color: var(--primary);
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            color: var(--text-secondary);
+            background: transparent;
+
+            border: 1px solid var(--border);
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            transition:
+                color var(--transition),
+                background var(--transition),
+                border-color var(--transition);
+        }
+
+        .close-btn:hover {
+            color: #fff;
+            background: var(--primary-soft);
+            border-color: var(--border-strong);
+        }
+
+        .close-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+
+            overflow-y: auto;
+            padding-right: 3px;
+        }
+
+        .gallery-item {
+            position: relative;
+
+            aspect-ratio: 1 / 1;
+
+            padding: 0;
+
+            overflow: hidden;
+
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            transition:
+                transform var(--transition),
+                border-color var(--transition),
+                box-shadow var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--border-strong);
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .gallery-item img {
+            display: block;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform 300ms ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item-title {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            padding: 9px 10px;
+
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(0, 0, 0, 0.9)
+                );
+
+            text-align: left;
+        }
+
+        /* =========================================================
+           OVERLAY
+        ========================================================= */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+
+            z-index: 210;
+
+            background: rgba(0, 0, 0, 0.68);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition:
+                opacity 220ms ease,
+                visibility 220ms ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* =========================================================
+           LIGHTBOX
+        ========================================================= */
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+
+            z-index: 300;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            background: rgba(2, 5, 9, 0.96);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition:
+                opacity 220ms ease,
+                visibility 220ms ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+
+            max-width: min(1100px, 94vw);
+            max-height: 90vh;
+        }
+
+        .lightbox img {
+            display: block;
+
+            max-width: 100%;
+            max-height: 82vh;
+
+            object-fit: contain;
+
+            border: 1px solid var(--border-strong);
+            border-radius: 12px;
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.6);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -48px;
+            right: 0;
+
+            width: 40px;
+            height: 40px;
+
+            display: grid;
+            place-items: center;
+
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+
+            border: 1px solid var(--border);
+            border-radius: 9px;
+
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           CONTENIDO PRINCIPAL
+        ========================================================= */
+
+        .container {
+            width: min(1000px, calc(100% - 32px));
+
+            margin: 48px auto;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(16, 25, 40, 0.96),
+                    rgba(9, 15, 25, 0.96)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+
+            box-shadow: var(--shadow);
+
+            overflow: hidden;
+        }
+
+        .content {
+            padding: clamp(28px, 5vw, 56px);
+        }
+
+        .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            margin-bottom: 12px;
+
+            color: var(--primary);
+
+            font-family:
+                "Fira Code",
+                "Cascadia Code",
+                Consolas,
+                monospace;
+
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+
+            width: 28px;
+            height: 1px;
+
+            background: var(--primary);
+        }
+
+        h1 {
+            margin: 0;
+
+            color: #fff;
+
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+        }
+
+        .intro {
+            max-width: 760px;
+
+            margin: 20px 0 0;
+
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        h2 {
+            position: relative;
+
+            margin: 46px 0 18px;
+
+            padding-left: 16px;
+
+            color: #fff;
+
+            font-size: 1.35rem;
+            line-height: 1.3;
+        }
+
+        h2::before {
+            content: "";
+
+            position: absolute;
+            top: 2px;
+            bottom: 2px;
+            left: 0;
+
+            width: 3px;
+
+            background: var(--primary);
+            border-radius: 3px;
+
+            box-shadow:
+                0 0 12px rgba(0, 210, 255, 0.5);
+        }
+
+        p {
+            color: var(--text-secondary);
+        }
+
+        .section-description {
+            margin-top: 0;
+        }
+
+        /* =========================================================
+           QUICK SPECS
+        ========================================================= */
+
+        .specs-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            margin-top: 38px;
+        }
+
+        .specs-heading svg {
+            width: 19px;
+            height: 19px;
+
+            color: var(--primary);
+        }
+
         .quick-specs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px; margin: 25px 0 35px 0;
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 14px;
+
+            margin: 20px 0 40px;
         }
 
         .spec-card {
-            background: rgba(0, 210, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 8px; padding: 15px; text-align: center;
-            transition: border-color 0.2s ease;
+            position: relative;
+
+            min-height: 150px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(0, 210, 255, 0.07),
+                    rgba(255, 255, 255, 0.025)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            transition:
+                transform var(--transition),
+                border-color var(--transition),
+                background var(--transition);
         }
 
-        .spec-card:hover { border-color: var(--primary-color); }
-        .spec-icon { font-size: 1.5rem; margin-bottom: 5px; }
-        .spec-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; }
-        .spec-value { font-size: 1.05rem; font-weight: 700; color: var(--primary-color); }
+        .spec-card::after {
+            content: "";
 
-        /* NAVEGACIÓN */
+            position: absolute;
+            right: 14px;
+            bottom: 14px;
+
+            width: 5px;
+            height: 5px;
+
+            background: var(--primary);
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 10px rgba(0, 210, 255, 0.8);
+        }
+
+        .spec-card:hover {
+            transform: translateY(-4px);
+
+            border-color: var(--border-strong);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(0, 210, 255, 0.11),
+                    rgba(255, 255, 255, 0.04)
+                );
+        }
+
+        .spec-icon {
+            width: 32px;
+            height: 32px;
+
+            margin-bottom: 14px;
+
+            color: var(--primary);
+        }
+
+        .spec-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .spec-label {
+            margin-bottom: 5px;
+
+            color: var(--text-muted);
+
+            font-family:
+                "Fira Code",
+                "Cascadia Code",
+                Consolas,
+                monospace;
+
+            font-size: 0.68rem;
+            font-weight: 700;
+
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .spec-value {
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 750;
+            line-height: 1.4;
+        }
+
+        /* =========================================================
+           TARJETAS DE INFORMACIÓN
+        ========================================================= */
+
+        .info-card {
+            position: relative;
+
+            margin: 20px 0;
+
+            padding: 22px 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255, 255, 255, 0.035),
+                    rgba(0, 210, 255, 0.025)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            transition:
+                border-color var(--transition),
+                transform var(--transition);
+        }
+
+        .info-card:hover {
+            border-color: var(--border-strong);
+            transform: translateY(-2px);
+        }
+
+        .info-card ul {
+            margin: 0;
+            padding-left: 22px;
+        }
+
+        .info-card li {
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+        }
+
+        .info-card li:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-card strong {
+            color: var(--text);
+        }
+
+        /* =========================================================
+           NAVEGACIÓN
+        ========================================================= */
+
         .page-navigation {
-            display: flex; justify-content: space-between; align-items: center;
-            gap: 15px; margin-top: 35px; padding-top: 20px;
-            border-top: 1px solid var(--border-color); flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+
+            gap: 12px;
+
+            margin-top: 52px;
+            padding-top: 24px;
+
+            border-top: 1px solid var(--border);
         }
 
         .nav-btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 10px 18px; background: rgba(0, 210, 255, 0.08);
-            border: 1px solid var(--border-color); border-radius: 6px;
-            color: var(--primary-color); text-decoration: none;
-            font-weight: 700; font-size: 0.9rem; transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            min-height: 46px;
+
+            padding: 10px 16px;
+
+            color: var(--primary);
+            background: rgba(0, 210, 255, 0.055);
+
+            border: 1px solid var(--border);
+            border-radius: 9px;
+
+            font-size: 0.84rem;
+            font-weight: 750;
+
+            text-decoration: none;
+
+            transition:
+                color var(--transition),
+                background var(--transition),
+                border-color var(--transition),
+                transform var(--transition);
         }
 
-        .nav-btn:hover { background-color: var(--primary-color); color: #0a0e17; }
-        .nav-btn.home { background: transparent; border-color: rgba(255, 255, 255, 0.2); color: var(--text-color); }
-        .nav-btn.home:hover { background: rgba(255, 255, 255, 0.15); color: #ffffff; }
+        .nav-btn:hover {
+            color: #061019;
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.home {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.035);
+            border-color: rgba(255, 255, 255, 0.14);
+        }
+
+        .nav-btn.home:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
 
         footer {
-            width: 100%; margin-top: auto; background-color: rgba(10, 14, 23, 0.98);
-            border-top: 1px solid var(--border-color); padding: 25px 20px;
-            text-align: center; font-size: 0.9rem; color: var(--text-muted); box-sizing: border-box;
+            width: 100%;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+            color: var(--text-muted);
+            background: rgba(5, 8, 13, 0.96);
+
+            border-top: 1px solid var(--border);
+
+            font-size: 0.85rem;
         }
 
-        footer strong { color: #ffffff; }
-        .footer-authors { margin: 10px 0; line-height: 1.5; }
-        .footer-date { font-size: 0.85rem; color: var(--primary-color); margin-top: 8px; }
+        footer strong {
+            color: var(--text);
+        }
+
+        .footer-authors {
+            max-width: 900px;
+
+            margin: 9px auto 0;
+
+            line-height: 1.6;
+        }
+
+        .footer-date {
+            margin-top: 10px;
+
+            color: var(--primary);
+
+            font-family:
+                "Fira Code",
+                "Cascadia Code",
+                Consolas,
+                monospace;
+
+            font-size: 0.75rem;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 850px) {
+            .quick-specs-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .page-navigation {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-btn.home {
+                grid-column: 1 / -1;
+                grid-row: 1;
+            }
+        }
 
         @media (max-width: 600px) {
-            .container { padding: 20px; }
-            .gallery-panel { width: 100%; right: -100%; }
-            .page-navigation { flex-direction: column; align-items: stretch; }
-            .nav-btn { justify-content: center; }
+            .top-bar {
+                min-height: 64px;
+                padding: 0 16px;
+            }
+
+            .brand-logo img {
+                width: 36px;
+                height: 36px;
+            }
+
+            .brand-logo span {
+                font-size: 1rem;
+            }
+
+            .airplanes-fleet {
+                opacity: 0.25;
+            }
+
+            .container {
+                width: calc(100% - 20px);
+                margin: 25px auto;
+                border-radius: 11px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+
+            .quick-specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-card {
+                min-height: 125px;
+            }
+
+            .page-navigation {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-btn.home {
+                grid-column: auto;
+                grid-row: auto;
+            }
+
+            .gallery-panel {
+                width: 100%;
+            }
+
+            .lightbox {
+                padding: 18px;
+            }
+
+            .lightbox img {
+                max-height: 78vh;
+            }
+        }
+
+        /* =========================================================
+           REDUCCIÓN DE MOVIMIENTO
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <div class="overlay" id="overlay"></div>
+    <!-- =========================================================
+         BARRA SUPERIOR
+    ========================================================== -->
 
-    <!-- Barra Superior -->
     <header class="top-bar">
-        <a href="index.html" class="brand-logo">
-            <img src="logo.jpg" alt="Logo TCN-01">
+
+        <a
+            href="index.html"
+            class="brand-logo"
+            aria-label="Ir al inicio del proyecto TCN-01"
+        >
+            <img
+                src="logo.jpg"
+                alt="Logotipo del proyecto TCN-01"
+                width="42"
+                height="42"
+            >
+
             <span>TCN-01</span>
         </a>
 
-        <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes">&#9776;</button>
+        <button
+            type="button"
+            class="menu-btn"
+            id="openGalleryBtn"
+            aria-label="Abrir galería del proyecto"
+            aria-controls="galleryPanel"
+            aria-expanded="false"
+        >
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <path d="M21 15l-5-5L5 21"></path>
+            </svg>
+        </button>
 
-        <div class="airplanes-fleet">
-            <div class="plane-row row-1"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-2"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-3"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-4"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-5"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-6"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-7"><span>✈</span><span>✈</span><span>✈</span></div>
+        <!--
+            Decoración:
+            5 columnas x 3 aviones.
+            Cada avión genera otro mediante CSS.
+            Resultado visual: 30 aviones.
+        -->
+        <div class="airplanes-fleet" aria-hidden="true">
+
+            <div class="plane-column">
+                <span class="plane"></span>
+                <span class="plane"></span>
+                <span class="plane"></span>
+            </div>
+
+            <div class="plane-column">
+                <span class="plane"></span>
+                <span class="plane"></span>
+                <span class="plane"></span>
+            </div>
+
+            <div class="plane-column">
+                <span class="plane"></span>
+                <span class="plane"></span>
+                <span class="plane"></span>
+            </div>
+
+            <div class="plane-column">
+                <span class="plane"></span>
+                <span class="plane"></span>
+                <span class="plane"></span>
+            </div>
+
+            <div class="plane-column">
+                <span class="plane"></span>
+                <span class="plane"></span>
+                <span class="plane"></span>
+            </div>
+
         </div>
     </header>
 
-    <!-- Panel Lateral: Galería -->
-    <aside class="gallery-panel" id="galleryPanel">
+
+    <!-- =========================================================
+         OVERLAY
+    ========================================================== -->
+
+    <div
+        class="overlay"
+        id="overlay"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- =========================================================
+         GALERÍA
+    ========================================================== -->
+
+    <aside
+        class="gallery-panel"
+        id="galleryPanel"
+        aria-label="Galería del proyecto"
+        aria-hidden="true"
+    >
+
         <div class="gallery-header">
-            <h3>🔍 Galería del Proyecto</h3>
-            <button class="close-btn" id="closeGalleryBtn">&times;</button>
+
+            <h2>Galería del proyecto</h2>
+
+            <button
+                type="button"
+                class="close-btn"
+                id="closeGalleryBtn"
+                aria-label="Cerrar galería"
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    aria-hidden="true"
+                >
+                    <path d="M18 6L6 18"></path>
+                    <path d="M6 6l12 12"></path>
+                </svg>
+            </button>
+
         </div>
-        <div class="gallery-grid" id="galleryGrid">
-            <div class="gallery-item">
-                <img src="logo.jpg" alt="Logo Principal TCN-01">
-                <div class="gallery-item-title">Logo TCN-01</div>
-            </div>
-            <div class="gallery-item">
-                <img src="ima1.jpg" alt="Estructura de Aeronave">
-                <div class="gallery-item-title">Estructura Aerodinámica</div>
-            </div>
-            <div class="gallery-item">
-                <img src="1.png" alt="Esquema Electrónico Prototipo">
-                <div class="gallery-item-title">Circuito Electrónico</div>
-            </div>
-            <div class="gallery-item">
-                <img src="2.png" alt="Ensamblado Hardware">
-                <div class="gallery-item-title">Ensamblado Hardware</div>
-            </div>
-            <div class="gallery-item">
-                <img src="3.png" alt="Pruebas de Componentes">
-                <div class="gallery-item-title">Pruebas de Sistema</div>
-            </div>
+
+
+        <div class="gallery-grid">
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-image="logo.jpg"
+                data-alt="Logotipo principal del proyecto TCN-01"
+                aria-label="Ampliar logotipo TCN-01"
+            >
+                <img
+                    src="logo.jpg"
+                    alt="Logotipo principal TCN-01"
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                >
+                <span class="gallery-item-title">
+                    Logo TCN-01
+                </span>
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-image="ima1.jpg"
+                data-alt="Estructura de aeronave del proyecto"
+                aria-label="Ampliar estructura aerodinámica"
+            >
+                <img
+                    src="ima1.jpg"
+                    alt="Estructura de aeronave"
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                >
+                <span class="gallery-item-title">
+                    Estructura Aerodinámica
+                </span>
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-image="1.jpg"
+                data-alt="Esquema electrónico del prototipo"
+                aria-label="Ampliar circuito electrónico"
+            >
+                <img
+                    src="1.jpg"
+                    alt="Esquema electrónico del prototipo"
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                >
+                <span class="gallery-item-title">
+                    Circuito Electrónico
+                </span>
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-image="2.jpg"
+                data-alt="Ensamblado del hardware del prototipo"
+                aria-label="Ampliar ensamblado de hardware"
+            >
+                <img
+                    src="2.jpg"
+                    alt="Ensamblado del hardware"
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                >
+                <span class="gallery-item-title">
+                    Ensamblado Hardware
+                </span>
+            </button>
+
+
+            <button
+                type="button"
+                class="gallery-item"
+                data-image="3.jpg"
+                data-alt="Pruebas de componentes del sistema"
+                aria-label="Ampliar pruebas del sistema"
+            >
+                <img
+                    src="3.jpg"
+                    alt="Pruebas de componentes"
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                >
+                <span class="gallery-item-title">
+                    Pruebas de Sistema
+                </span>
+            </button>
+
         </div>
     </aside>
 
-    <!-- Visor Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <img id="lightboxImg" src="" alt="Vista ampliada">
+
+    <!-- =========================================================
+         LIGHTBOX ACCESIBLE
+    ========================================================== -->
+
+    <div
+        class="lightbox"
+        id="lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="lightboxTitle"
+        aria-hidden="true"
+    >
+
+        <div class="lightbox-content">
+
+            <button
+                type="button"
+                class="lightbox-close"
+                id="lightboxClose"
+                aria-label="Cerrar vista ampliada"
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    aria-hidden="true"
+                >
+                    <path d="M18 6L6 18"></path>
+                    <path d="M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <h2 id="lightboxTitle" hidden>
+                Vista ampliada
+            </h2>
+
+            <img
+                id="lightboxImg"
+                src=""
+                alt=""
+            >
+
+        </div>
     </div>
 
-    <!-- Contenido Principal -->
+
+    <!-- =========================================================
+         CONTENIDO PRINCIPAL
+    ========================================================== -->
+
     <main class="container">
-        <div class="content-relative">
-            <h1>Materiales de Construcción y Componentes Estructurales</h1>
-            
-            <p>
-                Las estructuras varían dependiendo de si se trata de un ala delta de vuelo libre o un dron autónomo.
-            </p>
 
-            <!-- ESPECIFICACIONES RÁPIDAS -->
-            <h2 class="section-title">⚡ Especificaciones Rápidas (Quick Specs)</h2>
-            <div class="quick-specs-grid">
-                <div class="spec-card">
-                    <div class="spec-icon">🧵</div>
-                    <div class="spec-label">Material Principal</div>
-                    <div class="spec-value">Fibra de Carbono / EPO</div>
+        <div class="content">
+
+            <header>
+                <div class="eyebrow">
+                    Investigación 06 / Materiales
                 </div>
-                <div class="spec-card">
-                    <div class="spec-icon">🔩</div>
-                    <div class="spec-label">Aleación</div>
-                    <div class="spec-value">Aluminio Ergal 7075</div>
+
+                <h1>
+                    Materiales de Construcción y
+                    Componentes Estructurales
+                </h1>
+
+                <p class="intro">
+                    Las estructuras varían dependiendo de si se trata de
+                    un ala delta de vuelo libre o un dron autónomo.
+                </p>
+            </header>
+
+
+            <!-- =====================================================
+                 ESPECIFICACIONES
+            ====================================================== -->
+
+            <section aria-labelledby="specs-title">
+
+                <h2
+                    id="specs-title"
+                    class="specs-heading"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                    </svg>
+
+                    Especificaciones rápidas
+                </h2>
+
+
+                <div class="quick-specs-grid">
+
+                    <article class="spec-card">
+
+                        <div class="spec-icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                            >
+                                <path d="M4 5c4 3 12 3 16 0"></path>
+                                <path d="M4 9c4 3 12 3 16 0"></path>
+                                <path d="M4 13c4 3 12 3 16 0"></path>
+                                <path d="M4 17c4 3 12 3 16 0"></path>
+                            </svg>
+                        </div>
+
+                        <div class="spec-label">
+                            Material principal
+                        </div>
+
+                        <div class="spec-value">
+                            Fibra de Carbono / EPO
+                        </div>
+
+                    </article>
+
+
+                    <article class="spec-card">
+
+                        <div class="spec-icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle cx="8" cy="8" r="3"></circle>
+                                <path d="M10.5 10.5L21 21"></path>
+                                <path d="M15 15l3-3"></path>
+                                <path d="M17 17l3-3"></path>
+                            </svg>
+                        </div>
+
+                        <div class="spec-label">
+                            Aleación
+                        </div>
+
+                        <div class="spec-value">
+                            Aluminio Ergal 7075
+                        </div>
+
+                    </article>
+
+
+                    <article class="spec-card">
+
+                        <div class="spec-icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"></path>
+                                <path d="M8 12l2.5 2.5L16 9"></path>
+                            </svg>
+                        </div>
+
+                        <div class="spec-label">
+                            Protección vela
+                        </div>
+
+                        <div class="spec-value">
+                            Recubrimiento TiO₂
+                        </div>
+
+                    </article>
+
+
+                    <article class="spec-card">
+
+                        <div class="spec-icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M12 3v18"></path>
+                                <path d="M3 12h18"></path>
+                                <path d="M5.5 5.5l13 13"></path>
+                                <path d="M18.5 5.5l-13 13"></path>
+                            </svg>
+                        </div>
+
+                        <div class="spec-label">
+                            Propiedad
+                        </div>
+
+                        <div class="spec-value">
+                            Alta Rigidez / Ligereza
+                        </div>
+
+                    </article>
+
                 </div>
-                <div class="spec-card">
-                    <div class="spec-icon">🛡️</div>
-                    <div class="spec-label">Protección Vela</div>
-                    <div class="spec-value">Recubrimiento TiO₂</div>
+
+            </section>
+
+
+            <!-- =====================================================
+                 ESTRUCTURA PRINCIPAL
+            ====================================================== -->
+
+            <section aria-labelledby="estructura-title">
+
+                <h2 id="estructura-title">
+                    Estructura Principal
+                </h2>
+
+                <p>
+                    Consta de un armazón interno compuesto por
+                    largueros, larguerillos, costillas (o sables),
+                    una quilla y barras transversales.
+                </p>
+
+            </section>
+
+
+            <!-- =====================================================
+                 ALAS DELTA
+            ====================================================== -->
+
+            <section aria-labelledby="alas-title">
+
+                <h2 id="alas-title">
+                    Alas Delta Tripuladas
+                </h2>
+
+                <div class="info-card">
+
+                    <ul>
+
+                        <li>
+                            <strong>Vela:</strong>
+                            Elaborada con poliéster impregnado con
+                            resina o composites laminados recubiertos
+                            (por ejemplo, con TiO<sub>2</sub>) para
+                            resistir la radiación UV.
+                        </li>
+
+                        <li>
+                            <strong>Armazón:</strong>
+                            Aleaciones de aluminio de alta resistencia
+                            (como Ergal 7075) y cables de acero o titanio.
+                        </li>
+
+                    </ul>
+
                 </div>
-                <div class="spec-card">
-                    <div class="spec-icon">⚖️</div>
-                    <div class="spec-label">Propiedad</div>
-                    <div class="spec-value">Alta Rigidez / Ligereza</div>
+
+            </section>
+
+
+            <!-- =====================================================
+                 DRONES
+            ====================================================== -->
+
+            <section aria-labelledby="drones-title">
+
+                <h2 id="drones-title">
+                    Drones y UAVs
+                </h2>
+
+                <div class="info-card">
+
+                    <ul>
+
+                        <li>
+                            <strong>Materiales Avanzados:</strong>
+                            Se utilizan materiales compuestos como
+                            fibra de carbono (destacada por su alta
+                            rigidez y ligereza), Kevlar y fibra de vidrio.
+                        </li>
+
+                        <li>
+                            <strong>Drones Económicos:</strong>
+                            Utilizan poliolefina expandida (EPO),
+                            un plástico altamente flexible, liviano
+                            y fácil de ensamblar.
+                        </li>
+
+                    </ul>
+
                 </div>
-            </div>
 
-            <h2>Estructura Principal</h2>
-            <p>
-                Consta de un armazón interno compuesto por largueros, larguerillos, costillas (o sables), una quilla y barras transversales.
-            </p>
+            </section>
 
-            <h2>Alas Delta Tripuladas</h2>
-            <div class="info-card">
-                <ul>
-                    <li><strong>Vela:</strong> Elaborada con poliéster impregnado con resina o composites laminados recubiertos (por ejemplo, con TiO<sub>2</sub>) para resistir la radiación UV.</li>
-                    <li><strong>Armazón:</strong> Aleaciones de aluminio de alta resistencia (como Ergal 7075) y cables de acero o titanio.</li>
-                </ul>
-            </div>
 
-            <h2>Drones y UAVs</h2>
-            <div class="info-card">
-                <ul>
-                    <li><strong>Materiales Avanzados:</strong> Se utilizan materiales compuestos como fibra de carbono (destacada por su alta rigidez y ligereza), Kevlar y fibra de vidrio.</li>
-                    <li><strong>Drones Económicos:</strong> Utilizan poliolefina expandida (EPO), un plástico altamente flexible, liviano y fácil de ensamblar.</li>
-                </ul>
-            </div>
+            <!-- =====================================================
+                 SISTEMAS INTEGRADOS
+            ====================================================== -->
 
-            <h2>Sistemas Integrados</h2>
-            <p>
-                En los modelos no tripulados se sustituye la cabina humana por un espacio interno libre destinado a tanques de combustible o baterías, módulos de control autónomo (aviónica, GPS), sensores, cámaras o cargas útiles específicas.
-            </p>
+            <section aria-labelledby="sistemas-title">
 
-            <!-- BOTONES DE NAVEGACIÓN ENTRE SUBPÁGINAS -->
-            <nav class="page-navigation">
-                <a href="2-index.html" class="nav-btn">← Volver a Investigación #2</a>
-                <a href="index.html" class="nav-btn home">🏠 Inicio</a>
-                <a href="sistemas-index.html" class="nav-btn">Siguiente: Sistemas de Comunicación →</a>
+                <h2 id="sistemas-title">
+                    Sistemas Integrados
+                </h2>
+
+                <p>
+                    En los modelos no tripulados se sustituye la
+                    cabina humana por un espacio interno libre
+                    destinado a tanques de combustible o baterías,
+                    módulos de control autónomo (aviónica, GPS),
+                    sensores, cámaras o cargas útiles específicas.
+                </p>
+
+            </section>
+
+
+            <!-- =====================================================
+                 NAVEGACIÓN ENTRE LAS 7 PÁGINAS
+                 
+                 6.º:
+                 - anterior = 3.º
+                 - siguiente = 7.º
+                 - inicio = 1.º
+            ====================================================== -->
+
+            <nav
+                class="page-navigation"
+                aria-label="Navegación entre investigaciones"
+            >
+
+                <a
+                    href="2-index.html"
+                    class="nav-btn"
+                    aria-label="Volver a materiles y electrónica de control"
+                >
+                    ← materiales y electrónica
+                </a>
+
+                <a
+                    href="index.html"
+                    class="nav-btn home"
+                    aria-label="Volver al inicio del proyecto"
+                >
+                    Inicio
+                </a>
+
+                <a
+                    href="sistemas-index.html"
+                    class="nav-btn"
+                    aria-label="Ir a transmisión de datos y sistemas integrados"
+                >
+                    transmisión y sistemas →
+                </a>
+
             </nav>
+
         </div>
     </main>
 
-    <!-- Pie de Página -->
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
     <footer>
-        <p style="margin: 0;"><strong>Instituto Politécnico Nacional</strong></p>
+
+        <p>
+            <strong>Instituto Politécnico Nacional</strong>
+        </p>
+
         <div class="footer-authors">
-            <strong>Autores:</strong> Hernández Sánchez Carlos Enrique | Cervantes García Lucero Nicole | Santivañez Urbina Margarito Joaquín
+            <strong>Autores:</strong>
+            Hernández Sánchez Carlos Enrique |
+            Cervantes García Lucero Nicole |
+            Santivañez Urbina Margarito Joaquín
         </div>
-        <div class="footer-date">23 de septiembre de 2026</div>
+
+        <div class="footer-date">
+            23 de septiembre de 2026
+        </div>
+
     </footer>
 
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
     <script>
-        const openGalleryBtn = document.getElementById('openGalleryBtn');
-        const closeGalleryBtn = document.getElementById('closeGalleryBtn');
-        const galleryPanel = document.getElementById('galleryPanel');
-        const overlay = document.getElementById('overlay');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
+        (() => {
+            "use strict";
 
-        function toggleGallery() {
-            galleryPanel.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
+            const openGalleryBtn =
+                document.getElementById("openGalleryBtn");
 
-        openGalleryBtn.addEventListener('click', toggleGallery);
-        closeGalleryBtn.addEventListener('click', toggleGallery);
-        overlay.addEventListener('click', toggleGallery);
+            const closeGalleryBtn =
+                document.getElementById("closeGalleryBtn");
 
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                if(img) {
-                    lightboxImg.src = img.src;
-                    lightbox.classList.add('active');
+            const galleryPanel =
+                document.getElementById("galleryPanel");
+
+            const overlay =
+                document.getElementById("overlay");
+
+            const lightbox =
+                document.getElementById("lightbox");
+
+            const lightboxImg =
+                document.getElementById("lightboxImg");
+
+            const lightboxClose =
+                document.getElementById("lightboxClose");
+
+            const galleryItems =
+                document.querySelectorAll(".gallery-item");
+
+            let lastFocusedElement = null;
+
+
+            /* =====================================================
+               GALERÍA
+            ====================================================== */
+
+            function openGallery() {
+                lastFocusedElement =
+                    document.activeElement;
+
+                galleryPanel.classList.add("active");
+                overlay.classList.add("active");
+
+                galleryPanel.setAttribute(
+                    "aria-hidden",
+                    "false"
+                );
+
+                openGalleryBtn.setAttribute(
+                    "aria-expanded",
+                    "true"
+                );
+
+                closeGalleryBtn.focus();
+            }
+
+
+            function closeGallery() {
+                galleryPanel.classList.remove("active");
+                overlay.classList.remove("active");
+
+                galleryPanel.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+                openGalleryBtn.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                if (lastFocusedElement) {
+                    lastFocusedElement.focus();
                 }
-            });
-        });
+            }
 
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
+
+            openGalleryBtn.addEventListener(
+                "click",
+                openGallery
+            );
+
+            closeGalleryBtn.addEventListener(
+                "click",
+                closeGallery
+            );
+
+            overlay.addEventListener(
+                "click",
+                closeGallery
+            );
+
+
+            /* =====================================================
+               LIGHTBOX
+            ====================================================== */
+
+            function openLightbox(item) {
+                const image =
+                    item.querySelector("img");
+
+                if (!image) return;
+
+                lightboxImg.src =
+                    item.dataset.image || image.src;
+
+                lightboxImg.alt =
+                    item.dataset.alt || image.alt;
+
+                lightbox.classList.add("active");
+
+                lightbox.setAttribute(
+                    "aria-hidden",
+                    "false"
+                );
+
+                document.body.style.overflow = "hidden";
+
+                lightboxClose.focus();
+            }
+
+
+            function closeLightbox() {
+                lightbox.classList.remove("active");
+
+                lightbox.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+                lightboxImg.src = "";
+                lightboxImg.alt = "";
+
+                document.body.style.overflow = "";
+            }
+
+
+            galleryItems.forEach(item => {
+
+                item.addEventListener(
+                    "click",
+                    () => openLightbox(item)
+                );
+
+            });
+
+
+            lightboxClose.addEventListener(
+                "click",
+                closeLightbox
+            );
+
+
+            lightbox.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target === lightbox
+                    ) {
+                        closeLightbox();
+                    }
+
+                }
+            );
+
+
+            /* =====================================================
+               TECLADO
+            ====================================================== */
+
+            document.addEventListener(
+                "keydown",
+                event => {
+
+                    if (event.key !== "Escape") {
+                        return;
+                    }
+
+                    if (
+                        lightbox.classList.contains("active")
+                    ) {
+                        closeLightbox();
+                        return;
+                    }
+
+                    if (
+                        galleryPanel.classList.contains("active")
+                    ) {
+                        closeGallery();
+                    }
+
+                }
+            );
+
+        })();
     </script>
+
 </body>
+
 </html>

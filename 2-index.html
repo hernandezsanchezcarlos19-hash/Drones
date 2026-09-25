@@ -6,7 +6,7 @@
     <title>Proyecto Dron TCN-01 - Investigación 2</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" href="logo.jpg">
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link rel="apple-touch-icon" href="logo.jpg">
 
     <!-- Metadatos para Redes Sociales (Open Graph) -->
@@ -25,14 +25,20 @@
             --primary-color: #00d2ff;
             --primary-hover: #0099ff;
             --bg-color: #0a0e17;
-            --card-bg: rgba(16, 23, 38, 0.96); /* Optimizado: más opaco para omitir blur */
+            --card-bg: rgba(16, 23, 38, 0.96);
             --text-color: #e2e8f0;
             --text-muted: #94a3b8;
             --border-color: rgba(0, 210, 255, 0.2);
+            --font-main: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'Roboto Mono', 'Fira Code', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-main);
             background-color: var(--bg-color);
             background-image: 
                 radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
@@ -46,18 +52,20 @@
             min-height: 100vh; overflow-x: hidden;
         }
 
-        /* TOP BAR (Optimizado para 60 FPS) */
+        /* TOP BAR */
         .top-bar {
             width: 100%; height: 70px;
-            background-color: rgba(10, 14, 23, 0.98); /* Sin backdrop-filter */
+            background-color: rgba(10, 14, 23, 0.98);
             border-bottom: 1px solid var(--border-color);
             padding: 0 25px;
             display: flex; align-items: center; justify-content: space-between;
             box-sizing: border-box; position: sticky; top: 0; z-index: 100;
+            overflow: hidden;
         }
 
         .brand-logo {
             display: flex; align-items: center; gap: 12px; text-decoration: none;
+            position: relative; z-index: 10;
         }
 
         .brand-logo img {
@@ -74,46 +82,54 @@
             background: transparent; border: 1px solid var(--border-color);
             border-radius: 6px; color: var(--primary-color); font-size: 1.5rem;
             padding: 4px 12px; cursor: pointer; transition: background-color 0.2s ease;
+            z-index: 10;
         }
 
         .menu-btn:hover {
             background-color: rgba(0, 210, 255, 0.15);
         }
 
-        /* FLOTA DE AVIONES (Aceleración por Hardware GPU) */
+        /* FLOTA DE AVIONES - 5 columnas × 3 filas */
         .airplanes-fleet {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px;
+            padding: 10px;
         }
 
-        .plane-row {
-            position: absolute; left: -180px; display: flex; gap: 25px;
+        .plane-column {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            animation: flyColumn linear infinite;
+            will-change: transform;
+        }
+
+        .plane-column span {
+            font-size: 0.9rem;
             color: var(--primary-color);
-            animation: flyRow linear infinite;
-            will-change: transform; /* Optimización GPU */
-            transform: translateZ(0); /* Forzado de capa 3D */
-            opacity: 0.6;
+            filter: drop-shadow(0 0 3px var(--primary-color));
+            opacity: 0.5;
         }
 
-        .plane-row span { font-size: 0.85rem; }
-
-        @keyframes flyRow { 
-            0% { transform: translateX(0); } 
-            100% { transform: translateX(calc(100vw + 380px)); } 
+        @keyframes flyColumn {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
         }
 
-        .row-1  { top: 5%;  animation-duration: 12s; animation-delay: 0s; }
-        .row-2  { top: 18%; animation-duration: 15s; animation-delay: 3s; }
-        .row-3  { top: 32%; animation-duration: 11s; animation-delay: 6s; }
-        .row-4  { top: 46%; animation-duration: 14s; animation-delay: 1.5s; }
-        .row-5  { top: 60%; animation-duration: 16s; animation-delay: 8s; }
-        .row-6  { top: 74%; animation-duration: 13s; animation-delay: 4s; }
-        .row-7  { top: 88%; animation-duration: 15s; animation-delay: 10s; }
+        .col-1 { animation-duration: 12s; animation-delay: 0s; }
+        .col-2 { animation-duration: 14s; animation-delay: 2s; }
+        .col-3 { animation-duration: 11s; animation-delay: 4s; }
+        .col-4 { animation-duration: 13s; animation-delay: 1s; }
+        .col-5 { animation-duration: 15s; animation-delay: 3s; }
 
-        /* GALERÍA LATERAL (Optimizado) */
+        /* GALERÍA LATERAL */
         .gallery-panel {
             position: fixed; top: 0; right: -380px; width: 340px; height: 100vh;
-            background-color: rgba(10, 14, 23, 0.98); /* Sin backdrop-filter */
+            background-color: rgba(10, 14, 23, 0.98);
             border-left: 1px solid var(--border-color); box-shadow: -10px 0 20px rgba(0, 0, 0, 0.8);
             z-index: 200; transition: transform 0.3s ease-out;
             will-change: transform;
@@ -129,14 +145,25 @@
 
         .gallery-header h3 { margin: 0; color: var(--primary-color); font-size: 1.1rem; }
 
-        .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+        .close-btn { 
+            background: none; border: none; 
+            color: var(--text-muted); font-size: 1.5rem; 
+            cursor: pointer; transition: color 0.2s;
+        }
         .close-btn:hover { color: #ffffff; }
 
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; overflow-y: auto; }
+        .gallery-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+            overflow-y: auto;
+            padding-right: 5px;
+        }
 
         .gallery-item {
             position: relative; border: 1px solid var(--border-color); border-radius: 8px;
-            overflow: hidden; cursor: pointer; aspect-ratio: 1; background-color: rgba(255, 255, 255, 0.02);
+            overflow: hidden; cursor: pointer; aspect-ratio: 1; 
+            background-color: rgba(255, 255, 255, 0.02);
             transition: border-color 0.2s;
         }
 
@@ -149,7 +176,10 @@
             padding: 4px 6px; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
-        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); z-index: 150; display: none; }
+        .overlay { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            background: rgba(0, 0, 0, 0.6); z-index: 150; display: none; 
+        }
         .overlay.active { display: block; }
 
         .lightbox {
@@ -158,7 +188,11 @@
             align-items: center; justify-content: center;
         }
         .lightbox.active { display: flex; }
-        .lightbox img { max-width: 90%; max-height: 85%; border-radius: 8px; border: 1px solid var(--primary-color); }
+        .lightbox img { 
+            max-width: 90%; max-height: 85%; 
+            border-radius: 8px; border: 1px solid var(--primary-color);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
+        }
 
         /* CONTENEDOR PRINCIPAL */
         .container {
@@ -213,7 +247,7 @@
             margin-bottom: 20px;
         }
 
-        /* QUICK SPECS (Optimizado) */
+        /* QUICK SPECS */
         .quick-specs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -234,11 +268,24 @@
             border-color: var(--primary-color);
         }
 
-        .spec-icon { font-size: 1.5rem; margin-bottom: 5px; }
+        .spec-icon { 
+            font-size: 1.5rem; 
+            margin-bottom: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spec-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary-color);
+        }
+
         .spec-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; }
         .spec-value { font-size: 1.05rem; font-weight: 700; color: var(--primary-color); }
 
-        /* FICHAS INTERACTIVAS (Optimizado) */
+        /* FICHAS INTERACTIVAS */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -331,6 +378,12 @@
             color: #ffffff;
         }
 
+        .nav-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
         footer {
             width: 100%; margin-top: auto;
             background-color: rgba(10, 14, 23, 0.98);
@@ -349,6 +402,10 @@
             .cards-grid { grid-template-columns: 1fr; }
             .page-navigation { flex-direction: column; align-items: stretch; }
             .nav-btn { justify-content: center; }
+            .airplanes-fleet {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(5, 1fr);
+            }
         }
     </style>
 </head>
@@ -363,53 +420,30 @@
             <span>TCN-01</span>
         </a>
 
-        <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes">&#9776;</button>
+        <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes" aria-label="Abrir galería">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+            </svg>
+        </button>
 
         <div class="airplanes-fleet">
-            <div class="plane-row row-1"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-2"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-3"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-4"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-5"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-6"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-7"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-column col-1">
+                <span>✈</span><span>✈</span><span>✈</span>
+            </div>
+            <div class="plane-column col-2">
+                <span>✈</span><span>✈</span><span>✈</span>
+            </div>
+            <div class="plane-column col-3">
+                <span>✈</span><span>✈</span><span>✈</span>
+            </div>
+            <div class="plane-column col-4">
+                <span>✈</span><span>✈</span><span>✈</span>
+            </div>
+            <div class="plane-column col-5">
+                <span>✈</span><span>✈</span><span>✈</span>
+            </div>
         </div>
     </header>
-
-    <!-- Panel Lateral: Galería -->
-    <aside class="gallery-panel" id="galleryPanel">
-        <div class="gallery-header">
-            <h3>🔍 Galería del Proyecto</h3>
-            <button class="close-btn" id="closeGalleryBtn">&times;</button>
-        </div>
-        <div class="gallery-grid" id="galleryGrid">
-            <div class="gallery-item">
-                <img src="logo.jpg" alt="Logo Principal TCN-01">
-                <div class="gallery-item-title">Logo TCN-01</div>
-            </div>
-            <div class="gallery-item">
-                <img src="ima1.jpg" alt="Estructura de Aeronave">
-                <div class="gallery-item-title">Estructura Aerodinámica</div>
-            </div>
-            <div class="gallery-item">
-                <img src="1.png" alt="Esquema Electrónico Prototipo">
-                <div class="gallery-item-title">Circuito Electrónico</div>
-            </div>
-            <div class="gallery-item">
-                <img src="2.png" alt="Ensamblado Hardware">
-                <div class="gallery-item-title">Ensamblado Hardware</div>
-            </div>
-            <div class="gallery-item">
-                <img src="3.png" alt="Pruebas de Componentes">
-                <div class="gallery-item-title">Pruebas de Sistema</div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Visor Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <img id="lightboxImg" src="" alt="Vista ampliada">
-    </div>
 
     <!-- Contenido Principal -->
     <main class="container">
@@ -421,34 +455,58 @@
             </p>
 
             <!-- ESPECIFICACIONES RÁPIDAS -->
-            <h2 class="section-title">⚡ Especificaciones Rápidas (Quick Specs)</h2>
+            <h2 class="section-title">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
+                    <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                </svg>
+                Especificaciones Rápidas (Quick Specs)
+            </h2>
             <div class="quick-specs-grid">
                 <div class="spec-card">
-                    <div class="spec-icon">🧠</div>
+                    <div class="spec-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
                     <div class="spec-label">Microcontrolador</div>
                     <div class="spec-value">Arduino Nano / Uno</div>
                 </div>
                 <div class="spec-card">
-                    <div class="spec-icon">📡</div>
+                    <div class="spec-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                    </div>
                     <div class="spec-label">Comunicación</div>
                     <div class="spec-value">nRF24L01 (2.4 GHz)</div>
                 </div>
                 <div class="spec-card">
-                    <div class="spec-icon">⚡</div>
+                    <div class="spec-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/>
+                        </svg>
+                    </div>
                     <div class="spec-label">Propulsión</div>
                     <div class="spec-value">Motor Brushless + ESC</div>
                 </div>
                 <div class="spec-card">
-                    <div class="spec-icon">✈️</div>
+                    <div class="spec-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2L2 22h20L12 2zm0 3.5L18.5 19H5.5L12 5.5z"/>
+                            <circle cx="12" cy="14" r="2"/>
+                        </svg>
+                    </div>
                     <div class="spec-label">Geometría</div>
                     <div class="spec-value">Ala Delta Autónoma</div>
                 </div>
             </div>
 
             <div class="image-gallery-inline">
-                <img src="1.png" alt="Circuito Electrónico Arduino y nRF24L01">
-                <img src="3.png" alt="Controlador ESC y Motor Brushless">
-                <img src="2.png" alt="Ensamble Físico de Componentes">
+                <img src="1.jpg" alt="Circuito Electrónico Arduino y nRF24L01" loading="lazy">
+                <img src="3.jpg" alt="Controlador ESC y Motor Brushless" loading="lazy">
+                <img src="2.jpg" alt="Ensamble Físico de Componentes" loading="lazy">
             </div>
 
             <p class="caption-text">
@@ -458,7 +516,7 @@
             <!-- FICHAS INTERACTIVAS (SUB-RAMAS DE INVESTIGACIÓN #2) -->
             <h2 class="section-title">Temas de Investigación de Materiales y Sistemas</h2>
             <div class="cards-grid">
-                <a href="sub-materiales.html" class="research-card">
+                <a href="materiales-index.html" class="research-card">
                     <div>
                         <div class="card-number">Sub-rama 2.1</div>
                         <div class="card-title">Materiales y Estructura</div>
@@ -467,7 +525,7 @@
                     <div class="card-footer-btn">Ver tema →</div>
                 </a>
 
-                <a href="sub-sistemas.html" class="research-card">
+                <a href="sistemas-index.html" class="research-card">
                     <div>
                         <div class="card-number">Sub-rama 2.2</div>
                         <div class="card-title">Transmisión de Datos y Comunicación</div>
@@ -478,12 +536,70 @@
             </div>
 
             <!-- BOTONES DE NAVEGACIÓN ENTRE SUBPÁGINAS -->
-            <nav class="page-navigation">
-                <a href="1-index.html" class="nav-btn">← Anterior: Estructura</a>
-                <a href="index.html" class="nav-btn home">🏠 Inicio</a>
+            <nav class="page-navigation" aria-label="Navegación entre investigaciones">
+                <a href="1-index.html" class="nav-btn" aria-label="Ir a Investigación 1 (Estructura)">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                    Anterior: Estructura
+                </a>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="index.html" class="nav-btn home" aria-label="Ir al inicio">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                        Inicio
+                    </a>
+                    <a href="sistemas-index.html" class="nav-btn" aria-label="Ir a Investigación 3">
+                        Investigación 3
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                        </svg>
+                    </a>
+                </div>
             </nav>
         </div>
     </main>
+
+    <!-- Panel Lateral: Galería (movido después del main para mejor semántica) -->
+    <aside class="gallery-panel" id="galleryPanel" role="complementary" aria-label="Galería de imágenes del proyecto">
+        <div class="gallery-header">
+            <h3>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+                Galería del Proyecto
+            </h3>
+            <button class="close-btn" id="closeGalleryBtn" aria-label="Cerrar galería">&times;</button>
+        </div>
+        <div class="gallery-grid" id="galleryGrid">
+            <button class="gallery-item" aria-label="Ver Logo Principal TCN-01" type="button">
+                <img src="logo.jpg" alt="Logo Principal TCN-01" loading="lazy">
+                <div class="gallery-item-title">Logo TCN-01</div>
+            </button>
+            <button class="gallery-item" aria-label="Ver Estructura Aerodinámica" type="button">
+                <img src="ima1.jpg" alt="Estructura de Aeronave" loading="lazy">
+                <div class="gallery-item-title">Estructura Aerodinámica</div>
+            </button>
+            <button class="gallery-item" aria-label="Ver Circuito Electrónico" type="button">
+                <img src="1.jpg" alt="Esquema Electrónico Prototipo" loading="lazy">
+                <div class="gallery-item-title">Circuito Electrónico</div>
+            </button>
+            <button class="gallery-item" aria-label="Ver Ensamblado Hardware" type="button">
+                <img src="2.jpg" alt="Ensamblado Hardware" loading="lazy">
+                <div class="gallery-item-title">Ensamblado Hardware</div>
+            </button>
+            <button class="gallery-item" aria-label="Ver Pruebas de Sistema" type="button">
+                <img src="3.jpg" alt="Pruebas de Componentes" loading="lazy">
+                <div class="gallery-item-title">Pruebas de Sistema</div>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Lightbox con atributos de accesibilidad -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
+        <img id="lightboxImg" src="" alt="Vista ampliada">
+    </div>
 
     <!-- Pie de Página -->
     <footer>
@@ -523,6 +639,16 @@
 
         lightbox.addEventListener('click', () => {
             lightbox.classList.remove('active');
+        });
+
+        // Cerrar lightbox con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+                if (galleryPanel.classList.contains('active')) {
+                    toggleGallery();
+                }
+            }
         });
     </script>
 </body>

@@ -6,7 +6,7 @@
     <title>Proyecto Dron TCN-01 - Superficies de Control</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/jpg" href="logo.jpg">
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link rel="apple-touch-icon" href="logo.jpg">
 
     <!-- Metadatos para Redes Sociales (Open Graph) -->
@@ -29,10 +29,16 @@
             --text-color: #e2e8f0;
             --text-muted: #94a3b8;
             --border-color: rgba(0, 210, 255, 0.2);
+            --font-main: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'Roboto Mono', 'Fira Code', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-main);
             background-color: var(--bg-color);
             background-image: 
                 radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
@@ -54,10 +60,12 @@
             padding: 0 25px;
             display: flex; align-items: center; justify-content: space-between;
             box-sizing: border-box; position: sticky; top: 0; z-index: 100;
+            overflow: hidden;
         }
 
         .brand-logo {
             display: flex; align-items: center; gap: 12px; text-decoration: none;
+            position: relative; z-index: 10;
         }
 
         .brand-logo img {
@@ -74,39 +82,48 @@
             background: transparent; border: 1px solid var(--border-color);
             border-radius: 6px; color: var(--primary-color); font-size: 1.5rem;
             padding: 4px 12px; cursor: pointer; transition: background-color 0.2s ease;
+            z-index: 10;
         }
 
         .menu-btn:hover { background-color: rgba(0, 210, 255, 0.15); }
 
-        /* FLOTA DE AVIONES (Optimizado) */
+        /* FLOTA DE AVIONES - 5 columnas × 3 filas */
         .airplanes-fleet {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px;
+            padding: 10px;
         }
 
-        .plane-row {
-            position: absolute; left: -180px; display: flex; gap: 25px;
-            color: var(--primary-color);
-            animation: flyRow linear infinite;
+        .plane-column {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            animation: flyColumn linear infinite;
             will-change: transform;
             transform: translateZ(0);
-            opacity: 0.6;
         }
 
-        .plane-row span { font-size: 0.85rem; }
-
-        @keyframes flyRow { 
-            0% { transform: translateX(0); } 
-            100% { transform: translateX(calc(100vw + 380px)); } 
+        .plane-column span {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            filter: drop-shadow(0 0 3px var(--primary-color));
+            opacity: 0.5;
         }
 
-        .row-1  { top: 5%;  animation-duration: 12s; animation-delay: 0s; }
-        .row-2  { top: 18%; animation-duration: 15s; animation-delay: 3s; }
-        .row-3  { top: 32%; animation-duration: 11s; animation-delay: 6s; }
-        .row-4  { top: 46%; animation-duration: 14s; animation-delay: 1.5s; }
-        .row-5  { top: 60%; animation-duration: 16s; animation-delay: 8s; }
-        .row-6  { top: 74%; animation-duration: 13s; animation-delay: 4s; }
-        .row-7  { top: 88%; animation-duration: 15s; animation-delay: 10s; }
+        @keyframes flyColumn {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        .col-1 { animation-duration: 12s; animation-delay: 0s; }
+        .col-2 { animation-duration: 14s; animation-delay: 2s; }
+        .col-3 { animation-duration: 11s; animation-delay: 4s; }
+        .col-4 { animation-duration: 13s; animation-delay: 1s; }
+        .col-5 { animation-duration: 15s; animation-delay: 3s; }
 
         /* GALERÍA LATERAL */
         .gallery-panel {
@@ -126,14 +143,25 @@
         }
 
         .gallery-header h3 { margin: 0; color: var(--primary-color); font-size: 1.1rem; }
-        .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+        .close-btn { 
+            background: none; border: none; 
+            color: var(--text-muted); font-size: 1.5rem; 
+            cursor: pointer; transition: color 0.2s;
+        }
         .close-btn:hover { color: #ffffff; }
 
-        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; overflow-y: auto; }
+        .gallery-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+            overflow-y: auto;
+            padding-right: 5px;
+        }
 
         .gallery-item {
             position: relative; border: 1px solid var(--border-color); border-radius: 8px;
-            overflow: hidden; cursor: pointer; aspect-ratio: 1; background-color: rgba(255, 255, 255, 0.02);
+            overflow: hidden; cursor: pointer; aspect-ratio: 1; 
+            background-color: rgba(255, 255, 255, 0.02);
             transition: border-color 0.2s;
         }
 
@@ -146,7 +174,10 @@
             padding: 4px 6px; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
-        .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); z-index: 150; display: none; }
+        .overlay { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            background: rgba(0, 0, 0, 0.6); z-index: 150; display: none; 
+        }
         .overlay.active { display: block; }
 
         .lightbox {
@@ -155,7 +186,11 @@
             align-items: center; justify-content: center;
         }
         .lightbox.active { display: flex; }
-        .lightbox img { max-width: 90%; max-height: 85%; border-radius: 8px; border: 1px solid var(--primary-color); }
+        .lightbox img { 
+            max-width: 90%; max-height: 85%; 
+            border-radius: 8px; border: 1px solid var(--primary-color);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
+        }
 
         /* CONTENEDOR PRINCIPAL */
         .container {
@@ -205,33 +240,80 @@
         }
 
         .spec-card:hover { border-color: var(--primary-color); }
-        .spec-icon { font-size: 1.5rem; margin-bottom: 5px; }
+        
+        .spec-icon { 
+            font-size: 1.5rem; 
+            margin-bottom: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spec-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary-color);
+        }
+
         .spec-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; }
         .spec-value { font-size: 1.05rem; font-weight: 700; color: var(--primary-color); }
 
         /* NAVEGACIÓN */
         .page-navigation {
-            display: flex; justify-content: space-between; align-items: center;
-            gap: 15px; margin-top: 35px; padding-top: 20px;
-            border-top: 1px solid var(--border-color); flex-wrap: wrap;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            gap: 15px; 
+            margin-top: 35px; 
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color); 
+            flex-wrap: wrap;
         }
 
         .nav-btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 10px 18px; background: rgba(0, 210, 255, 0.08);
-            border: 1px solid var(--border-color); border-radius: 6px;
-            color: var(--primary-color); text-decoration: none;
-            font-weight: 700; font-size: 0.9rem; transition: background-color 0.2s ease;
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            padding: 10px 18px; 
+            background: rgba(0, 210, 255, 0.08);
+            border: 1px solid var(--border-color); 
+            border-radius: 6px;
+            color: var(--primary-color); 
+            text-decoration: none;
+            font-weight: 700; 
+            font-size: 0.9rem; 
+            transition: background-color 0.2s ease;
         }
 
-        .nav-btn:hover { background-color: var(--primary-color); color: #0a0e17; }
-        .nav-btn.home { background: transparent; border-color: rgba(255, 255, 255, 0.2); color: var(--text-color); }
-        .nav-btn.home:hover { background: rgba(255, 255, 255, 0.15); color: #ffffff; }
+        .nav-btn:hover { 
+            background-color: var(--primary-color); 
+            color: #0a0e17;
+        }
+
+        .nav-btn.home { 
+            background: transparent; 
+            border-color: rgba(255, 255, 255, 0.2); 
+            color: var(--text-color); 
+        }
+
+        .nav-btn.home:hover { 
+            background: rgba(255, 255, 255, 0.15); 
+            color: #ffffff; 
+        }
+
+        .nav-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
 
         footer {
-            width: 100%; margin-top: auto; background-color: rgba(10, 14, 23, 0.98);
-            border-top: 1px solid var(--border-color); padding: 25px 20px;
-            text-align: center; font-size: 0.9rem; color: var(--text-muted); box-sizing: border-box;
+            width: 100%; margin-top: auto; 
+            background-color: rgba(10, 14, 23, 0.98);
+            border-top: 1px solid var(--border-color); 
+            padding: 25px 20px;
+            text-align: center; font-size: 0.9rem; 
+            color: var(--text-muted); box-sizing: border-box;
         }
 
         footer strong { color: #ffffff; }
@@ -243,6 +325,10 @@
             .gallery-panel { width: 100%; right: -100%; }
             .page-navigation { flex-direction: column; align-items: stretch; }
             .nav-btn { justify-content: center; }
+            .airplanes-fleet {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(5, 1fr);
+            }
         }
     </style>
 </head>
@@ -257,53 +343,30 @@
             <span>TCN-01</span>
         </a>
 
-        <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes">&#9776;</button>
+        <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes" aria-label="Abrir galería">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+            </svg>
+        </button>
 
         <div class="airplanes-fleet">
-            <div class="plane-row row-1"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-2"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-3"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-4"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-5"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-6"><span>✈</span><span>✈</span><span>✈</span></div>
-            <div class="plane-row row-7"><span>✈</span><span>✈</span><span>✈</span></div>
+            <div class="plane-column col-1">
+                <span>✈</span><span>✈</span><span>✈</span>
+            </div>
+            <div class="plane-column col-2">
+                <span>✈</span><span>✈</span><span>✈</span>
+            </div>
+            <div class="plane-column col-3">
+                <span>✈</span><span>✈</span><span>✈</span>
+            </div>
+            <div class="plane-column col-4">
+                <span>✈</span><span>✈</span><span>✈</span>
+            </div>
+            <div class="plane-column col-5">
+                <span>✈</span><span>✈</span><span>✈</span>
+            </div>
         </div>
     </header>
-
-    <!-- Panel Lateral: Galería -->
-    <aside class="gallery-panel" id="galleryPanel">
-        <div class="gallery-header">
-            <h3>🔍 Galería del Proyecto</h3>
-            <button class="close-btn" id="closeGalleryBtn">&times;</button>
-        </div>
-        <div class="gallery-grid" id="galleryGrid">
-            <div class="gallery-item">
-                <img src="logo.jpg" alt="Logo Principal TCN-01">
-                <div class="gallery-item-title">Logo TCN-01</div>
-            </div>
-            <div class="gallery-item">
-                <img src="ima1.jpg" alt="Estructura de Aeronave">
-                <div class="gallery-item-title">Estructura Aerodinámica</div>
-            </div>
-            <div class="gallery-item">
-                <img src="1.png" alt="Esquema Electrónico Prototipo">
-                <div class="gallery-item-title">Circuito Electrónico</div>
-            </div>
-            <div class="gallery-item">
-                <img src="2.png" alt="Ensamblado Hardware">
-                <div class="gallery-item-title">Ensamblado Hardware</div>
-            </div>
-            <div class="gallery-item">
-                <img src="3.png" alt="Pruebas de Componentes">
-                <div class="gallery-item-title">Pruebas de Sistema</div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Visor Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <img id="lightboxImg" src="" alt="Vista ampliada">
-    </div>
 
     <!-- Contenido Principal -->
     <main class="container">
@@ -311,29 +374,51 @@
             <h1>Superficies de Control (Elevons)</h1>
             
             <p>
-                En configuraciones de ala delta, el control aerodinámico se realiza mediante elevones, los cuales combinan las funciones de alerones y timones de profundidad en un par de superficies móviles.
+                En configuraciones de ala delta, el control aerodinámico se realiza mediante elevons, los cuales combinan las funciones de alerones y timones de profundidad en un par de superficies móviles.
             </p>
 
             <!-- ESPECIFICACIONES RÁPIDAS -->
-            <h2 class="section-title">⚡ Especificaciones Rápidas (Quick Specs)</h2>
+            <h2 class="section-title">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
+                    <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                </svg>
+                Especificaciones Rápidas (Quick Specs)
+            </h2>
             <div class="quick-specs-grid">
                 <div class="spec-card">
-                    <div class="spec-icon">🕹️</div>
+                    <div class="spec-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/>
+                        </svg>
+                    </div>
                     <div class="spec-label">Superficie</div>
                     <div class="spec-value">Elevons Combinados</div>
                 </div>
                 <div class="spec-card">
-                    <div class="spec-icon">⚙️</div>
+                    <div class="spec-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                        </svg>
+                    </div>
                     <div class="spec-label">Actuadores</div>
                     <div class="spec-value">Servomotores SG90 / MG90S</div>
                 </div>
                 <div class="spec-card">
-                    <div class="spec-icon">🔄</div>
+                    <div class="spec-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+                        </svg>
+                    </div>
                     <div class="spec-label">Modos</div>
                     <div class="spec-value">Alabeo / Cabeceo</div>
                 </div>
                 <div class="spec-card">
-                    <div class="spec-icon">📐</div>
+                    <div class="spec-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                    </div>
                     <div class="spec-label">Mezcla PWM</div>
                     <div class="spec-value">Matriz Elevon en C++</div>
                 </div>
@@ -353,13 +438,68 @@
             </p>
 
             <!-- BOTONES DE NAVEGACIÓN ENTRE SUBPÁGINAS -->
-            <nav class="page-navigation">
-                <a href="1-index.html" class="nav-btn">← Volver a Investigación #1</a>
-                <a href="index.html" class="nav-btn home">🏠 Inicio</a>
-                <a href="2-sub-index.html" class="nav-btn">Siguiente: Tren de Aterrizaje →</a>
+            <nav class="page-navigation" aria-label="Navegación entre subpáginas">
+                <a href="1-index.html" class="nav-btn" aria-label="Volver a Investigación 1">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                    Volver a Investigación #1
+                </a>
+                <a href="index.html" class="nav-btn home" aria-label="Ir al inicio">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    Inicio
+                </a>
+                <a href="2-sub-index.html" class="nav-btn" aria-label="Ir a Tren de Aterrizaje">
+                    Siguiente: Tren de Aterrizaje
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
             </nav>
         </div>
     </main>
+
+    <!-- Panel Lateral: Galería (movido después del main para mejor semántica) -->
+    <aside class="gallery-panel" id="galleryPanel" role="complementary" aria-label="Galería de imágenes del proyecto">
+        <div class="gallery-header">
+            <h3>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+                Galería del Proyecto
+            </h3>
+            <button class="close-btn" id="closeGalleryBtn" aria-label="Cerrar galería">&times;</button>
+        </div>
+        <div class="gallery-grid" id="galleryGrid">
+            <button class="gallery-item" aria-label="Ver Logo Principal TCN-01" type="button">
+                <img src="logo.jpg" alt="Logo Principal TCN-01" loading="lazy">
+                <div class="gallery-item-title">Logo TCN-01</div>
+            </button>
+            <button class="gallery-item" aria-label="Ver Estructura Aerodinámica" type="button">
+                <img src="ima1.jpg" alt="Estructura de Aeronave" loading="lazy">
+                <div class="gallery-item-title">Estructura Aerodinámica</div>
+            </button>
+            <button class="gallery-item" aria-label="Ver Circuito Electrónico" type="button">
+                <img src="1.jpg" alt="Esquema Electrónico Prototipo" loading="lazy">
+                <div class="gallery-item-title">Circuito Electrónico</div>
+            </button>
+            <button class="gallery-item" aria-label="Ver Ensamblado Hardware" type="button">
+                <img src="2.jpg" alt="Ensamblado Hardware" loading="lazy">
+                <div class="gallery-item-title">Ensamblado Hardware</div>
+            </button>
+            <button class="gallery-item" aria-label="Ver Pruebas de Sistema" type="button">
+                <img src="3.jpg" alt="Pruebas de Componentes" loading="lazy">
+                <div class="gallery-item-title">Pruebas de Sistema</div>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Lightbox con atributos de accesibilidad -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
+        <img id="lightboxImg" src="" alt="Vista ampliada">
+    </div>
 
     <!-- Pie de Página -->
     <footer>
@@ -399,6 +539,16 @@
 
         lightbox.addEventListener('click', () => {
             lightbox.classList.remove('active');
+        });
+
+        // Cerrar lightbox con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+                if (galleryPanel.classList.contains('active')) {
+                    toggleGallery();
+                }
+            }
         });
     </script>
 </body>
