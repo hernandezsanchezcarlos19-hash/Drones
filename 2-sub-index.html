@@ -6,7 +6,8 @@
     <title>Proyecto Dron TCN-01 - Tren de Aterrizaje</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="icon" type="image/jpg" href="logo.jpg">
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.jpg">
 
     <!-- Metadatos para Redes Sociales (Open Graph) -->
@@ -61,6 +62,12 @@
             display: flex; align-items: center; justify-content: space-between;
             box-sizing: border-box; position: sticky; top: 0; z-index: 100;
             overflow: hidden;
+
+            /* Decoración de aviones con CSS (sin span en el DOM) */
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ctext x='50%25' y='50%25' font-size='20' text-anchor='middle' dominant-baseline='central' fill='rgba(0,210,255,0.15)'%3E✈%3C/text%3E%3C/svg%3E");
+            background-size: 100% 100%, 60px 60px;
         }
 
         .brand-logo { 
@@ -96,44 +103,6 @@
             z-index: 10;
         }
         .menu-btn:hover { background-color: rgba(0, 210, 255, 0.15); }
-
-        /* FLOTA DE AVIONES - 5 columnas × 3 filas */
-        .airplanes-fleet {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1;
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 8px;
-            padding: 10px;
-        }
-
-        .plane-column {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            animation: flyColumn linear infinite;
-            will-change: transform;
-            transform: translateZ(0);
-        }
-
-        .plane-column span {
-            font-size: 0.9rem;
-            color: var(--primary-color);
-            filter: drop-shadow(0 0 3px var(--primary-color));
-            opacity: 0.5;
-        }
-
-        @keyframes flyColumn {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(calc(100vw + 100px)); }
-        }
-
-        .col-1 { animation-duration: 12s; animation-delay: 0s; }
-        .col-2 { animation-duration: 14s; animation-delay: 2s; }
-        .col-3 { animation-duration: 11s; animation-delay: 4s; }
-        .col-4 { animation-duration: 13s; animation-delay: 1s; }
-        .col-5 { animation-duration: 15s; animation-delay: 3s; }
 
         /* GALERÍA LATERAL */
         .gallery-panel {
@@ -335,10 +304,6 @@
             .gallery-panel { width: 100%; right: -100%; }
             .page-navigation { flex-direction: column; align-items: stretch; }
             .nav-btn { justify-content: center; }
-            .airplanes-fleet {
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(5, 1fr);
-            }
         }
     </style>
 </head>
@@ -359,23 +324,7 @@
             </svg>
         </button>
 
-        <div class="airplanes-fleet">
-            <div class="plane-column col-1">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-2">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-3">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-4">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-5">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-        </div>
+        <!-- Aquí iba la flota de avioncitos ✈ en el DOM → ahora solo decoración CSS en .top-bar -->
     </header>
 
     <!-- Contenido Principal -->
@@ -385,6 +334,11 @@
             
             <p>
                 El diseño del tren de aterrizaje es fundamental para asegurar el aterrizaje seguro del prototipo, amortiguando impactos sin comprometer el coeficiente aerodinámico.
+            </p>
+
+            <p>
+                <strong>Tren de aterrizaje:</strong> conjunto de ruedas, patines o estructuras que permiten que el dron aterrice sin dañarse. 
+                <strong>Coeficiente aerodinámico:</strong> número que indica qué tanto se opone el aire al movimiento del dron (mientras menor, mejor).
             </p>
 
             <!-- ESPECIFICACIONES RÁPIDAS -->
@@ -440,14 +394,24 @@
             <h2>Criterios de Diseño</h2>
             <div class="info-card">
                 <ul>
-                    <li><strong>Geometría Triciclo:</strong> Ofrece estabilidad direccional durante la carrera de despegue y aterrizaje.</li>
-                    <li><strong>Patines de Aterrizaje:</strong> Alternativa ultraligera para aterrizajes en pistas no preparadas o hierba.</li>
+                    <li><strong>Geometría Triciclo:</strong> Ofrece estabilidad direccional durante la carrera de despegue y aterrizaje. 
+                        <!-- Configuración triciclo: tiene dos ruedas adelante y una atrás (o viceversa), como los aviones pequeños. -->
+                    </li>
+                    <li><strong>Patines de Aterrizaje:</strong> Alternativa ultraligera para aterrizajes en pistas no preparadas o hierba.
+                        <!-- Patines: barras lisas que deslizan sobre el suelo en lugar de ruedas, útiles en terrenos irregulares. -->
+                    </li>
                 </ul>
             </div>
 
             <h2>Absorción de Energía</h2>
             <p>
                 Se evalúan materiales elásticos que disipan la energía cinética en el momento del contacto con el suelo para evitar transmitir cargas destructivas al armazón de fibra o madera.
+            </p>
+
+            <p>
+                <strong>Polímeros flexibles:</strong> plásticos especiales que se deforman y regresan a su forma original, absorbiendo el golpe. 
+                <strong>Energía cinética:</strong> energía que tiene el dron por estar en movimiento (mientras más rápido, más energía). 
+                <strong>Quilla:</strong> parte central y más fuerte del fuselaje, donde se suele montar el tren de aterrizaje.
             </p>
 
             <!-- BOTONES DE NAVEGACIÓN ENTRE SUBPÁGINAS -->
@@ -474,7 +438,7 @@
         </div>
     </main>
 
-    <!-- Panel Lateral: Galería (movido después del main para mejor semántica) -->
+    <!-- Panel Lateral: Galería -->
     <aside class="gallery-panel" id="galleryPanel" role="complementary" aria-label="Galería de imágenes del proyecto">
         <div class="gallery-header">
             <h3>

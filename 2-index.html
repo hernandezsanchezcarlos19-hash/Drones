@@ -7,6 +7,7 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.jpg">
 
     <!-- Metadatos para Redes Sociales (Open Graph) -->
@@ -61,6 +62,12 @@
             display: flex; align-items: center; justify-content: space-between;
             box-sizing: border-box; position: sticky; top: 0; z-index: 100;
             overflow: hidden;
+
+            /* Decoración de aviones con CSS (sin span en el DOM) */
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ctext x='50%25' y='50%25' font-size='20' text-anchor='middle' dominant-baseline='central' fill='rgba(0,210,255,0.15)'%3E✈%3C/text%3E%3C/svg%3E");
+            background-size: 100% 100%, 60px 60px;
         }
 
         .brand-logo {
@@ -88,43 +95,6 @@
         .menu-btn:hover {
             background-color: rgba(0, 210, 255, 0.15);
         }
-
-        /* FLOTA DE AVIONES - 5 columnas × 3 filas */
-        .airplanes-fleet {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1;
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 8px;
-            padding: 10px;
-        }
-
-        .plane-column {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            animation: flyColumn linear infinite;
-            will-change: transform;
-        }
-
-        .plane-column span {
-            font-size: 0.9rem;
-            color: var(--primary-color);
-            filter: drop-shadow(0 0 3px var(--primary-color));
-            opacity: 0.5;
-        }
-
-        @keyframes flyColumn {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(calc(100vw + 100px)); }
-        }
-
-        .col-1 { animation-duration: 12s; animation-delay: 0s; }
-        .col-2 { animation-duration: 14s; animation-delay: 2s; }
-        .col-3 { animation-duration: 11s; animation-delay: 4s; }
-        .col-4 { animation-duration: 13s; animation-delay: 1s; }
-        .col-5 { animation-duration: 15s; animation-delay: 3s; }
 
         /* GALERÍA LATERAL */
         .gallery-panel {
@@ -402,10 +372,6 @@
             .cards-grid { grid-template-columns: 1fr; }
             .page-navigation { flex-direction: column; align-items: stretch; }
             .nav-btn { justify-content: center; }
-            .airplanes-fleet {
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(5, 1fr);
-            }
         }
     </style>
 </head>
@@ -426,23 +392,7 @@
             </svg>
         </button>
 
-        <div class="airplanes-fleet">
-            <div class="plane-column col-1">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-2">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-3">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-4">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-5">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-        </div>
+        <!-- Aquí iba la flota de avioncitos ✈ en el DOM → ahora solo decoración CSS en .top-bar -->
     </header>
 
     <!-- Contenido Principal -->
@@ -452,6 +402,12 @@
             
             <p>
                 Esta sección se centra en la selección de materiales ligeros y resistentes, esquemas de circuitos, especificaciones de la batería, controladores de velocidad (ESC) y la integración del sistema de transmisión y control de vuelo.
+            </p>
+
+            <p>
+                <strong>Microcontrolador:</strong> es el “cerebro” del dron (como Arduino), una pequeña computadora que ejecuta el programa que controla motores, sensores y comunicación. 
+                <strong>ESC (Electronic Speed Controller):</strong> es un circuito que regula la velocidad y dirección del motor brushless. 
+                <strong>Motor brushless:</strong> motor sin escobillas, más eficiente y duradero que los motores convencionales.
             </p>
 
             <!-- ESPECIFICACIONES RÁPIDAS -->
@@ -521,6 +477,7 @@
                         <div class="card-number">Sub-rama 2.1</div>
                         <div class="card-title">Materiales y Estructura</div>
                         <div class="card-description">Componentes principales, materiales avanzados (fibra de carbono, Kevlar, EPO) y aleaciones.</div>
+                        <!-- Fibra de carbono: material muy ligero y resistente, hecho de fibras de carbono. Kevlar: material sintético muy resistente a impactos (usado en chalecos antibalas). EPO: espuma de poliestireno expandido, ligera y fácil de moldear para estructuras de drones. Aleaciones: mezclas de metales para mejorar resistencia y peso. -->
                     </div>
                     <div class="card-footer-btn">Ver tema →</div>
                 </a>
@@ -530,6 +487,7 @@
                         <div class="card-number">Sub-rama 2.2</div>
                         <div class="card-title">Transmisión de Datos y Comunicación</div>
                         <div class="card-description">Telemetría, RF, enlaces UHF, redes celulares (LTE/5G) y comunicación satelital.</div>
+                        <!-- Telemetría: envío de datos de vuelo (altura, velocidad, batería, etc.) del dron al control. RF (Radio Frecuencia): comunicación inalámbrica por ondas de radio. UHF: frecuencias de radio entre 300 MHz y 3 GHz. LTE/5G: tecnologías de redes celulares para transmisión de datos a larga distancia. -->
                     </div>
                     <div class="card-footer-btn">Ver tema →</div>
                 </a>
@@ -561,7 +519,7 @@
         </div>
     </main>
 
-    <!-- Panel Lateral: Galería (movido después del main para mejor semántica) -->
+    <!-- Panel Lateral: Galería -->
     <aside class="gallery-panel" id="galleryPanel" role="complementary" aria-label="Galería de imágenes del proyecto">
         <div class="gallery-header">
             <h3>

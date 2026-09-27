@@ -6,7 +6,8 @@
     <title>Proyecto Dron TCN-01 - Investigación 1</title>
     
     <!-- Favicon y Meta Tags -->
-    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="icon" type="image/jpg" href="logo.jpg">
+    <link rel="icon" type="image/png" href="logo.png">
     <meta name="description" content="Estructura y aerodinámica del Dron TCN-01 - Instituto Politécnico Nacional">
     <meta property="og:title" content="Investigación 1: Estructura - Dron TCN-01">
 
@@ -52,6 +53,12 @@
             display: flex; align-items: center; justify-content: space-between;
             box-sizing: border-box; position: sticky; top: 0; z-index: 100;
             overflow: hidden;
+
+            /* Decoración de aviones con CSS (sin span en el DOM) */
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ctext x='50%25' y='50%25' font-size='20' text-anchor='middle' dominant-baseline='central' fill='rgba(0,210,255,0.15)'%3E✈%3C/text%3E%3C/svg%3E");
+            background-size: 100% 100%, 60px 60px;
         }
 
         .brand-logo {
@@ -80,42 +87,6 @@
             background-color: rgba(0, 210, 255, 0.15);
             box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
         }
-
-        /* FLOTA DE AVIONES - 5 columnas × 3 filas */
-        .airplanes-fleet {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1;
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 8px;
-            padding: 10px;
-        }
-
-        .plane-column {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            animation: flyColumn linear infinite;
-        }
-
-        .plane-column span {
-            font-size: 0.9rem;
-            color: var(--primary-color);
-            filter: drop-shadow(0 0 3px var(--primary-color));
-            opacity: 0.5;
-        }
-
-        @keyframes flyColumn {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(calc(100vw + 100px)); }
-        }
-
-        .col-1 { animation-duration: 12s; animation-delay: 0s; }
-        .col-2 { animation-duration: 14s; animation-delay: 2s; }
-        .col-3 { animation-duration: 11s; animation-delay: 4s; }
-        .col-4 { animation-duration: 13s; animation-delay: 1s; }
-        .col-5 { animation-duration: 15s; animation-delay: 3s; }
 
         /* GALERÍA LATERAL */
         .gallery-panel {
@@ -344,10 +315,6 @@
             .cards-grid { grid-template-columns: 1fr; }
             .page-navigation { flex-direction: column; align-items: stretch; }
             .nav-btn { justify-content: center; }
-            .airplanes-fleet {
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(5, 1fr);
-            }
         }
     </style>
 </head>
@@ -368,23 +335,7 @@
             </svg>
         </button>
 
-        <div class="airplanes-fleet">
-            <div class="plane-column col-1">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-2">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-3">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-4">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-5">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-        </div>
+        <!-- Aquí iba la flota de avioncitos ✈ en el DOM → ahora solo decoración CSS en .top-bar -->
     </header>
 
     <!-- Contenido Principal -->
@@ -394,6 +345,10 @@
             
             <p>
                 Esta sección aborda detalladamente los fundamentos del diseño estructural, la aerodinámica del prototipo TCN-01 y la distribución geométrica requerida para garantizar estabilidad y balance de carga durante las pruebas de vuelo.
+            </p>
+
+            <p>
+                <strong>Aerodinámica:</strong> es la rama de la física que estudia cómo se mueve el aire alrededor de los objetos (como las alas de un dron) y cómo eso afecta su capacidad para volar de manera estable y eficiente.
             </p>
             
             <div class="img-container">
@@ -408,6 +363,7 @@
                         <div class="card-number">Sub-rama 1.1</div>
                         <div class="card-title">Superficies de Control (Elevons)</div>
                         <div class="card-description">Definición, modos de operación, mecánica de vuelo y algoritmos de compensación en alas delta.</div>
+                        <!-- Elevons: superficies de control que combinan las funciones de alerones y elevadores, usados en alas delta. Alas delta: alas con forma triangular, comunes en aviones de alta velocidad. -->
                     </div>
                     <div class="card-footer-btn">Ver tema →</div>
                 </a>
@@ -417,6 +373,7 @@
                         <div class="card-number">Sub-rama 1.2</div>
                         <div class="card-title">Sistemas de Tren de Aterrizaje</div>
                         <div class="card-description">Configuraciones geométricas, absorción de impactos y equilibrio entre peso y arrastre aerodinámico.</div>
+                        <!-- Tren de aterrizaje: conjunto de ruedas, patines o estructuras que permiten que el dron aterrice sin dañarse. Arrastre aerodinámico: fuerza que se opone al movimiento del dron a través del aire. -->
                     </div>
                     <div class="card-footer-btn">Ver tema →</div>
                 </a>
@@ -442,7 +399,7 @@
         </div>
     </main>
 
-    <!-- Panel Lateral: Galería (movido después del main para mejor semántica) -->
+    <!-- Panel Lateral: Galería -->
     <aside class="gallery-panel" id="galleryPanel" role="complementary" aria-label="Galería de imágenes del proyecto">
         <div class="gallery-header">
             <h3>

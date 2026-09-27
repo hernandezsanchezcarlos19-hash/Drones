@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,6 +13,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.jpg">
 
     <!-- Open Graph -->
@@ -145,6 +145,29 @@
             -webkit-backdrop-filter: blur(14px);
 
             overflow: hidden;
+
+            /* Decoración de aviones con CSS (sin span en el DOM) */
+            background-image: 
+                radial-gradient(
+                    circle at 50% 10%,
+                    rgba(0, 210, 255, 0.10),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    rgba(0, 210, 255, 0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(0, 210, 255, 0.025) 1px,
+                    transparent 1px
+                ),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ctext x='50%25' y='50%25' font-size='20' text-anchor='middle' dominant-baseline='central' fill='rgba(0,210,255,0.12)'%3E✈%3C/text%3E%3C/svg%3E");
+            background-size:
+                100% 100%,
+                42px 42px,
+                42px 42px,
+                60px 60px;
         }
 
         .brand-logo {
@@ -209,112 +232,6 @@
         .menu-btn svg {
             width: 21px;
             height: 21px;
-        }
-
-        /* =========================================================
-           FLOTA DE 30 AVIONES
-           
-           5 columnas x 3 aviones.
-           Cada avión genera un segundo avión mediante ::after,
-           manteniendo 30 elementos visuales sin saturar el DOM.
-        ========================================================= */
-
-        .airplanes-fleet {
-            position: absolute;
-            inset: 0;
-
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-
-            gap: 4px;
-
-            pointer-events: none;
-            opacity: 0.42;
-
-            overflow: hidden;
-        }
-
-        .plane-column {
-            position: relative;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-
-            min-width: 0;
-        }
-
-        .plane {
-            position: relative;
-
-            display: block;
-            width: 14px;
-            height: 14px;
-
-            color: var(--primary);
-
-            transform: rotate(-12deg);
-
-            animation:
-                planePulse 3.5s ease-in-out infinite;
-        }
-
-        .plane::before {
-            content: "✈";
-
-            position: absolute;
-            inset: 0;
-
-            font-size: 12px;
-            line-height: 14px;
-            text-align: center;
-        }
-
-        .plane::after {
-            content: "✈";
-
-            position: absolute;
-            left: 52px;
-            top: 0;
-
-            font-size: 12px;
-            line-height: 14px;
-            text-align: center;
-
-            opacity: 0.7;
-
-            animation:
-                planeMove 6s linear infinite;
-        }
-
-        .plane:nth-child(2)::after {
-            animation-delay: -2s;
-        }
-
-        .plane:nth-child(3)::after {
-            animation-delay: -4s;
-        }
-
-        @keyframes planePulse {
-            0%,
-            100% {
-                opacity: 0.25;
-            }
-
-            50% {
-                opacity: 0.75;
-            }
-        }
-
-        @keyframes planeMove {
-            0% {
-                transform: translateX(-18px);
-            }
-
-            100% {
-                transform: translateX(24px);
-            }
         }
 
         /* =========================================================
@@ -1015,10 +932,6 @@
                 font-size: 1rem;
             }
 
-            .airplanes-fleet {
-                opacity: 0.25;
-            }
-
             .container {
                 width: calc(100% - 20px);
                 margin: 25px auto;
@@ -1125,47 +1038,9 @@
             </svg>
         </button>
 
-        <!--
-            Decoración:
-            5 columnas x 3 aviones.
-            Cada avión genera otro mediante CSS.
-            Resultado visual: 30 aviones.
-        -->
-        <div class="airplanes-fleet" aria-hidden="true">
+        <!-- Aquí iba la decoración de aviones con span → ahora solo CSS en .top-bar -->
 
-            <div class="plane-column">
-                <span class="plane"></span>
-                <span class="plane"></span>
-                <span class="plane"></span>
-            </div>
-
-            <div class="plane-column">
-                <span class="plane"></span>
-                <span class="plane"></span>
-                <span class="plane"></span>
-            </div>
-
-            <div class="plane-column">
-                <span class="plane"></span>
-                <span class="plane"></span>
-                <span class="plane"></span>
-            </div>
-
-            <div class="plane-column">
-                <span class="plane"></span>
-                <span class="plane"></span>
-                <span class="plane"></span>
-            </div>
-
-            <div class="plane-column">
-                <span class="plane"></span>
-                <span class="plane"></span>
-                <span class="plane"></span>
-            </div>
-
-        </div>
     </header>
-
 
     <!-- =========================================================
          OVERLAY
@@ -1176,7 +1051,6 @@
         id="overlay"
         aria-hidden="true"
     ></div>
-
 
     <!-- =========================================================
          GALERÍA
@@ -1214,7 +1088,6 @@
 
         </div>
 
-
         <div class="gallery-grid">
 
             <button
@@ -1236,7 +1109,6 @@
                 </span>
             </button>
 
-
             <button
                 type="button"
                 class="gallery-item"
@@ -1255,7 +1127,6 @@
                     Estructura Aerodinámica
                 </span>
             </button>
-
 
             <button
                 type="button"
@@ -1276,7 +1147,6 @@
                 </span>
             </button>
 
-
             <button
                 type="button"
                 class="gallery-item"
@@ -1295,7 +1165,6 @@
                     Ensamblado Hardware
                 </span>
             </button>
-
 
             <button
                 type="button"
@@ -1318,7 +1187,6 @@
 
         </div>
     </aside>
-
 
     <!-- =========================================================
          LIGHTBOX ACCESIBLE
@@ -1367,7 +1235,6 @@
         </div>
     </div>
 
-
     <!-- =========================================================
          CONTENIDO PRINCIPAL
     ========================================================== -->
@@ -1391,7 +1258,6 @@
                     un ala delta de vuelo libre o un dron autónomo.
                 </p>
             </header>
-
 
             <!-- =====================================================
                  ESPECIFICACIONES
@@ -1418,7 +1284,6 @@
                     Especificaciones rápidas
                 </h2>
 
-
                 <div class="quick-specs-grid">
 
                     <article class="spec-card">
@@ -1437,17 +1302,14 @@
                                 <path d="M4 17c4 3 12 3 16 0"></path>
                             </svg>
                         </div>
-
                         <div class="spec-label">
                             Material principal
                         </div>
-
                         <div class="spec-value">
                             Fibra de Carbono / EPO
                         </div>
 
                     </article>
-
 
                     <article class="spec-card">
 
@@ -1466,17 +1328,14 @@
                                 <path d="M17 17l3-3"></path>
                             </svg>
                         </div>
-
                         <div class="spec-label">
                             Aleación
                         </div>
-
                         <div class="spec-value">
                             Aluminio Ergal 7075
                         </div>
 
                     </article>
-
 
                     <article class="spec-card">
 
@@ -1493,17 +1352,14 @@
                                 <path d="M8 12l2.5 2.5L16 9"></path>
                             </svg>
                         </div>
-
                         <div class="spec-label">
                             Protección vela
                         </div>
-
                         <div class="spec-value">
                             Recubrimiento TiO₂
                         </div>
 
                     </article>
-
 
                     <article class="spec-card">
 
@@ -1522,11 +1378,9 @@
                                 <path d="M18.5 5.5l-13 13"></path>
                             </svg>
                         </div>
-
                         <div class="spec-label">
                             Propiedad
                         </div>
-
                         <div class="spec-value">
                             Alta Rigidez / Ligereza
                         </div>
@@ -1534,9 +1388,7 @@
                     </article>
 
                 </div>
-
             </section>
-
 
             <!-- =====================================================
                  ESTRUCTURA PRINCIPAL
@@ -1554,8 +1406,13 @@
                     una quilla y barras transversales.
                 </p>
 
-            </section>
+                <p>
+                    <strong>Largueros:</strong> vigas largas que dan resistencia a lo largo del ala. 
+                    <strong>Costillas:</strong> piezas que dan forma al perfil del ala. 
+                    <strong>Quilla:</strong> parte central y más fuerte del fuselaje.
+                </p>
 
+            </section>
 
             <!-- =====================================================
                  ALAS DELTA
@@ -1577,20 +1434,20 @@
                             resina o composites laminados recubiertos
                             (por ejemplo, con TiO<sub>2</sub>) para
                             resistir la radiación UV.
+                            <!-- Poliéster: tela sintética resistente. Composites: materiales hechos combinando dos o más materiales para mejorar sus propiedades. TiO₂ (dióxido de titanio): compuesto químico que protege contra los rayos UV. -->
                         </li>
 
                         <li>
                             <strong>Armazón:</strong>
                             Aleaciones de aluminio de alta resistencia
                             (como Ergal 7075) y cables de acero o titanio.
+                            <!-- Aleaciones: mezclas de metales para mejorar resistencia y peso. Ergal 7075: tipo de aluminio muy resistente usado en aeronáutica. -->
                         </li>
 
                     </ul>
 
                 </div>
-
             </section>
-
 
             <!-- =====================================================
                  DRONES
@@ -1611,6 +1468,7 @@
                             Se utilizan materiales compuestos como
                             fibra de carbono (destacada por su alta
                             rigidez y ligereza), Kevlar y fibra de vidrio.
+                            <!-- Fibra de carbono: material muy ligero y resistente, hecho de fibras de carbono. Kevlar: material sintético muy resistente a impactos. Fibra de vidrio: material hecho de fibras de vidrio, ligero y resistente. -->
                         </li>
 
                         <li>
@@ -1618,14 +1476,13 @@
                             Utilizan poliolefina expandida (EPO),
                             un plástico altamente flexible, liviano
                             y fácil de ensamblar.
+                            <!-- EPO (poliolefina expandida): espuma plástica ligera y flexible, fácil de cortar y pegar. -->
                         </li>
 
                     </ul>
 
                 </div>
-
             </section>
-
 
             <!-- =====================================================
                  SISTEMAS INTEGRADOS
@@ -1645,16 +1502,16 @@
                     sensores, cámaras o cargas útiles específicas.
                 </p>
 
-            </section>
+                <p>
+                    <strong>UAV:</strong> vehículo aéreo no tripulado (drone). 
+                    <strong>Aviónica:</strong> conjunto de instrumentos electrónicos de vuelo. 
+                    <strong>GPS:</strong> sistema de navegación por satélite.
+                </p>
 
+            </section>
 
             <!-- =====================================================
                  NAVEGACIÓN ENTRE LAS 7 PÁGINAS
-                 
-                 6.º:
-                 - anterior = 3.º
-                 - siguiente = 7.º
-                 - inicio = 1.º
             ====================================================== -->
 
             <nav
@@ -1691,7 +1548,6 @@
         </div>
     </main>
 
-
     <!-- =========================================================
          FOOTER
     ========================================================== -->
@@ -1714,7 +1570,6 @@
         </div>
 
     </footer>
-
 
     <!-- =========================================================
          JAVASCRIPT
@@ -1750,7 +1605,6 @@
 
             let lastFocusedElement = null;
 
-
             /* =====================================================
                GALERÍA
             ====================================================== */
@@ -1775,7 +1629,6 @@
                 closeGalleryBtn.focus();
             }
 
-
             function closeGallery() {
                 galleryPanel.classList.remove("active");
                 overlay.classList.remove("active");
@@ -1795,7 +1648,6 @@
                 }
             }
 
-
             openGalleryBtn.addEventListener(
                 "click",
                 openGallery
@@ -1810,7 +1662,6 @@
                 "click",
                 closeGallery
             );
-
 
             /* =====================================================
                LIGHTBOX
@@ -1840,7 +1691,6 @@
                 lightboxClose.focus();
             }
 
-
             function closeLightbox() {
                 lightbox.classList.remove("active");
 
@@ -1855,7 +1705,6 @@
                 document.body.style.overflow = "";
             }
 
-
             galleryItems.forEach(item => {
 
                 item.addEventListener(
@@ -1865,12 +1714,10 @@
 
             });
 
-
             lightboxClose.addEventListener(
                 "click",
                 closeLightbox
             );
-
 
             lightbox.addEventListener(
                 "click",
@@ -1884,7 +1731,6 @@
 
                 }
             );
-
 
             /* =====================================================
                TECLADO

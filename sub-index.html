@@ -6,7 +6,8 @@
     <title>Proyecto Dron TCN-01 - Superficies de Control</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="icon" type="image/jpg" href="logo.jpg">
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.jpg">
 
     <!-- Metadatos para Redes Sociales (Open Graph) -->
@@ -61,6 +62,12 @@
             display: flex; align-items: center; justify-content: space-between;
             box-sizing: border-box; position: sticky; top: 0; z-index: 100;
             overflow: hidden;
+
+            /* Decoración de aviones con CSS (sin span en el DOM) */
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ctext x='50%25' y='50%25' font-size='20' text-anchor='middle' dominant-baseline='central' fill='rgba(0,210,255,0.15)'%3E✈%3C/text%3E%3C/svg%3E");
+            background-size: 100% 100%, 60px 60px;
         }
 
         .brand-logo {
@@ -86,44 +93,6 @@
         }
 
         .menu-btn:hover { background-color: rgba(0, 210, 255, 0.15); }
-
-        /* FLOTA DE AVIONES - 5 columnas × 3 filas */
-        .airplanes-fleet {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 1;
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 8px;
-            padding: 10px;
-        }
-
-        .plane-column {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            animation: flyColumn linear infinite;
-            will-change: transform;
-            transform: translateZ(0);
-        }
-
-        .plane-column span {
-            font-size: 0.9rem;
-            color: var(--primary-color);
-            filter: drop-shadow(0 0 3px var(--primary-color));
-            opacity: 0.5;
-        }
-
-        @keyframes flyColumn {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(calc(100vw + 100px)); }
-        }
-
-        .col-1 { animation-duration: 12s; animation-delay: 0s; }
-        .col-2 { animation-duration: 14s; animation-delay: 2s; }
-        .col-3 { animation-duration: 11s; animation-delay: 4s; }
-        .col-4 { animation-duration: 13s; animation-delay: 1s; }
-        .col-5 { animation-duration: 15s; animation-delay: 3s; }
 
         /* GALERÍA LATERAL */
         .gallery-panel {
@@ -325,10 +294,6 @@
             .gallery-panel { width: 100%; right: -100%; }
             .page-navigation { flex-direction: column; align-items: stretch; }
             .nav-btn { justify-content: center; }
-            .airplanes-fleet {
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(5, 1fr);
-            }
         }
     </style>
 </head>
@@ -349,23 +314,7 @@
             </svg>
         </button>
 
-        <div class="airplanes-fleet">
-            <div class="plane-column col-1">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-2">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-3">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-4">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-            <div class="plane-column col-5">
-                <span>✈</span><span>✈</span><span>✈</span>
-            </div>
-        </div>
+        <!-- Aquí iba la flota de avioncitos ✈ en el DOM → ahora solo decoración CSS en .top-bar -->
     </header>
 
     <!-- Contenido Principal -->
@@ -375,6 +324,12 @@
             
             <p>
                 En configuraciones de ala delta, el control aerodinámico se realiza mediante elevons, los cuales combinan las funciones de alerones y timones de profundidad en un par de superficies móviles.
+            </p>
+
+            <p>
+                <strong>Elevons:</strong> superficies de control que hacen dos trabajos a la vez: alerones (inclinar el dron a los lados) y elevadores (subir o bajar la nariz). 
+                <strong>Alerones:</strong> mueven el dron hacia izquierda o derecha (alabeo). 
+                <strong>Timones de profundidad (elevadores):</strong> mueven la nariz hacia arriba o abajo (cabeceo).
             </p>
 
             <!-- ESPECIFICACIONES RÁPIDAS -->
@@ -427,14 +382,23 @@
             <h2>Principios Aerodinámicos</h2>
             <div class="info-card">
                 <ul>
-                    <li><strong>Alabeo (Roll):</strong> Los elevones se mueven en direcciones opuestas para generar un momento de torsión sobre el eje longitudinal.</li>
-                    <li><strong>Cabeceo (Pitch):</strong> Ambos elevones se desplazan simétricamente en el mismo sentido para modificar el ángulo de ataque de la aeronave.</li>
+                    <li><strong>Alabeo (Roll):</strong> Los elevones se mueven en direcciones opuestas para generar un momento de torsión sobre el eje longitudinal. 
+                        <!-- Alabeo: inclinación del dron hacia un lado (como ladear un auto en una curva). Eje longitudinal: línea imaginaria que va de la nariz a la cola del dron. -->
+                    </li>
+                    <li><strong>Cabeceo (Pitch):</strong> Ambos elevones se desplazan simétricamente en el mismo sentido para modificar el ángulo de ataque de la aeronave.
+                        <!-- Cabeceo: movimiento de subir o bajar la nariz del dron. Ángulo de ataque: ángulo entre el ala y la dirección del aire que llega. -->
+                    </li>
                 </ul>
             </div>
 
             <h2>Algoritmo de Mezcla</h2>
             <p>
                 El microcontrolador procesa las lecturas de los joysticks o comandos remotos ejecutando la mezcla matemática de canales antes de enviar las señales PWM correspondientes a cada servomotor.
+            </p>
+
+            <p>
+                <strong>PWM (Pulse Width Modulation):</strong> técnica para controlar la posición del servo variando el ancho de un pulso eléctrico. 
+                <strong>Matriz elevon en C++:</strong> fórmula matemática programada en el Arduino que combina las señales de alabeo y cabeceo para mover correctamente cada elevon.
             </p>
 
             <!-- BOTONES DE NAVEGACIÓN ENTRE SUBPÁGINAS -->
@@ -461,7 +425,7 @@
         </div>
     </main>
 
-    <!-- Panel Lateral: Galería (movido después del main para mejor semántica) -->
+    <!-- Panel Lateral: Galería -->
     <aside class="gallery-panel" id="galleryPanel" role="complementary" aria-label="Galería de imágenes del proyecto">
         <div class="gallery-header">
             <h3>
