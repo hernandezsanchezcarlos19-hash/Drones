@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.jpg">
 
+
     <!-- Metadatos para Redes Sociales (Open Graph) -->
     <meta name="description" content="Sistemas de Tren de Aterrizaje del Dron TCN-01 - Instituto Politécnico Nacional">
     <meta property="og:title" content="Tren de Aterrizaje - Dron TCN-01">
@@ -20,6 +21,7 @@
     <meta name="twitter:title" content="Tren de Aterrizaje - Dron TCN-01">
     <meta name="twitter:description" content="Tren de aterrizaje del Dron TCN-01 - IPN.">
     <meta name="twitter:image" content="logo.jpg">
+
 
     <style>
         :root {
@@ -34,9 +36,11 @@
             --font-mono: 'Roboto Mono', 'Fira Code', monospace;
         }
 
+
         * {
             box-sizing: border-box;
         }
+
 
         body {
             font-family: var(--font-main);
@@ -53,6 +57,7 @@
             min-height: 100vh; overflow-x: hidden;
         }
 
+
         /* TOP BAR */
         .top-bar {
             width: 100%; height: 70px;
@@ -63,12 +68,14 @@
             box-sizing: border-box; position: sticky; top: 0; z-index: 100;
             overflow: hidden;
 
+
             /* Decoración de aviones con CSS (sin span en el DOM) */
             background-image: 
                 radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ctext x='50%25' y='50%25' font-size='20' text-anchor='middle' dominant-baseline='central' fill='rgba(0,210,255,0.15)'%3E✈%3C/text%3E%3C/svg%3E");
             background-size: 100% 100%, 60px 60px;
         }
+
 
         .brand-logo { 
             display: flex; 
@@ -91,6 +98,7 @@
             letter-spacing: 1px; 
         }
 
+
         .menu-btn {
             background: transparent; 
             border: 1px solid var(--border-color);
@@ -104,72 +112,6 @@
         }
         .menu-btn:hover { background-color: rgba(0, 210, 255, 0.15); }
 
-        /* GALERÍA LATERAL */
-        .gallery-panel {
-            position: fixed; top: 0; right: -380px; width: 340px; height: 100vh;
-            background-color: rgba(10, 14, 23, 0.98);
-            border-left: 1px solid var(--border-color); box-shadow: -10px 0 20px rgba(0, 0, 0, 0.8);
-            z-index: 200; transition: transform 0.3s ease-out;
-            will-change: transform;
-            padding: 20px; box-sizing: border-box; display: flex; flex-direction: column;
-        }
-
-        .gallery-panel.active { transform: translateX(-380px); }
-
-        .gallery-header {
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 15px;
-        }
-
-        .gallery-header h3 { margin: 0; color: var(--primary-color); font-size: 1.1rem; }
-        .close-btn { 
-            background: none; border: none; 
-            color: var(--text-muted); font-size: 1.5rem; 
-            cursor: pointer; transition: color 0.2s;
-        }
-        .close-btn:hover { color: #ffffff; }
-
-        .gallery-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 12px; 
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .gallery-item {
-            position: relative; border: 1px solid var(--border-color); border-radius: 8px;
-            overflow: hidden; cursor: pointer; aspect-ratio: 1; 
-            background-color: rgba(255, 255, 255, 0.02);
-            transition: border-color 0.2s;
-        }
-
-        .gallery-item:hover { border-color: var(--primary-color); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        .gallery-item-title {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            background: rgba(10, 14, 23, 0.9); font-size: 0.72rem; color: #ffffff;
-            padding: 4px 6px; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            background: rgba(0, 0, 0, 0.6); z-index: 150; display: none; 
-        }
-        .overlay.active { display: block; }
-
-        .lightbox {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.92); z-index: 300; display: none;
-            align-items: center; justify-content: center;
-        }
-        .lightbox.active { display: flex; }
-        .lightbox img { 
-            max-width: 90%; max-height: 85%; 
-            border-radius: 8px; border: 1px solid var(--primary-color);
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
-        }
 
         /* CONTENEDOR PRINCIPAL */
         .container {
@@ -180,7 +122,9 @@
             position: relative; overflow: hidden;
         }
 
+
         .content-relative { position: relative; z-index: 1; }
+
 
         h1 {
             color: var(--primary-color); font-size: 1.8rem; margin-top: 0;
@@ -188,21 +132,25 @@
             text-align: center;
         }
 
+
         h2, .section-title {
             color: #ffffff; font-size: 1.25rem; margin-top: 30px;
             border-left: 4px solid var(--primary-color); padding-left: 10px;
         }
+
 
         p, li { color: var(--text-muted); margin-bottom: 15px; text-align: justify; }
         ul { padding-left: 20px; }
         li { margin-bottom: 10px; }
         li strong { color: var(--text-color); }
 
+
         .info-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             border-radius: 8px; padding: 20px; margin: 20px 0;
         }
+
 
         /* QUICK SPECS */
         .quick-specs-grid {
@@ -211,12 +159,14 @@
             gap: 15px; margin: 25px 0 35px 0;
         }
 
+
         .spec-card {
             background: rgba(0, 210, 255, 0.05);
             border: 1px solid var(--border-color);
             border-radius: 8px; padding: 15px; text-align: center;
             transition: border-color 0.2s ease;
         }
+
 
         .spec-card:hover { border-color: var(--primary-color); }
         
@@ -228,14 +178,17 @@
             justify-content: center;
         }
 
+
         .spec-icon svg {
             width: 24px;
             height: 24px;
             fill: var(--primary-color);
         }
 
+
         .spec-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; }
         .spec-value { font-size: 1.05rem; font-weight: 700; color: var(--primary-color); }
+
 
         /* NAVEGACIÓN */
         .page-navigation {
@@ -248,6 +201,7 @@
             border-top: 1px solid var(--border-color); 
             flex-wrap: wrap;
         }
+
 
         .nav-btn {
             display: inline-flex; 
@@ -264,10 +218,12 @@
             transition: background-color 0.2s ease;
         }
 
+
         .nav-btn:hover { 
             background-color: var(--primary-color); 
             color: #0a0e17;
         }
+
 
         .nav-btn.home { 
             background: transparent; 
@@ -275,16 +231,19 @@
             color: var(--text-color); 
         }
 
+
         .nav-btn.home:hover { 
             background: rgba(255, 255, 255, 0.15); 
             color: #ffffff; 
         }
+
 
         .nav-btn svg {
             width: 16px;
             height: 16px;
             fill: currentColor;
         }
+
 
         footer {
             width: 100%; margin-top: auto; 
@@ -295,13 +254,14 @@
             color: var(--text-muted); box-sizing: border-box;
         }
 
+
         footer strong { color: #ffffff; }
         .footer-authors { margin: 10px 0; line-height: 1.5; }
         .footer-date { font-size: 0.85rem; color: var(--primary-color); margin-top: 8px; }
 
+
         @media (max-width: 600px) {
             .container { padding: 20px; }
-            .gallery-panel { width: 100%; right: -100%; }
             .page-navigation { flex-direction: column; align-items: stretch; }
             .nav-btn { justify-content: center; }
         }
@@ -309,7 +269,6 @@
 </head>
 <body>
 
-    <div class="overlay" id="overlay"></div>
 
     <!-- Barra Superior -->
     <header class="top-bar">
@@ -318,14 +277,14 @@
             <span>TCN-01</span>
         </a>
 
-        <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes" aria-label="Abrir galería">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+        <a href="imagenes-index.html" class="top-gallery-button" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary-color);text-decoration:none;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--border-color);background:rgba(0,210,255,0.05);transition:all 0.3s ease;">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px;fill:var(--primary-color);">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 10 3-4 2.25 3 3-4L18 16H6zm8-6.5A1.5 1.5 0 1 0 14 8a1.5 1.5 0 0 0 0 1.5z"/>
             </svg>
-        </button>
-
-        <!-- Aquí iba la flota de avioncitos ✈ en el DOM → ahora solo decoración CSS en .top-bar -->
+            Galería
+        </a>
     </header>
+
 
     <!-- Contenido Principal -->
     <main class="container">
@@ -336,10 +295,12 @@
                 El diseño del tren de aterrizaje es fundamental para asegurar el aterrizaje seguro del prototipo, amortiguando impactos sin comprometer el coeficiente aerodinámico.
             </p>
 
+
             <p>
                 <strong>Tren de aterrizaje:</strong> conjunto de ruedas, patines o estructuras que permiten que el dron aterrice sin dañarse. 
                 <strong>Coeficiente aerodinámico:</strong> número que indica qué tanto se opone el aire al movimiento del dron (mientras menor, mejor).
             </p>
+
 
             <!-- ESPECIFICACIONES RÁPIDAS -->
             <h2 class="section-title">
@@ -391,22 +352,21 @@
                 </div>
             </div>
 
+
             <h2>Criterios de Diseño</h2>
             <div class="info-card">
                 <ul>
-                    <li><strong>Geometría Triciclo:</strong> Ofrece estabilidad direccional durante la carrera de despegue y aterrizaje. 
-                        <!-- Configuración triciclo: tiene dos ruedas adelante y una atrás (o viceversa), como los aviones pequeños. -->
-                    </li>
-                    <li><strong>Patines de Aterrizaje:</strong> Alternativa ultraligera para aterrizajes en pistas no preparadas o hierba.
-                        <!-- Patines: barras lisas que deslizan sobre el suelo en lugar de ruedas, útiles en terrenos irregulares. -->
-                    </li>
+                    <li><strong>Geometría Triciclo:</strong> Ofrece estabilidad direccional durante la carrera de despegue y aterrizaje.</li>
+                    <li><strong>Patines de Aterrizaje:</strong> Alternativa ultraligera para aterrizajes en pistas no preparadas o hierba.</li>
                 </ul>
             </div>
+
 
             <h2>Absorción de Energía</h2>
             <p>
                 Se evalúan materiales que disipan la energía cinética en el momento del contacto con el suelo para evitar transmitir cargas destructivas a la Estructura de la aeronave.
             </p>
+
 
             <p>
                 <strong>Polímeros flexibles:</strong> Plásticos especiales que se deforman y regresan a su forma original, absorbiendo el golpe.
@@ -416,6 +376,7 @@
             <p>
                 <strong>Quilla:</strong> Parte central y más fuerte del fuselaje, donde se suele montar el tren de aterrizaje.
             </p>
+
 
             <!-- BOTONES DE NAVEGACIÓN ENTRE SUBPÁGINAS -->
             <nav class="page-navigation" aria-label="Navegación entre subpáginas">
@@ -441,45 +402,6 @@
         </div>
     </main>
 
-    <!-- Panel Lateral: Galería -->
-    <aside class="gallery-panel" id="galleryPanel" role="complementary" aria-label="Galería de imágenes del proyecto">
-        <div class="gallery-header">
-            <h3>
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-                Galería del Proyecto
-            </h3>
-            <button class="close-btn" id="closeGalleryBtn" aria-label="Cerrar galería">&times;</button>
-        </div>
-        <div class="gallery-grid" id="galleryGrid">
-            <button class="gallery-item" aria-label="Ver Logo Principal TCN-01" type="button">
-                <img src="logo.jpg" alt="Logo Principal TCN-01" loading="lazy">
-                <div class="gallery-item-title">Logo TCN-01</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Estructura Aerodinámica" type="button">
-                <img src="ima1.jpg" alt="Estructura de Aeronave" loading="lazy">
-                <div class="gallery-item-title">Estructura Aerodinámica</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Circuito Electrónico" type="button">
-                <img src="1.jpg" alt="Esquema Electrónico Prototipo" loading="lazy">
-                <div class="gallery-item-title">Circuito Electrónico</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Ensamblado Hardware" type="button">
-                <img src="2.jpg" alt="Ensamblado Hardware" loading="lazy">
-                <div class="gallery-item-title">Ensamblado Hardware</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Pruebas de Sistema" type="button">
-                <img src="3.jpg" alt="Pruebas de Componentes" loading="lazy">
-                <div class="gallery-item-title">Pruebas de Sistema</div>
-            </button>
-        </div>
-    </aside>
-
-    <!-- Lightbox con atributos de accesibilidad -->
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
-        <img id="lightboxImg" src="" alt="Vista ampliada">
-    </div>
 
     <!-- Pie de Página -->
     <footer>
@@ -489,47 +411,5 @@
         </div>
         <div class="footer-date">23 de septiembre de 2026</div>
     </footer>
-
-    <script>
-        const openGalleryBtn = document.getElementById('openGalleryBtn');
-        const closeGalleryBtn = document.getElementById('closeGalleryBtn');
-        const galleryPanel = document.getElementById('galleryPanel');
-        const overlay = document.getElementById('overlay');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-
-        function toggleGallery() {
-            galleryPanel.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        openGalleryBtn.addEventListener('click', toggleGallery);
-        closeGalleryBtn.addEventListener('click', toggleGallery);
-        overlay.addEventListener('click', toggleGallery);
-
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                if(img) {
-                    lightboxImg.src = img.src;
-                    lightbox.classList.add('active');
-                }
-            });
-        });
-
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
-
-        // Cerrar lightbox con tecla Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
-                if (galleryPanel.classList.contains('active')) {
-                    toggleGallery();
-                }
-            }
-        });
-    </script>
 </body>
 </html>

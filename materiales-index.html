@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
     <title>TCN-01 | Materiales de Construcción</title>
+
 
     <meta
         name="description"
         content="Materiales de construcción y componentes estructurales utilizados en el proyecto Dron TCN-01."
     >
 
+
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.jpg">
+
 
     <!-- Open Graph -->
     <meta property="og:title" content="Materiales de Construcción | TCN-01">
@@ -25,6 +29,7 @@
     <meta property="og:image" content="logo.jpg">
     <meta property="og:type" content="website">
 
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Materiales de Construcción | TCN-01">
@@ -34,6 +39,7 @@
     >
     <meta name="twitter:image" content="logo.jpg">
 
+
     <style>
         :root {
             --bg: #070b12;
@@ -41,34 +47,43 @@
             --surface: rgba(14, 22, 35, 0.94);
             --surface-light: rgba(255, 255, 255, 0.035);
 
+
             --primary: #00d2ff;
             --primary-dark: #0099ff;
             --primary-soft: rgba(0, 210, 255, 0.12);
+
 
             --text: #e8eef6;
             --text-secondary: #a5b1c2;
             --text-muted: #718096;
 
+
             --border: rgba(0, 210, 255, 0.18);
             --border-strong: rgba(0, 210, 255, 0.42);
 
+
             --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+
 
             --radius: 14px;
             --transition: 180ms ease;
         }
 
+
         * {
             box-sizing: border-box;
         }
+
 
         html {
             scroll-behavior: smooth;
         }
 
+
         body {
             min-height: 100vh;
             margin: 0;
+
 
             font-family:
                 Inter,
@@ -77,6 +92,7 @@
                 Helvetica,
                 Arial,
                 sans-serif;
+
 
             color: var(--text);
             background:
@@ -96,55 +112,69 @@
                 ),
                 var(--bg);
 
+
             background-size:
                 100% 100%,
                 42px 42px,
                 42px 42px;
 
+
             line-height: 1.7;
             overflow-x: hidden;
         }
+
 
         a,
         button {
             -webkit-tap-highlight-color: transparent;
         }
 
+
         button,
         a {
             font: inherit;
         }
+
 
         :focus-visible {
             outline: 2px solid var(--primary);
             outline-offset: 3px;
         }
 
+
         /* =========================================================
            BARRA SUPERIOR
         ========================================================= */
+
 
         .top-bar {
             position: sticky;
             top: 0;
             z-index: 100;
 
+
             width: 100%;
             min-height: 72px;
+
 
             display: flex;
             align-items: center;
             justify-content: space-between;
 
+
             padding: 0 28px;
+
 
             background: rgba(7, 11, 18, 0.94);
             border-bottom: 1px solid var(--border);
 
+
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
 
+
             overflow: hidden;
+
 
             /* Decoración de aviones con CSS (sin span en el DOM) */
             background-image: 
@@ -170,29 +200,36 @@
                 60px 60px;
         }
 
+
         .brand-logo {
             position: relative;
             z-index: 10;
+
 
             display: inline-flex;
             align-items: center;
             gap: 12px;
 
+
             color: var(--primary);
             text-decoration: none;
         }
+
 
         .brand-logo img {
             width: 42px;
             height: 42px;
             object-fit: cover;
 
+
             border-radius: 8px;
             border: 1px solid var(--border-strong);
+
 
             box-shadow:
                 0 0 20px rgba(0, 210, 255, 0.16);
         }
+
 
         .brand-logo span {
             font-size: 1.15rem;
@@ -200,21 +237,27 @@
             letter-spacing: 0.16em;
         }
 
+
         .menu-btn {
             position: relative;
             z-index: 10;
 
+
             width: 44px;
             height: 44px;
+
 
             display: grid;
             place-items: center;
 
+
             color: var(--primary);
             background: rgba(0, 210, 255, 0.06);
 
+
             border: 1px solid var(--border);
             border-radius: 10px;
+
 
             cursor: pointer;
             transition:
@@ -223,291 +266,31 @@
                 transform var(--transition);
         }
 
+
         .menu-btn:hover {
             background: var(--primary-soft);
             border-color: var(--border-strong);
             transform: translateY(-1px);
         }
 
+
         .menu-btn svg {
             width: 21px;
             height: 21px;
         }
 
-        /* =========================================================
-           GALERÍA LATERAL
-        ========================================================= */
-
-        .gallery-panel {
-            position: fixed;
-            inset: 0 0 0 auto;
-
-            width: min(380px, 92vw);
-
-            z-index: 220;
-
-            display: flex;
-            flex-direction: column;
-
-            padding: 24px;
-
-            background:
-                linear-gradient(
-                    180deg,
-                    rgba(12, 20, 32, 0.98),
-                    rgba(7, 11, 18, 0.99)
-                );
-
-            border-left: 1px solid var(--border);
-
-            box-shadow:
-                -20px 0 50px rgba(0, 0, 0, 0.45);
-
-            transform: translateX(105%);
-            transition: transform 260ms ease;
-
-            visibility: hidden;
-        }
-
-        .gallery-panel.active {
-            transform: translateX(0);
-            visibility: visible;
-        }
-
-        .gallery-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 20px;
-
-            padding-bottom: 16px;
-            margin-bottom: 18px;
-
-            border-bottom: 1px solid var(--border);
-        }
-
-        .gallery-header h2 {
-            margin: 0;
-
-            color: var(--primary);
-            font-size: 1rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .close-btn {
-            width: 38px;
-            height: 38px;
-
-            display: grid;
-            place-items: center;
-
-            color: var(--text-secondary);
-            background: transparent;
-
-            border: 1px solid var(--border);
-            border-radius: 9px;
-
-            cursor: pointer;
-
-            transition:
-                color var(--transition),
-                background var(--transition),
-                border-color var(--transition);
-        }
-
-        .close-btn:hover {
-            color: #fff;
-            background: var(--primary-soft);
-            border-color: var(--border-strong);
-        }
-
-        .close-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
-
-            overflow-y: auto;
-            padding-right: 3px;
-        }
-
-        .gallery-item {
-            position: relative;
-
-            aspect-ratio: 1 / 1;
-
-            padding: 0;
-
-            overflow: hidden;
-
-            background: var(--surface-light);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-
-            cursor: pointer;
-
-            transition:
-                transform var(--transition),
-                border-color var(--transition),
-                box-shadow var(--transition);
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-3px);
-            border-color: var(--border-strong);
-
-            box-shadow:
-                0 10px 25px rgba(0, 0, 0, 0.25);
-        }
-
-        .gallery-item img {
-            display: block;
-
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            transition: transform 300ms ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .gallery-item-title {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            left: 0;
-
-            padding: 9px 10px;
-
-            color: #fff;
-            font-size: 0.72rem;
-            font-weight: 700;
-
-            background:
-                linear-gradient(
-                    transparent,
-                    rgba(0, 0, 0, 0.9)
-                );
-
-            text-align: left;
-        }
-
-        /* =========================================================
-           OVERLAY
-        ========================================================= */
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-
-            z-index: 210;
-
-            background: rgba(0, 0, 0, 0.68);
-
-            opacity: 0;
-            visibility: hidden;
-
-            transition:
-                opacity 220ms ease,
-                visibility 220ms ease;
-        }
-
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* =========================================================
-           LIGHTBOX
-        ========================================================= */
-
-        .lightbox {
-            position: fixed;
-            inset: 0;
-
-            z-index: 300;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 30px;
-
-            background: rgba(2, 5, 9, 0.96);
-
-            opacity: 0;
-            visibility: hidden;
-
-            transition:
-                opacity 220ms ease,
-                visibility 220ms ease;
-        }
-
-        .lightbox.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .lightbox-content {
-            position: relative;
-
-            max-width: min(1100px, 94vw);
-            max-height: 90vh;
-        }
-
-        .lightbox img {
-            display: block;
-
-            max-width: 100%;
-            max-height: 82vh;
-
-            object-fit: contain;
-
-            border: 1px solid var(--border-strong);
-            border-radius: 12px;
-
-            box-shadow:
-                0 25px 70px rgba(0, 0, 0, 0.6);
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: -48px;
-            right: 0;
-
-            width: 40px;
-            height: 40px;
-
-            display: grid;
-            place-items: center;
-
-            color: #fff;
-            background: rgba(255, 255, 255, 0.08);
-
-            border: 1px solid var(--border);
-            border-radius: 9px;
-
-            cursor: pointer;
-        }
 
         /* =========================================================
            CONTENIDO PRINCIPAL
         ========================================================= */
 
+
         .container {
             width: min(1000px, calc(100% - 32px));
 
+
             margin: 48px auto;
+
 
             background:
                 linear-gradient(
@@ -516,26 +299,34 @@
                     rgba(9, 15, 25, 0.96)
                 );
 
+
             border: 1px solid var(--border);
             border-radius: var(--radius);
 
+
             box-shadow: var(--shadow);
+
 
             overflow: hidden;
         }
 
+
         .content {
             padding: clamp(28px, 5vw, 56px);
         }
+
 
         .eyebrow {
             display: flex;
             align-items: center;
             gap: 10px;
 
+
             margin-bottom: 12px;
 
+
             color: var(--primary);
+
 
             font-family:
                 "Fira Code",
@@ -543,117 +334,152 @@
                 Consolas,
                 monospace;
 
+
             font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.12em;
             text-transform: uppercase;
         }
 
+
         .eyebrow::before {
             content: "";
+
 
             width: 28px;
             height: 1px;
 
+
             background: var(--primary);
         }
+
 
         h1 {
             margin: 0;
 
+
             color: #fff;
+
 
             font-size: clamp(1.8rem, 4vw, 2.6rem);
             line-height: 1.2;
             letter-spacing: -0.03em;
         }
 
+
         .intro {
             max-width: 760px;
 
+
             margin: 20px 0 0;
+
 
             color: var(--text-secondary);
             font-size: 1rem;
         }
 
+
         h2 {
             position: relative;
 
+
             margin: 46px 0 18px;
+
 
             padding-left: 16px;
 
+
             color: #fff;
+
 
             font-size: 1.35rem;
             line-height: 1.3;
         }
 
+
         h2::before {
             content: "";
+
 
             position: absolute;
             top: 2px;
             bottom: 2px;
             left: 0;
 
+
             width: 3px;
+
 
             background: var(--primary);
             border-radius: 3px;
+
 
             box-shadow:
                 0 0 12px rgba(0, 210, 255, 0.5);
         }
 
+
         p {
             color: var(--text-secondary);
         }
+
 
         .section-description {
             margin-top: 0;
         }
 
+
         /* =========================================================
            QUICK SPECS
         ========================================================= */
+
 
         .specs-heading {
             display: flex;
             align-items: center;
             gap: 10px;
 
+
             margin-top: 38px;
         }
+
 
         .specs-heading svg {
             width: 19px;
             height: 19px;
 
+
             color: var(--primary);
         }
+
 
         .quick-specs-grid {
             display: grid;
             grid-template-columns:
                 repeat(4, minmax(0, 1fr));
 
+
             gap: 14px;
+
 
             margin: 20px 0 40px;
         }
 
+
         .spec-card {
             position: relative;
 
+
             min-height: 150px;
+
 
             display: flex;
             flex-direction: column;
             justify-content: center;
 
+
             padding: 20px;
+
 
             background:
                 linear-gradient(
@@ -662,8 +488,10 @@
                     rgba(255, 255, 255, 0.025)
                 );
 
+
             border: 1px solid var(--border);
             border-radius: 12px;
+
 
             transition:
                 transform var(--transition),
@@ -671,27 +499,35 @@
                 background var(--transition);
         }
 
+
         .spec-card::after {
             content: "";
+
 
             position: absolute;
             right: 14px;
             bottom: 14px;
 
+
             width: 5px;
             height: 5px;
 
+
             background: var(--primary);
             border-radius: 50%;
+
 
             box-shadow:
                 0 0 10px rgba(0, 210, 255, 0.8);
         }
 
+
         .spec-card:hover {
             transform: translateY(-4px);
 
+
             border-color: var(--border-strong);
+
 
             background:
                 linear-gradient(
@@ -701,24 +537,31 @@
                 );
         }
 
+
         .spec-icon {
             width: 32px;
             height: 32px;
 
+
             margin-bottom: 14px;
+
 
             color: var(--primary);
         }
+
 
         .spec-icon svg {
             width: 100%;
             height: 100%;
         }
 
+
         .spec-label {
             margin-bottom: 5px;
 
+
             color: var(--text-muted);
+
 
             font-family:
                 "Fira Code",
@@ -726,12 +569,15 @@
                 Consolas,
                 monospace;
 
+
             font-size: 0.68rem;
             font-weight: 700;
+
 
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
+
 
         .spec-value {
             color: var(--text);
@@ -740,16 +586,21 @@
             line-height: 1.4;
         }
 
+
         /* =========================================================
            TARJETAS DE INFORMACIÓN
         ========================================================= */
 
+
         .info-card {
             position: relative;
 
+
             margin: 20px 0;
 
+
             padding: 22px 24px;
+
 
             background:
                 linear-gradient(
@@ -758,52 +609,65 @@
                     rgba(0, 210, 255, 0.025)
                 );
 
+
             border: 1px solid var(--border);
             border-radius: 12px;
+
 
             transition:
                 border-color var(--transition),
                 transform var(--transition);
         }
 
+
         .info-card:hover {
             border-color: var(--border-strong);
             transform: translateY(-2px);
         }
+
 
         .info-card ul {
             margin: 0;
             padding-left: 22px;
         }
 
+
         .info-card li {
             margin-bottom: 14px;
             color: var(--text-secondary);
         }
 
+
         .info-card li:last-child {
             margin-bottom: 0;
         }
+
 
         .info-card strong {
             color: var(--text);
         }
 
+
         /* =========================================================
            NAVEGACIÓN
         ========================================================= */
+
 
         .page-navigation {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
 
+
             gap: 12px;
+
 
             margin-top: 52px;
             padding-top: 24px;
 
+
             border-top: 1px solid var(--border);
         }
+
 
         .nav-btn {
             display: inline-flex;
@@ -811,20 +675,27 @@
             justify-content: center;
             gap: 9px;
 
+
             min-height: 46px;
 
+
             padding: 10px 16px;
+
 
             color: var(--primary);
             background: rgba(0, 210, 255, 0.055);
 
+
             border: 1px solid var(--border);
             border-radius: 9px;
+
 
             font-size: 0.84rem;
             font-weight: 750;
 
+
             text-decoration: none;
+
 
             transition:
                 color var(--transition),
@@ -833,6 +704,7 @@
                 transform var(--transition);
         }
 
+
         .nav-btn:hover {
             color: #061019;
             background: var(--primary);
@@ -840,11 +712,13 @@
             transform: translateY(-2px);
         }
 
+
         .nav-btn.home {
             color: var(--text);
             background: rgba(255, 255, 255, 0.035);
             border-color: rgba(255, 255, 255, 0.14);
         }
+
 
         .nav-btn.home:hover {
             color: #fff;
@@ -852,41 +726,55 @@
             border-color: rgba(255, 255, 255, 0.3);
         }
 
+
         /* =========================================================
            FOOTER
         ========================================================= */
 
+
         footer {
             width: 100%;
 
+
             padding: 30px 20px;
 
+
             text-align: center;
+
 
             color: var(--text-muted);
             background: rgba(5, 8, 13, 0.96);
 
+
             border-top: 1px solid var(--border);
+
 
             font-size: 0.85rem;
         }
+
 
         footer strong {
             color: var(--text);
         }
 
+
         .footer-authors {
             max-width: 900px;
 
+
             margin: 9px auto 0;
+
 
             line-height: 1.6;
         }
 
+
         .footer-date {
             margin-top: 10px;
 
+
             color: var(--primary);
+
 
             font-family:
                 "Fira Code",
@@ -894,12 +782,15 @@
                 Consolas,
                 monospace;
 
+
             font-size: 0.75rem;
         }
+
 
         /* =========================================================
            RESPONSIVE
         ========================================================= */
+
 
         @media (max-width: 850px) {
             .quick-specs-grid {
@@ -907,9 +798,11 @@
                     repeat(2, minmax(0, 1fr));
             }
 
+
             .page-navigation {
                 grid-template-columns: 1fr 1fr;
             }
+
 
             .nav-btn.home {
                 grid-column: 1 / -1;
@@ -917,20 +810,24 @@
             }
         }
 
+
         @media (max-width: 600px) {
             .top-bar {
                 min-height: 64px;
                 padding: 0 16px;
             }
 
+
             .brand-logo img {
                 width: 36px;
                 height: 36px;
             }
 
+
             .brand-logo span {
                 font-size: 1rem;
             }
+
 
             .container {
                 width: calc(100% - 20px);
@@ -938,48 +835,44 @@
                 border-radius: 11px;
             }
 
+
             .content {
                 padding: 25px 20px;
             }
+
 
             .quick-specs-grid {
                 grid-template-columns: 1fr;
             }
 
+
             .spec-card {
                 min-height: 125px;
             }
+
 
             .page-navigation {
                 grid-template-columns: 1fr;
             }
 
+
             .nav-btn.home {
                 grid-column: auto;
                 grid-row: auto;
             }
-
-            .gallery-panel {
-                width: 100%;
-            }
-
-            .lightbox {
-                padding: 18px;
-            }
-
-            .lightbox img {
-                max-height: 78vh;
-            }
         }
+
 
         /* =========================================================
            REDUCCIÓN DE MOVIMIENTO
         ========================================================= */
 
+
         @media (prefers-reduced-motion: reduce) {
             html {
                 scroll-behavior: auto;
             }
+
 
             *,
             *::before,
@@ -992,13 +885,17 @@
     </style>
 </head>
 
+
 <body>
+
 
     <!-- =========================================================
          BARRA SUPERIOR
     ========================================================== -->
 
+
     <header class="top-bar">
+
 
         <a
             href="index.html"
@@ -1012,246 +909,42 @@
                 height="42"
             >
 
+
             <span>TCN-01</span>
         </a>
 
-        <button
-            type="button"
-            class="menu-btn"
-            id="openGalleryBtn"
-            aria-label="Abrir galería del proyecto"
-            aria-controls="galleryPanel"
-            aria-expanded="false"
-        >
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-            >
-                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <path d="M21 15l-5-5L5 21"></path>
+
+        <a href="imagenes-index.html" class="top-gallery-button" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary);text-decoration:none;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--border);background:rgba(0,210,255,0.055);transition:all 0.3s ease;">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px;fill:var(--primary);">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 10 3-4 2.25 3 3-4L18 16H6zm8-6.5A1.5 1.5 0 1 0 14 8a1.5 1.5 0 0 0 0 1.5z"/>
             </svg>
-        </button>
-
-        <!-- Aquí iba la decoración de aviones con span → ahora solo CSS en .top-bar -->
-
+            Galería
+        </a>
     </header>
 
-    <!-- =========================================================
-         OVERLAY
-    ========================================================== -->
-
-    <div
-        class="overlay"
-        id="overlay"
-        aria-hidden="true"
-    ></div>
-
-    <!-- =========================================================
-         GALERÍA
-    ========================================================== -->
-
-    <aside
-        class="gallery-panel"
-        id="galleryPanel"
-        aria-label="Galería del proyecto"
-        aria-hidden="true"
-    >
-
-        <div class="gallery-header">
-
-            <h2>Galería del proyecto</h2>
-
-            <button
-                type="button"
-                class="close-btn"
-                id="closeGalleryBtn"
-                aria-label="Cerrar galería"
-            >
-                <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    aria-hidden="true"
-                >
-                    <path d="M18 6L6 18"></path>
-                    <path d="M6 6l12 12"></path>
-                </svg>
-            </button>
-
-        </div>
-
-        <div class="gallery-grid">
-
-            <button
-                type="button"
-                class="gallery-item"
-                data-image="logo.jpg"
-                data-alt="Logotipo principal del proyecto TCN-01"
-                aria-label="Ampliar logotipo TCN-01"
-            >
-                <img
-                    src="logo.jpg"
-                    alt="Logotipo principal TCN-01"
-                    loading="lazy"
-                    width="400"
-                    height="400"
-                >
-                <span class="gallery-item-title">
-                    Logo TCN-01
-                </span>
-            </button>
-
-            <button
-                type="button"
-                class="gallery-item"
-                data-image="ima1.jpg"
-                data-alt="Estructura de aeronave del proyecto"
-                aria-label="Ampliar estructura aerodinámica"
-            >
-                <img
-                    src="ima1.jpg"
-                    alt="Estructura de aeronave"
-                    loading="lazy"
-                    width="400"
-                    height="400"
-                >
-                <span class="gallery-item-title">
-                    Estructura Aerodinámica
-                </span>
-            </button>
-
-            <button
-                type="button"
-                class="gallery-item"
-                data-image="1.jpg"
-                data-alt="Esquema electrónico del prototipo"
-                aria-label="Ampliar circuito electrónico"
-            >
-                <img
-                    src="1.jpg"
-                    alt="Esquema electrónico del prototipo"
-                    loading="lazy"
-                    width="400"
-                    height="400"
-                >
-                <span class="gallery-item-title">
-                    Circuito Electrónico
-                </span>
-            </button>
-
-            <button
-                type="button"
-                class="gallery-item"
-                data-image="2.jpg"
-                data-alt="Ensamblado del hardware del prototipo"
-                aria-label="Ampliar ensamblado de hardware"
-            >
-                <img
-                    src="2.jpg"
-                    alt="Ensamblado del hardware"
-                    loading="lazy"
-                    width="400"
-                    height="400"
-                >
-                <span class="gallery-item-title">
-                    Ensamblado Hardware
-                </span>
-            </button>
-
-            <button
-                type="button"
-                class="gallery-item"
-                data-image="3.jpg"
-                data-alt="Pruebas de componentes del sistema"
-                aria-label="Ampliar pruebas del sistema"
-            >
-                <img
-                    src="3.jpg"
-                    alt="Pruebas de componentes"
-                    loading="lazy"
-                    width="400"
-                    height="400"
-                >
-                <span class="gallery-item-title">
-                    Pruebas de Sistema
-                </span>
-            </button>
-
-        </div>
-    </aside>
-
-    <!-- =========================================================
-         LIGHTBOX ACCESIBLE
-    ========================================================== -->
-
-    <div
-        class="lightbox"
-        id="lightbox"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="lightboxTitle"
-        aria-hidden="true"
-    >
-
-        <div class="lightbox-content">
-
-            <button
-                type="button"
-                class="lightbox-close"
-                id="lightboxClose"
-                aria-label="Cerrar vista ampliada"
-            >
-                <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    aria-hidden="true"
-                >
-                    <path d="M18 6L6 18"></path>
-                    <path d="M6 6l12 12"></path>
-                </svg>
-            </button>
-
-            <h2 id="lightboxTitle" hidden>
-                Vista ampliada
-            </h2>
-
-            <img
-                id="lightboxImg"
-                src=""
-                alt=""
-            >
-
-        </div>
-    </div>
 
     <!-- =========================================================
          CONTENIDO PRINCIPAL
     ========================================================== -->
 
+
     <main class="container">
 
+
         <div class="content">
+
 
             <header>
                 <div class="eyebrow">
                     Investigación 06 / Materiales
                 </div>
 
+
                 <h1>
                     Materiales de Construcción y
                     Componentes Estructurales
                 </h1>
+
 
                 <p class="intro">
                     Las estructuras varían dependiendo de si se trata de
@@ -1259,11 +952,14 @@
                 </p>
             </header>
 
+
             <!-- =====================================================
                  ESPECIFICACIONES
             ====================================================== -->
 
+
             <section aria-labelledby="specs-title">
+
 
                 <h2
                     id="specs-title"
@@ -1281,12 +977,16 @@
                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                     </svg>
 
+
                     Especificaciones rápidas
                 </h2>
 
+
                 <div class="quick-specs-grid">
 
+
                     <article class="spec-card">
+
 
                         <div class="spec-icon" aria-hidden="true">
                             <svg
@@ -1309,9 +1009,12 @@
                             Fibra de Carbono / EPO
                         </div>
 
+
                     </article>
 
+
                     <article class="spec-card">
+
 
                         <div class="spec-icon" aria-hidden="true">
                             <svg
@@ -1335,9 +1038,12 @@
                             Aluminio Ergal 7075
                         </div>
 
+
                     </article>
 
+
                     <article class="spec-card">
+
 
                         <div class="spec-icon" aria-hidden="true">
                             <svg
@@ -1359,9 +1065,12 @@
                             Recubrimiento TiO₂
                         </div>
 
+
                     </article>
 
+
                     <article class="spec-card">
+
 
                         <div class="spec-icon" aria-hidden="true">
                             <svg
@@ -1385,20 +1094,26 @@
                             Alta Rigidez / Ligereza
                         </div>
 
+
                     </article>
+
 
                 </div>
             </section>
+
 
             <!-- =====================================================
                  ESTRUCTURA PRINCIPAL
             ====================================================== -->
 
+
             <section aria-labelledby="estructura-title">
+
 
                 <h2 id="estructura-title">
                     Estructura Principal
                 </h2>
+
 
                 <p>
                     Consta de un armazón interno compuesto por
@@ -1406,27 +1121,35 @@
                     una quilla y barras transversales.
                 </p>
 
+
                 <p>
                     <strong>Largueros:</strong> vigas largas que dan resistencia a lo largo del ala. 
                     <strong>Costillas:</strong> piezas que dan forma al perfil del ala. 
                     <strong>Quilla:</strong> parte central y más fuerte del fuselaje.
                 </p>
 
+
             </section>
+
 
             <!-- =====================================================
                  ALAS DELTA
             ====================================================== -->
 
+
             <section aria-labelledby="alas-title">
+
 
                 <h2 id="alas-title">
                     Alas Rectas
                 </h2>
 
+
                 <div class="info-card">
 
+
                     <ul>
+
 
                         <li>
                             <strong>Vela:</strong>
@@ -1434,65 +1157,77 @@
                             resina o composites laminados recubiertos
                             (por ejemplo, con TiO<sub>2</sub>) para
                             resistir la radiación UV.
-                            <!-- Poliéster: tela sintética resistente. Composites: materiales hechos combinando dos o más materiales para mejorar sus propiedades. TiO₂ (dióxido de titanio): compuesto químico que protege contra los rayos UV. -->
                         </li>
+
 
                         <li>
                             <strong>Armazón:</strong>
                             Aleaciones de aluminio de alta resistencia
                             (como Ergal 7075) y cables de acero o titanio.
-                            <!-- Aleaciones: mezclas de metales para mejorar resistencia y peso. Ergal 7075: tipo de aluminio muy resistente usado en aeronáutica. -->
                         </li>
+
 
                     </ul>
 
+
                 </div>
             </section>
+
 
             <!-- =====================================================
                  DRONES
             ====================================================== -->
 
+
             <section aria-labelledby="drones-title">
+
 
                 <h2 id="drones-title">
                     Drones y UAVs
                 </h2>
 
+
                 <div class="info-card">
 
+
                     <ul>
+
 
                         <li>
                             <strong>Materiales Avanzados:</strong>
                             Se utilizan materiales compuestos como
                             fibra de carbono (destacada por su alta
                             rigidez y ligereza), Kevlar y fibra de vidrio.
-                            <!-- Fibra de carbono: material muy ligero y resistente, hecho de fibras de carbono. Kevlar: material sintético muy resistente a impactos. Fibra de vidrio: material hecho de fibras de vidrio, ligero y resistente. -->
                         </li>
+
 
                         <li>
                             <strong>Drones Económicos:</strong>
                             Utilizan poliolefina expandida (EPO),
                             un plástico altamente flexible, liviano
                             y fácil de ensamblar.
-                            <!-- EPO (poliolefina expandida): espuma plástica ligera y flexible, fácil de cortar y pegar. -->
                         </li>
+
 
                     </ul>
 
+
                 </div>
             </section>
+
 
             <!-- =====================================================
                  SISTEMAS INTEGRADOS
             ====================================================== -->
 
+
             <section aria-labelledby="sistemas-title">
+
 
                 <h2 id="sistemas-title">
                     Sistemas Integrados
                 </h2>
+
 
                 <p>
                     En los modelos no tripulados se sustituye la
@@ -1502,22 +1237,27 @@
                     sensores, cámaras o cargas útiles específicas.
                 </p>
 
+
                 <p>
                     <strong>UAV:</strong> vehículo aéreo no tripulado (drone). 
                     <strong>Aviónica:</strong> conjunto de instrumentos electrónicos de vuelo. 
                     <strong>GPS:</strong> sistema de navegación por satélite.
                 </p>
 
+
             </section>
+
 
             <!-- =====================================================
                  NAVEGACIÓN ENTRE LAS 7 PÁGINAS
             ====================================================== -->
 
+
             <nav
                 class="page-navigation"
                 aria-label="Navegación entre investigaciones"
             >
+
 
                 <a
                     href="2-index.html"
@@ -1527,6 +1267,7 @@
                     ← materiales y electrónica
                 </a>
 
+
                 <a
                     href="index.html"
                     class="nav-btn home"
@@ -1534,6 +1275,7 @@
                 >
                     Inicio
                 </a>
+
 
                 <a
                     href="sistemas-index.html"
@@ -1543,20 +1285,26 @@
                     transmisión y sistemas →
                 </a>
 
+
             </nav>
+
 
         </div>
     </main>
+
 
     <!-- =========================================================
          FOOTER
     ========================================================== -->
 
+
     <footer>
+
 
         <p>
             <strong>Instituto Politécnico Nacional</strong>
         </p>
+
 
         <div class="footer-authors">
             <strong>Autores:</strong>
@@ -1566,204 +1314,14 @@
             Pablo Bernabe Luis Alberto
         </div>
 
+
         <div class="footer-date">
             23 de septiembre de 2026
         </div>
 
+
     </footer>
-
-    <!-- =========================================================
-         JAVASCRIPT
-    ========================================================== -->
-
-    <script>
-        (() => {
-            "use strict";
-
-            const openGalleryBtn =
-                document.getElementById("openGalleryBtn");
-
-            const closeGalleryBtn =
-                document.getElementById("closeGalleryBtn");
-
-            const galleryPanel =
-                document.getElementById("galleryPanel");
-
-            const overlay =
-                document.getElementById("overlay");
-
-            const lightbox =
-                document.getElementById("lightbox");
-
-            const lightboxImg =
-                document.getElementById("lightboxImg");
-
-            const lightboxClose =
-                document.getElementById("lightboxClose");
-
-            const galleryItems =
-                document.querySelectorAll(".gallery-item");
-
-            let lastFocusedElement = null;
-
-            /* =====================================================
-               GALERÍA
-            ====================================================== */
-
-            function openGallery() {
-                lastFocusedElement =
-                    document.activeElement;
-
-                galleryPanel.classList.add("active");
-                overlay.classList.add("active");
-
-                galleryPanel.setAttribute(
-                    "aria-hidden",
-                    "false"
-                );
-
-                openGalleryBtn.setAttribute(
-                    "aria-expanded",
-                    "true"
-                );
-
-                closeGalleryBtn.focus();
-            }
-
-            function closeGallery() {
-                galleryPanel.classList.remove("active");
-                overlay.classList.remove("active");
-
-                galleryPanel.setAttribute(
-                    "aria-hidden",
-                    "true"
-                );
-
-                openGalleryBtn.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                if (lastFocusedElement) {
-                    lastFocusedElement.focus();
-                }
-            }
-
-            openGalleryBtn.addEventListener(
-                "click",
-                openGallery
-            );
-
-            closeGalleryBtn.addEventListener(
-                "click",
-                closeGallery
-            );
-
-            overlay.addEventListener(
-                "click",
-                closeGallery
-            );
-
-            /* =====================================================
-               LIGHTBOX
-            ====================================================== */
-
-            function openLightbox(item) {
-                const image =
-                    item.querySelector("img");
-
-                if (!image) return;
-
-                lightboxImg.src =
-                    item.dataset.image || image.src;
-
-                lightboxImg.alt =
-                    item.dataset.alt || image.alt;
-
-                lightbox.classList.add("active");
-
-                lightbox.setAttribute(
-                    "aria-hidden",
-                    "false"
-                );
-
-                document.body.style.overflow = "hidden";
-
-                lightboxClose.focus();
-            }
-
-            function closeLightbox() {
-                lightbox.classList.remove("active");
-
-                lightbox.setAttribute(
-                    "aria-hidden",
-                    "true"
-                );
-
-                lightboxImg.src = "";
-                lightboxImg.alt = "";
-
-                document.body.style.overflow = "";
-            }
-
-            galleryItems.forEach(item => {
-
-                item.addEventListener(
-                    "click",
-                    () => openLightbox(item)
-                );
-
-            });
-
-            lightboxClose.addEventListener(
-                "click",
-                closeLightbox
-            );
-
-            lightbox.addEventListener(
-                "click",
-                event => {
-
-                    if (
-                        event.target === lightbox
-                    ) {
-                        closeLightbox();
-                    }
-
-                }
-            );
-
-            /* =====================================================
-               TECLADO
-            ====================================================== */
-
-            document.addEventListener(
-                "keydown",
-                event => {
-
-                    if (event.key !== "Escape") {
-                        return;
-                    }
-
-                    if (
-                        lightbox.classList.contains("active")
-                    ) {
-                        closeLightbox();
-                        return;
-                    }
-
-                    if (
-                        galleryPanel.classList.contains("active")
-                    ) {
-                        closeGallery();
-                    }
-
-                }
-            );
-
-        })();
-    </script>
-
 </body>
+
 
 </html>

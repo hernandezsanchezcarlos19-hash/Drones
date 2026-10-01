@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.jpg">
 
+
     <!-- Metadatos para Redes Sociales (Open Graph) -->
     <meta name="description" content="Superficies de Control (Elevons) del Dron TCN-01 - Instituto Politécnico Nacional">
     <meta property="og:title" content="Superficies de Control - Dron TCN-01">
@@ -20,6 +21,7 @@
     <meta name="twitter:title" content="Superficies de Control - Dron TCN-01">
     <meta name="twitter:description" content="Mecánica de vuelo, elevadores y alerones en el Dron TCN-01 - IPN.">
     <meta name="twitter:image" content="logo.jpg">
+
 
     <style>
         :root {
@@ -34,9 +36,11 @@
             --font-mono: 'Roboto Mono', 'Fira Code', monospace;
         }
 
+
         * {
             box-sizing: border-box;
         }
+
 
         body {
             font-family: var(--font-main);
@@ -53,6 +57,7 @@
             min-height: 100vh; overflow-x: hidden;
         }
 
+
         /* TOP BAR */
         .top-bar {
             width: 100%; height: 70px;
@@ -63,6 +68,7 @@
             box-sizing: border-box; position: sticky; top: 0; z-index: 100;
             overflow: hidden;
 
+
             /* Decoración de aviones con CSS (sin span en el DOM) */
             background-image: 
                 radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
@@ -70,20 +76,24 @@
             background-size: 100% 100%, 60px 60px;
         }
 
+
         .brand-logo {
             display: flex; align-items: center; gap: 12px; text-decoration: none;
             position: relative; z-index: 10;
         }
+
 
         .brand-logo img {
             height: 40px; width: auto; border-radius: 6px;
             box-shadow: 0 0 8px rgba(0, 210, 255, 0.3);
         }
 
+
         .brand-logo span {
             font-size: 1.4rem; font-weight: 700; color: var(--primary-color);
             letter-spacing: 1px;
         }
+
 
         .menu-btn {
             background: transparent; border: 1px solid var(--border-color);
@@ -92,74 +102,9 @@
             z-index: 10;
         }
 
+
         .menu-btn:hover { background-color: rgba(0, 210, 255, 0.15); }
 
-        /* GALERÍA LATERAL */
-        .gallery-panel {
-            position: fixed; top: 0; right: -380px; width: 340px; height: 100vh;
-            background-color: rgba(10, 14, 23, 0.98);
-            border-left: 1px solid var(--border-color); box-shadow: -10px 0 20px rgba(0, 0, 0, 0.8);
-            z-index: 200; transition: transform 0.3s ease-out;
-            will-change: transform;
-            padding: 20px; box-sizing: border-box; display: flex; flex-direction: column;
-        }
-
-        .gallery-panel.active { transform: translateX(-380px); }
-
-        .gallery-header {
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 15px;
-        }
-
-        .gallery-header h3 { margin: 0; color: var(--primary-color); font-size: 1.1rem; }
-        .close-btn { 
-            background: none; border: none; 
-            color: var(--text-muted); font-size: 1.5rem; 
-            cursor: pointer; transition: color 0.2s;
-        }
-        .close-btn:hover { color: #ffffff; }
-
-        .gallery-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 12px; 
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .gallery-item {
-            position: relative; border: 1px solid var(--border-color); border-radius: 8px;
-            overflow: hidden; cursor: pointer; aspect-ratio: 1; 
-            background-color: rgba(255, 255, 255, 0.02);
-            transition: border-color 0.2s;
-        }
-
-        .gallery-item:hover { border-color: var(--primary-color); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        .gallery-item-title {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            background: rgba(10, 14, 23, 0.9); font-size: 0.72rem; color: #ffffff;
-            padding: 4px 6px; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            background: rgba(0, 0, 0, 0.6); z-index: 150; display: none; 
-        }
-        .overlay.active { display: block; }
-
-        .lightbox {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.92); z-index: 300; display: none;
-            align-items: center; justify-content: center;
-        }
-        .lightbox.active { display: flex; }
-        .lightbox img { 
-            max-width: 90%; max-height: 85%; 
-            border-radius: 8px; border: 1px solid var(--primary-color);
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
-        }
 
         /* CONTENEDOR PRINCIPAL */
         .container {
@@ -170,7 +115,9 @@
             position: relative; overflow: hidden;
         }
 
+
         .content-relative { position: relative; z-index: 1; }
+
 
         h1 {
             color: var(--primary-color); font-size: 1.8rem; margin-top: 0;
@@ -178,21 +125,25 @@
             text-align: center;
         }
 
+
         h2, .section-title {
             color: #ffffff; font-size: 1.25rem; margin-top: 30px;
             border-left: 4px solid var(--primary-color); padding-left: 10px;
         }
+
 
         p, li { color: var(--text-muted); margin-bottom: 15px; text-align: justify; }
         ul { padding-left: 20px; }
         li { margin-bottom: 10px; }
         li strong { color: var(--text-color); }
 
+
         .info-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             border-radius: 8px; padding: 20px; margin: 20px 0;
         }
+
 
         /* QUICK SPECS */
         .quick-specs-grid {
@@ -201,12 +152,14 @@
             gap: 15px; margin: 25px 0 35px 0;
         }
 
+
         .spec-card {
             background: rgba(0, 210, 255, 0.05);
             border: 1px solid var(--border-color);
             border-radius: 8px; padding: 15px; text-align: center;
             transition: border-color 0.2s ease;
         }
+
 
         .spec-card:hover { border-color: var(--primary-color); }
         
@@ -218,14 +171,17 @@
             justify-content: center;
         }
 
+
         .spec-icon svg {
             width: 24px;
             height: 24px;
             fill: var(--primary-color);
         }
 
+
         .spec-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; }
         .spec-value { font-size: 1.05rem; font-weight: 700; color: var(--primary-color); }
+
 
         /* NAVEGACIÓN */
         .page-navigation {
@@ -238,6 +194,7 @@
             border-top: 1px solid var(--border-color); 
             flex-wrap: wrap;
         }
+
 
         .nav-btn {
             display: inline-flex; 
@@ -254,10 +211,12 @@
             transition: background-color 0.2s ease;
         }
 
+
         .nav-btn:hover { 
             background-color: var(--primary-color); 
             color: #0a0e17;
         }
+
 
         .nav-btn.home { 
             background: transparent; 
@@ -265,16 +224,19 @@
             color: var(--text-color); 
         }
 
+
         .nav-btn.home:hover { 
             background: rgba(255, 255, 255, 0.15); 
             color: #ffffff; 
         }
+
 
         .nav-btn svg {
             width: 16px;
             height: 16px;
             fill: currentColor;
         }
+
 
         footer {
             width: 100%; margin-top: auto; 
@@ -285,13 +247,14 @@
             color: var(--text-muted); box-sizing: border-box;
         }
 
+
         footer strong { color: #ffffff; }
         .footer-authors { margin: 10px 0; line-height: 1.5; }
         .footer-date { font-size: 0.85rem; color: var(--primary-color); margin-top: 8px; }
 
+
         @media (max-width: 600px) {
             .container { padding: 20px; }
-            .gallery-panel { width: 100%; right: -100%; }
             .page-navigation { flex-direction: column; align-items: stretch; }
             .nav-btn { justify-content: center; }
         }
@@ -299,7 +262,6 @@
 </head>
 <body>
 
-    <div class="overlay" id="overlay"></div>
 
     <!-- Barra Superior -->
     <header class="top-bar">
@@ -308,14 +270,14 @@
             <span>TCN-01</span>
         </a>
 
-        <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes" aria-label="Abrir galería">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+        <a href="imagenes-index.html" class="top-gallery-button" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary-color);text-decoration:none;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--border-color);background:rgba(0,210,255,0.05);transition:all 0.3s ease;">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px;fill:var(--primary-color);">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 10 3-4 2.25 3 3-4L18 16H6zm8-6.5A1.5 1.5 0 1 0 14 8a1.5 1.5 0 0 0 0 1.5z"/>
             </svg>
-        </button>
-
-        <!-- Aquí iba la flota de avioncitos ✈ en el DOM → ahora solo decoración CSS en .top-bar -->
+            Galería
+        </a>
     </header>
+
 
     <!-- Contenido Principal -->
     <main class="container">
@@ -326,10 +288,12 @@
                 En configuraciones de ala recta, el control aerodinámico se realiza mediante alerones (para el control de alabeo) y elevadores o timones de profundidad (para el control de cabeceo) de forma independiente, ubicados respectivamente en los bordes de salida de las alas y del estabilizador horizontal.
             </p>
 
+
             <p>
                 <strong>Alerones:</strong> se mueven asimétricamente, lo que genera que el dron se incline de manera transversal (de un lado a otro) hacia la izquierda o a la derecha (alabeo). 
                 <strong>Timones de profundidad (elevadores):</strong> se mueve mueve de manera longitudinal (a lo largo) lo que mueve la nariz (de un avión) hacia arriba o abajo (cabeceo).
             </p>
+
 
             <!-- ESPECIFICACIONES RÁPIDAS -->
             <h2 class="section-title">
@@ -351,7 +315,7 @@
                 <div class="spec-card">
                     <div class="spec-icon">
                         <svg viewBox="0 0 24 24">
-                            <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c -.04.31 -.06.63 -.06.94s .02 .63 .06 .94l -2.03 1.58c -.18 .14 -.23 .41 -.12 .61l 1.92 3.32c .12 .２２ .３７ .２９ .5９ .２２l ２．３９ -．９６c .５ .３８ １．０３ .７ １．６２ .９４l .３６ ２．５４c .０５ .２４ .２４ .４１ .４８ .４１h ３．８４c .２４ ０ .４４ -.１７ .４７ -.４１l .３６ -２．５４c .５９ -.２４ １．１３ -.５６ １．６２ -.９４l ２．３９ .９６c .２２ .０８ .４７ ０ .５９ -.２２l １．９２ -３．３２c .１２ -.２２ .０７ -.４７ -.１２ -.６１l -２．０１ -１．５８zM １２ １５．６c -１．９８ ０ -３．６ -１．６２ -３．６ -３．６s １．６２ -３．６ ３．６ -３．６ ３．６ １．６２ ３．６ ３．６ -１．６₂ ３．₆ -₃․₆ ₃․₆z"/>
+                            <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c -.04.31 -.06.63 -.06.94s .02 .63 .06 .94l -2.03 1.58c -.18 .14 -.23 .41 -.12 .61l 1.92 3.32c .12 .22 .37 .29 .59 .22l 2.39 -.96c .5 .38 1.03 .7 1.62 .94l .36 2.54c .05 .24 .24 .41 .48 .41h 3.84c .24 0 .44 -.17 .47 -.41l .36 -2.54c .59 -.24 1.13 -.56 1.62 -.94l 2.39 .96c .22 .08 .47 0 .59 -.22l 1.92 -3.32c .12 -.22 .07 -.47 -.12 -.61l -2.01 -1.58zM 12 15.6c -1.98 0 -3.6 -1.62 -3.6 -3.6s 1.62 -3.6 3.6 -3.6 3.6 1.62 3.6 3.6 -1.62 3.6 -3.6 3.6z"/>
                         </svg>
                     </div>
                     <div class="spec-label">Actuadores</div>
@@ -378,27 +342,27 @@
                 </div>
             </div>
 
+
             <h2>Principios Aerodinámicos</h2>
             <div class="info-card">
                 <ul>
-                    <li><strong>Alabeo (Roll):</strong> Los alerones se mueven asimétricamente para generar un momento de torsión sobre el eje longitudinal (de punta de ala - punta de ala). 
-                        <!-- Alabeo: inclinación del dron hacia un lado (como ladear un auto en una curva). Eje longitudinal: línea imaginaria que va de la nariz a la cola del dron. -->
-                    </li>
-                    <li><strong>Cabeceo (Pitch):</strong> los elebadore se mueve unicamente de arriba a abajo para modificar el ángulo de ataque (angulo de inclinación) de la aeronave.
-                        <!-- Cabeceo: movimiento de subir o bajar la nariz del dron. Ángulo de ataque: ángulo entre el ala y la dirección del aire que llega. -->
-                    </li>
+                    <li><strong>Alabeo (Roll):</strong> Los alerones se mueven asimétricamente para generar un momento de torsión sobre el eje longitudinal (de punta de ala - punta de ala).</li>
+                    <li><strong>Cabeceo (Pitch):</strong> los elebadore se mueve unicamente de arriba a abajo para modificar el ángulo de ataque (angulo de inclinación) de la aeronave.</li>
                 </ul>
             </div>
+
 
             <h2>Algoritmo de Mezcla</h2>
             <p>
                 El microcontrolador procesa las lecturas de los joysticks (palancas) o comandos remotos ejecutando la mezcla matemática de canales antes de enviar las señales PWM correspondientes a cada servomotor.
             </p>
 
+
             <p>
                 <strong>PWM (Pulse Width Modulation):</strong> técnica para controlar la posición del servo variando el ancho de un pulso eléctrico. 
                 <strong>Matriz de las superficies en C++:</strong> fórmula matemática programada en el Arduino que combina las señales de alabeo y cabeceo para mover correctamente cada servomotor.
             </p>
+
 
             <!-- BOTONES DE NAVEGACIÓN ENTRE SUBPÁGINAS -->
             <nav class="page-navigation" aria-label="Navegación entre subpáginas">
@@ -424,45 +388,6 @@
         </div>
     </main>
 
-    <!-- Panel Lateral: Galería -->
-    <aside class="gallery-panel" id="galleryPanel" role="complementary" aria-label="Galería de imágenes del proyecto">
-        <div class="gallery-header">
-            <h3>
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-                Galería del Proyecto
-            </h3>
-            <button class="close-btn" id="closeGalleryBtn" aria-label="Cerrar galería">&times;</button>
-        </div>
-        <div class="gallery-grid" id="galleryGrid">
-            <button class="gallery-item" aria-label="Ver Logo Principal TCN-01" type="button">
-                <img src="logo.jpg" alt="Logo Principal TCN-01" loading="lazy">
-                <div class="gallery-item-title">Logo TCN-01</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Estructura Aerodinámica" type="button">
-                <img src="ima1.jpg" alt="Estructura de Aeronave" loading="lazy">
-                <div class="gallery-item-title">Estructura Aerodinámica</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Circuito Electrónico" type="button">
-                <img src="1.png" alt="Esquema Electrónico Prototipo" loading="lazy">
-                <div class="gallery-item-title">Circuito Electrónico</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Ensamblado Hardware" type="button">
-                <img src="2.png" alt="Ensamblado Hardware" loading="lazy">
-                <div class="gallery-item-title">Ensamblado Hardware</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Pruebas de Sistema" type="button">
-                <img src="3.png" alt="Pruebas de Componentes" loading="lazy">
-                <div class="gallery-item-title">Pruebas de Sistema</div>
-            </button>
-        </div>
-    </aside>
-
-    <!-- Lightbox con atributos de accesibilidad -->
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
-        <img id="lightboxImg" src="" alt="Vista ampliada">
-    </div>
 
     <!-- Pie de Página -->
     <footer>
@@ -472,47 +397,5 @@
         </div>
         <div class="footer-date">23 de septiembre de 2026</div>
     </footer>
-
-    <script>
-        const openGalleryBtn = document.getElementById('openGalleryBtn');
-        const closeGalleryBtn = document.getElementById('closeGalleryBtn');
-        const galleryPanel = document.getElementById('galleryPanel');
-        const overlay = document.getElementById('overlay');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-
-        function toggleGallery() {
-            galleryPanel.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        openGalleryBtn.addEventListener('click', toggleGallery);
-        closeGalleryBtn.addEventListener('click', toggleGallery);
-        overlay.addEventListener('click', toggleGallery);
-
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                if(img) {
-                    lightboxImg.src = img.src;
-                    lightbox.classList.add('active');
-                }
-            });
-        });
-
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
-
-        // Cerrar lightbox con tecla Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
-                if (galleryPanel.classList.contains('active')) {
-                    toggleGallery();
-                }
-            }
-        });
-    </script>
 </body>
 </html>

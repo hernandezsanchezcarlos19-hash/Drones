@@ -11,6 +11,7 @@
     <meta name="description" content="Estructura y aerodinámica del Dron TCN-01 - Instituto Politécnico Nacional">
     <meta property="og:title" content="Investigación 1: Estructura - Dron TCN-01">
 
+
     <style>
         :root {
             --primary-color: #00d2ff;
@@ -24,9 +25,11 @@
             --font-mono: 'Roboto Mono', 'Fira Code', monospace;
         }
 
+
         * {
             box-sizing: border-box;
         }
+
 
         body {
             font-family: var(--font-main);
@@ -43,6 +46,7 @@
             min-height: 100vh; overflow-x: hidden;
         }
 
+
         /* TOP BAR */
         .top-bar {
             width: 100%; height: 70px;
@@ -54,6 +58,7 @@
             box-sizing: border-box; position: sticky; top: 0; z-index: 100;
             overflow: hidden;
 
+
             /* Decoración de aviones con CSS (sin span en el DOM) */
             background-image: 
                 radial-gradient(circle at 50% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
@@ -61,20 +66,24 @@
             background-size: 100% 100%, 60px 60px;
         }
 
+
         .brand-logo {
             display: flex; align-items: center; gap: 12px; text-decoration: none;
             position: relative; z-index: 10;
         }
+
 
         .brand-logo img {
             height: 40px; width: auto; border-radius: 6px;
             box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
         }
 
+
         .brand-logo span {
             font-size: 1.4rem; font-weight: 700; color: var(--primary-color);
             letter-spacing: 1px; text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
         }
+
 
         .menu-btn {
             background: transparent; border: 1px solid var(--border-color);
@@ -83,77 +92,12 @@
             z-index: 10;
         }
 
+
         .menu-btn:hover {
             background-color: rgba(0, 210, 255, 0.15);
             box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
         }
 
-        /* GALERÍA LATERAL */
-        .gallery-panel {
-            position: fixed; top: 0; right: -380px; width: 340px; height: 100vh;
-            background-color: rgba(10, 14, 23, 0.96); backdrop-filter: blur(15px);
-            border-left: 1px solid var(--border-color); box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
-            z-index: 200; transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
-            padding: 20px; box-sizing: border-box; display: flex; flex-direction: column;
-        }
-
-        .gallery-panel.active { right: 0; }
-
-        .gallery-header {
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 15px;
-        }
-
-        .gallery-header h3 { margin: 0; color: var(--primary-color); font-size: 1.1rem; }
-
-        .close-btn { 
-            background: none; border: none; 
-            color: var(--text-muted); font-size: 1.5rem; 
-            cursor: pointer; transition: color 0.2s;
-        }
-        .close-btn:hover { color: #ffffff; }
-
-        .gallery-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 12px; 
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .gallery-item {
-            position: relative; border: 1px solid var(--border-color); border-radius: 8px;
-            overflow: hidden; cursor: pointer; aspect-ratio: 1; 
-            background-color: rgba(255, 255, 255, 0.02);
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .gallery-item:hover { transform: scale(1.03); border-color: var(--primary-color); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        .gallery-item-title {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            background: rgba(10, 14, 23, 0.85); font-size: 0.72rem; color: #ffffff;
-            padding: 4px 6px; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            background: rgba(0, 0, 0, 0.5); z-index: 150; display: none; 
-        }
-        .overlay.active { display: block; }
-
-        .lightbox {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.9); z-index: 300; display: none;
-            align-items: center; justify-content: center; backdrop-filter: blur(8px);
-        }
-        .lightbox.active { display: flex; }
-        .lightbox img { 
-            max-width: 90%; max-height: 85%; 
-            border-radius: 8px; border: 1px solid var(--primary-color);
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
-        }
 
         /* CONTENEDOR PRINCIPAL */
         .container {
@@ -164,13 +108,16 @@
             position: relative; overflow: hidden;
         }
 
+
         .content-relative { position: relative; z-index: 1; }
+
 
         h1 {
             color: var(--primary-color); font-size: 2rem; margin-top: 0;
             border-bottom: 2px solid var(--border-color); padding-bottom: 12px;
             text-align: center; text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
         }
+
 
         .section-title {
             font-size: 1.3rem;
@@ -181,7 +128,9 @@
             padding-left: 10px;
         }
 
+
         p { color: var(--text-muted); margin-bottom: 20px; text-align: justify; }
+
 
         .img-container { text-align: center; margin: 25px 0; }
         .img-container img {
@@ -192,6 +141,7 @@
         }
         .img-container img:hover { transform: scale(1.01); }
 
+
         /* FICHAS INTERACTIVAS (SUB-RAMAS) */
         .cards-grid {
             display: grid;
@@ -199,6 +149,7 @@
             gap: 20px;
             margin-top: 20px;
         }
+
 
         .research-card {
             background-color: rgba(255, 255, 255, 0.03);
@@ -213,6 +164,7 @@
             transition: all 0.3s ease;
         }
 
+
         .research-card:hover {
             border-color: var(--primary-color);
             background-color: rgba(0, 210, 255, 0.08);
@@ -220,13 +172,16 @@
             box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2);
         }
 
+
         .card-number {
             font-size: 0.8rem; font-weight: 700; color: var(--primary-color);
             text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
         }
 
+
         .card-title { font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; }
         .card-description { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; text-align: left; }
+
 
         .card-footer-btn {
             align-self: flex-start;
@@ -239,11 +194,13 @@
             transition: all 0.2s ease;
         }
 
+
         .research-card:hover .card-footer-btn {
             background-color: var(--primary-hover);
             color: #ffffff;
             box-shadow: 0 0 12px rgba(0, 210, 255, 0.5);
         }
+
 
         /* BARRA DE NAVEGACIÓN ENTRE SUBPÁGINAS */
         .page-navigation {
@@ -256,6 +213,7 @@
             border-top: 1px solid var(--border-color);
             flex-wrap: wrap;
         }
+
 
         .nav-btn {
             display: inline-flex;
@@ -272,6 +230,7 @@
             transition: all 0.3s ease;
         }
 
+
         .nav-btn:hover {
             background-color: var(--primary-color);
             color: #0a0e17;
@@ -279,11 +238,13 @@
             transform: translateY(-2px);
         }
 
+
         .nav-btn.home {
             background: transparent;
             border-color: rgba(255, 255, 255, 0.2);
             color: var(--text-color);
         }
+
 
         .nav-btn.home:hover {
             background: rgba(255, 255, 255, 0.15);
@@ -291,11 +252,13 @@
             box-shadow: none;
         }
 
+
         .nav-btn svg {
             width: 16px;
             height: 16px;
             fill: currentColor;
         }
+
 
         footer {
             width: 100%; margin-top: auto;
@@ -305,13 +268,14 @@
             color: var(--text-muted); box-sizing: border-box;
         }
 
+
         footer strong { color: #ffffff; }
         .footer-authors { margin: 10px 0; line-height: 1.5; }
         .footer-date { font-size: 0.85rem; color: var(--primary-color); margin-top: 8px; }
 
+
         @media (max-width: 600px) {
             .container { padding: 20px; }
-            .gallery-panel { width: 100%; right: -100%; }
             .cards-grid { grid-template-columns: 1fr; }
             .page-navigation { flex-direction: column; align-items: stretch; }
             .nav-btn { justify-content: center; }
@@ -320,7 +284,6 @@
 </head>
 <body>
 
-    <div class="overlay" id="overlay"></div>
 
     <!-- Barra Superior -->
     <header class="top-bar">
@@ -329,14 +292,14 @@
             <span>TCN-01</span>
         </a>
 
-        <button class="menu-btn" id="openGalleryBtn" title="Búsqueda Rápida de Imágenes" aria-label="Abrir galería">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+        <a href="imagenes-index.html" class="top-gallery-button" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary-color);text-decoration:none;font-weight:600;padding:8px 14px;border-radius:6px;border:1px solid var(--border-color);background:rgba(0,210,255,0.05);transition:all 0.3s ease;">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px;fill:var(--primary-color);">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 10 3-4 2.25 3 3-4L18 16H6zm8-6.5A1.5 1.5 0 1 0 14 8a1.5 1.5 0 0 0 0 1.5z"/>
             </svg>
-        </button>
-
-        <!-- Aquí iba la flota de avioncitos ✈ en el DOM → ahora solo decoración CSS en .top-bar -->
+            Galería
+        </a>
     </header>
+
 
     <!-- Contenido Principal -->
     <main class="container">
@@ -347,6 +310,7 @@
                 Esta sección aborda detalladamente los fundamentos del diseño estructural, la aerodinámica del prototipo TCN-01 y la distribución geométrica requerida para garantizar estabilidad y balance de carga durante las pruebas de vuelo.
             </p>
 
+
             <p>
                 <strong>Aerodinámica:</strong> es la rama de la física que estudia cómo se mueve el aire alrededor de los objetos (como las alas de un dron) y cómo eso afecta su capacidad para volar de manera estable y eficiente.
             </p>
@@ -354,6 +318,7 @@
             <div class="img-container">
                 <img src="ima1.jpg" alt="Diseño Estructural y Aerodinámico del Dron TCN-01" loading="lazy">
             </div>
+
 
             <!-- FICHAS INTERACTIVAS (SUB-RAMAS) -->
             <h2 class="section-title">Temas de Investigación Estructural</h2>
@@ -363,21 +328,21 @@
                         <div class="card-number">Sub-rama 1.1</div>
                         <div class="card-title">Superficies de Control (Elevadores y Alerones)</div>
                         <div class="card-description">Definición, modos de operación, mecánica de vuelo y algoritmos de compensación en alas rectas.</div>
-                        <!-- Elevons: superficies de control que combinan las funciones de alerones y elevadores, usados en alas delta. Alas rectas: alas con forma rectangular, comunes en aviones de baja velocidad. -->
                     </div>
                     <div class="card-footer-btn">Ver tema →</div>
                 </a>
+
 
                 <a href="2-sub-index.html" class="research-card">
                     <div>
                         <div class="card-number">Sub-rama 1.2</div>
                         <div class="card-title">Sistemas de Tren de Aterrizaje</div>
                         <div class="card-description">Configuraciones geométricas, absorción de impactos y equilibrio entre peso y arrastre aerodinámico.</div>
-                        <!-- Tren de aterrizaje: conjunto de ruedas, patines o estructuras que permiten que el dron aterrice sin dañarse. Arrastre aerodinámico: fuerza que se opone al movimiento del dron a través del aire. -->
                     </div>
                     <div class="card-footer-btn">Ver tema →</div>
                 </a>
             </div>
+
 
             <!-- BOTONES DE NAVEGACIÓN ENTRE SUBPÁGINAS -->
             <nav class="page-navigation" aria-label="Navegación entre investigaciones">
@@ -399,45 +364,6 @@
         </div>
     </main>
 
-    <!-- Panel Lateral: Galería -->
-    <aside class="gallery-panel" id="galleryPanel" role="complementary" aria-label="Galería de imágenes del proyecto">
-        <div class="gallery-header">
-            <h3>
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-                Galería del Proyecto
-            </h3>
-            <button class="close-btn" id="closeGalleryBtn" aria-label="Cerrar galería">&times;</button>
-        </div>
-        <div class="gallery-grid" id="galleryGrid">
-            <button class="gallery-item" aria-label="Ver Logo Principal TCN-01" type="button">
-                <img src="logo.jpg" alt="Logo Principal TCN-01" loading="lazy">
-                <div class="gallery-item-title">Logo TCN-01</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Estructura Aerodinámica" type="button">
-                <img src="ima1.jpg" alt="Estructura de Aeronave" loading="lazy">
-                <div class="gallery-item-title">Estructura Aerodinámica</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Circuito Electrónico" type="button">
-                <img src="1.jpg" alt="Esquema Electrónico Prototipo" loading="lazy">
-                <div class="gallery-item-title">Circuito Electrónico</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Ensamblado Hardware" type="button">
-                <img src="2.jpg" alt="Ensamblado Hardware" loading="lazy">
-                <div class="gallery-item-title">Ensamblado Hardware</div>
-            </button>
-            <button class="gallery-item" aria-label="Ver Pruebas de Sistema" type="button">
-                <img src="3.jpg" alt="Pruebas de Componentes" loading="lazy">
-                <div class="gallery-item-title">Pruebas de Sistema</div>
-            </button>
-        </div>
-    </aside>
-
-    <!-- Lightbox con atributos de accesibilidad -->
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen">
-        <img id="lightboxImg" src="" alt="Vista ampliada">
-    </div>
 
     <!-- Pie de Página -->
     <footer>
@@ -447,47 +373,5 @@
         </div>
         <div class="footer-date">23 de septiembre de 2026</div>
     </footer>
-
-    <script>
-        const openGalleryBtn = document.getElementById('openGalleryBtn');
-        const closeGalleryBtn = document.getElementById('closeGalleryBtn');
-        const galleryPanel = document.getElementById('galleryPanel');
-        const overlay = document.getElementById('overlay');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-
-        function toggleGallery() {
-            galleryPanel.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        openGalleryBtn.addEventListener('click', toggleGallery);
-        closeGalleryBtn.addEventListener('click', toggleGallery);
-        overlay.addEventListener('click', toggleGallery);
-
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                if(img) {
-                    lightboxImg.src = img.src;
-                    lightbox.classList.add('active');
-                }
-            });
-        });
-
-        lightbox.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
-
-        // Cerrar lightbox con tecla Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
-                if (galleryPanel.classList.contains('active')) {
-                    toggleGallery();
-                }
-            }
-        });
-    </script>
 </body>
 </html>

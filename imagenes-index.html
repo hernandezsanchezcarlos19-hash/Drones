@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Galería del Proyecto TCN-01</title>
+
+    <link rel="icon" type="image/jpg" href="logo.jpg">
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <meta name="description" content="Galería general del Proyecto Dron TCN-01">
+
+    <style>
+        :root {
+            --primary-color: #00d2ff;
+            --primary-hover: #0099ff;
+            --bg-color: #0a0e17;
+            --card-bg: rgba(16, 23, 38, 0.88);
+            --text-color: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: rgba(0, 210, 255, 0.2);
+            --font-main: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(
+                    circle at 50% 30%,
+                    rgba(0, 210, 255, 0.08) 0%,
+                    transparent 60%
+                ),
+                linear-gradient(
+                    rgba(0, 210, 255, 0.02) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(0, 210, 255, 0.02) 1px,
+                    transparent 1px
+                );
+
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* BARRA SUPERIOR */
+
+        .top-bar {
+            width: 100%;
+            min-height: 70px;
+            padding: 0 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+            background-color: rgba(10, 14, 23, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            overflow: hidden;
+        }
+
+        .top-bar::before {
+            content: "✈  ✈  ✈  ✈  ✈  ✈  ✈";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 35px;
+
+            color: rgba(0, 210, 255, 0.08);
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-logo img {
+            width: auto;
+            height: 40px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .brand-logo span {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+        }
+
+        .top-gallery-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 210, 255, 0.05);
+
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .top-gallery-button:hover {
+            color: #ffffff;
+            background: rgba(0, 210, 255, 0.15);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.35);
+        }
+
+        .top-gallery-button svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--primary-color);
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 40px;
+
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.12);
+        }
+
+        h1 {
+            margin-top: 0;
+            padding-bottom: 12px;
+
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            text-align: center;
+
+            border-bottom: 2px solid var(--border-color);
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .intro-text {
+            margin-bottom: 35px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* ÍNDICE DE SECCIONES */
+
+        .gallery-index {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 15px;
+            margin: 25px 0 45px;
+        }
+
+        .index-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 55px;
+            padding: 12px;
+
+            color: var(--primary-color);
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+
+            background: rgba(0, 210, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+
+            transition: all 0.3s ease;
+        }
+
+        .index-card:hover {
+            color: #ffffff;
+            background: rgba(0, 210, 255, 0.15);
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.25);
+        }
+
+        /* SECCIONES DE LA GALERÍA */
+
+        .gallery-section {
+            margin-top: 45px;
+            padding-top: 25px;
+            scroll-margin-top: 95px;
+        }
+
+        .gallery-section:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title {
+            margin: 0 0 20px;
+            padding: 10px 0 10px 12px;
+
+            color: #ffffff;
+            font-size: 1.35rem;
+
+            border-left: 4px solid var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-description {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 20px;
+        }
+
+        .image-card {
+            overflow: hidden;
+
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.18);
+        }
+        .image-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Asegura que el video llene el contenedor correctamente */
+            display: block;
+            border-radius: inherit; /* Hereda bordes redondeados si tu tarjeta los tiene */
+        }
+
+        .image-placeholder {
+            width: 100%;
+            min-height: 210px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+            color: var(--text-muted);
+            text-align: center;
+
+            background: rgba(0, 210, 255, 0.03);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .image-card img {
+            display: block;
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .image-caption {
+            margin: 0;
+            padding: 12px;
+
+            color: #ffffff;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        /* BOTONES */
+
+        .section-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-top: 18px;
+            padding: 9px 14px;
+
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+
+            background: rgba(0, 210, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+
+            transition: all 0.3s ease;
+        }
+
+        .section-button:hover {
+            color: #ffffff;
+            background: rgba(0, 210, 255, 0.15);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .bottom-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-top: 50px;
+            padding-top: 20px;
+
+            border-top: 1px solid var(--border-color);
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 210, 255, 0.05);
+
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background: rgba(0, 210, 255, 0.15);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* PIE DE PÁGINA */
+
+        footer {
+            width: 100%;
+            margin-top: auto;
+            padding: 25px 20px;
+
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+
+            background-color: rgba(10, 14, 23, 0.95);
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer strong {
+            color: #ffffff;
+        }
+
+        .footer-authors {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .footer-date {
+            margin-top: 8px;
+            color: var(--primary-color);
+            font-size: 0.85rem;
+        }
+
+        /* DISEÑO RESPONSIVE */
+
+        @media (max-width: 600px) {
+            .top-bar {
+                min-height: 65px;
+                padding: 0 12px;
+            }
+
+            .brand-logo {
+                gap: 7px;
+            }
+
+            .brand-logo img {
+                height: 34px;
+            }
+
+            .brand-logo span {
+                font-size: 1rem;
+            }
+
+            .top-gallery-button {
+                padding: 8px 9px;
+                font-size: 0.75rem;
+            }
+
+            .top-gallery-button svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 25px auto;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            .images-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-navigation {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+
+            .nav-link {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BARRA SUPERIOR -->
+
+    <header class="top-bar">
+        <a href="index.html" class="brand-logo">
+            <img src="logo.jpg" alt="Logo TCN-01">
+            <span>TCN-01</span>
+        </a>
+
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+
+    <main class="container">
+
+        <h1>Galería del Proyecto TCN-01</h1>
+
+        <p class="intro-text">
+            En esta sección se muestran imágenes organizadas por áreas
+            del Proyecto Dron TCN-01.
+        </p>
+
+        <!-- ÍNDICE. TÚ PUEDES CAMBIAR LOS TEXTOS -->
+
+        <nav class="gallery-index" aria-label="Índice de la galería">
+            <a href="#seccion-01" class="index-card">Sección 01</a>
+            <a href="#seccion-02" class="index-card">Sección 02</a>
+            <a href="#seccion-03" class="index-card">Sección 03</a>
+            <a href="#seccion-04" class="index-card">Sección 04</a>
+            <a href="#seccion-05" class="index-card">Sección 05</a>
+            <a href="#seccion-06" class="index-card">Sección 06</a>
+            <a href="#seccion-07" class="index-card">Sección 07</a>
+            <a href="#seccion-08" class="index-card">Sección 08</a>
+            <a href="#seccion-09" class="index-card">Sección 09</a>
+            <a href="#seccion-10" class="index-card">Sección 10</a>
+            <a href="#seccion-11" class="index-card">Sección 11</a>
+            <a href="#seccion-12" class="index-card">Sección 12</a>
+        </nav>
+
+        <!-- SECCIÓN 01 -->
+
+        <section id="seccion-01" class="gallery-section">
+            <h2 class="section-title">Componentes Electrónicos</h2>
+
+
+            <div class="images-grid">
+
+                <article class="image-card">
+                    <img src="NANO.png">
+                    <div class="image-placeholder">
+                    </div>
+                    <p class="image-caption">
+                        Placa Arduino Nano
+                    </p>
+                </article>
+
+                <article class="image-card">
+                    <img src="UNO.png">
+                    <div class="image-placeholder">
+                    </div>
+
+                    <p class="image-caption">
+                        Placa Arduino Uno
+                    </p>
+                </article>
+                <article class="image-card">
+                    <img src="brusshles.png">
+                    <div class="image-placeholder">
+                    </div>
+
+                    <p class="image-caption">
+                        Motor Brushless 2212-1400Kv
+                    </p>
+                </article>
+                <article class="image-card">
+                    <img src="servo.png">
+                    <div class="image-placeholder">
+                    </div>
+
+                    <p class="image-caption">
+                        Servo Motor
+                    </p>
+                </article>
+                <article class="image-card">
+                    <img src="modulo-nRF24L01.png">
+                    <div class="image-placeholder">
+                    </div>
+
+                    <p class="image-caption">
+                        Módulo nRF24L01
+                    </p>
+                </article>
+                <article class="image-card">
+                    <img src="emisor.png">
+                    <div class="image-placeholder">
+                    </div>
+
+                    <p class="image-caption">
+                        Código Emisor
+                    </p>    
+                </article>
+                <article class="image-card">
+                    <img src="receptor.png">
+                    <div class="image-placeholder">
+                    </div>
+
+                    <p class="image-caption">
+                        Código Receptor
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 02 -->
+
+        <section id="seccion-02" class="gallery-section">
+            <h2 class="section-title">Esquemas (Diagramas)</h2>
+
+            <div class="images-grid">
+
+                <article class="image-card">
+                    <img src="esquema-control.png">
+                    <div class="image-placeholder">
+
+                    <p class="image-caption">
+                        Esquema de Control
+                    </p>
+                </article>
+                <article class="image-card">
+                    <img src="esquema-dron.png">
+                    <div class="image-placeholder">
+
+                    <p class="image-caption">
+                        Esquema del Dron
+                    </p>
+                </article>
+                <article class="image-card">
+                    <img src="diagrama-de-dlujo.png">
+                    <div class="image-placeholder">
+
+                    <p class="image-caption">
+                        Diagrama de Flujo de Aire (Principio de Bernoulli)
+                    </p>
+                </article>
+                <article class="image-card">
+                    <img src="superficies-de-control.png">
+                    <div class="image-placeholder">
+
+                    <p class="image-caption">
+                        Esquema de las Superficies de Control en una Aeronave
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 03 -->
+
+        <section id="seccion-03" class="gallery-section">
+            <h2 class="section-title">Trabajo Práctico (físico)</h2>
+
+            <p class="section-description">
+                Descripción opcional de la sección 03.
+            </p>
+
+            <div class="images-grid">
+                <article class="image-card">
+                    <img src="estructura-dron.png">
+                    <div class="image-placeholder">
+
+                    <p class="image-caption">
+                        Estructura Física del Dron
+                    </p>
+                </article>
+                <article class="image-card">
+                    <img src="conexion-fisica-control.png">
+                    <div class="image-placeholder">
+
+                    <p class="image-caption">
+                        Conexión Física del Control (conexión arduino y nRF24L01)
+                    </p>
+                </article>
+                <article class="image-card">
+                    <img src="conexion-fisica-controlf.png">
+                    <div class="image-placeholder">
+
+                    <p class="image-caption">
+                        Conexión Física del Control (Vista Frontal)
+                    </p>
+                </article>
+                <article class="image-card">
+                    <img src="conexion-fisica-dron.png">
+                    <div class="image-placeholder">
+
+                    <p class="image-caption">
+                        Conexión Física del Dron (conexión arduino y nRF24L01)
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 04 -->
+
+        <section id="seccion-04" class="gallery-section">
+            <h2 class="section-title">Videos (Pruebas de Lanzamiento Manual)</h2>
+
+        <div class="images-grid">
+            <article class="image-card">
+            <!-- Reemplazamos la caja de placeholder por el video -->
+                <video class="video-item" controls poster="logo.jpg">
+                <source src="video-planeo-bajo.mp4" type="video/mp4">
+                Tu navegador no soporta videos en HTML5.
+            </video>
+
+                <p class="image-caption">
+                    Video de Lanzamiento Manual del Dron
+                </p>
+            </article>
+            <article class="image-card">
+                <video class="video-item" controls poster="logo.jpg">
+                <source src="planeo-caida.mp4" type="video/mp4">
+                Tu navegador no soporta videos en HTML5.
+            </video>
+
+                <p class="image-caption">
+                    Video de Caida del Dron
+                </p>
+            </article>
+        </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 05 -->
+
+        <section id="seccion-05" class="gallery-section">
+            <h2 class="section-title">Imágenes Generales del Proceso</h2>
+
+            <div class="images-grid">
+                <article class="image-card">
+                    <div class="image-placeholder">
+                        Imagen de la sección 05
+                    </div>
+
+                    <p class="image-caption">
+                        Título de la imagen
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 06 -->
+
+        <section id="seccion-06" class="gallery-section">
+            <h2 class="section-title">Título de la sección 06</h2>
+
+            <p class="section-description">
+                Descripción opcional de la sección 06.
+            </p>
+
+            <div class="images-grid">
+                <article class="image-card">
+                    <div class="image-placeholder">
+                        Imagen de la sección 06
+                    </div>
+
+                    <p class="image-caption">
+                        Título de la imagen
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 07 -->
+
+        <section id="seccion-07" class="gallery-section">
+            <h2 class="section-title">Título de la sección 07</h2>
+
+            <p class="section-description">
+                Descripción opcional de la sección 07.
+            </p>
+
+            <div class="images-grid">
+                <article class="image-card">
+                    <div class="image-placeholder">
+                        Imagen de la sección 07
+                    </div>
+
+                    <p class="image-caption">
+                        Título de la imagen
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 08 -->
+
+        <section id="seccion-08" class="gallery-section">
+            <h2 class="section-title">Título de la sección 08</h2>
+
+            <p class="section-description">
+                Descripción opcional de la sección 08.
+            </p>
+
+            <div class="images-grid">
+                <article class="image-card">
+                    <div class="image-placeholder">
+                        Imagen de la sección 08
+                    </div>
+
+                    <p class="image-caption">
+                        Título de la imagen
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 09 -->
+
+        <section id="seccion-09" class="gallery-section">
+            <h2 class="section-title">Título de la sección 09</h2>
+
+            <p class="section-description">
+                Descripción opcional de la sección 09.
+            </p>
+
+            <div class="images-grid">
+                <article class="image-card">
+                    <div class="image-placeholder">
+                        Imagen de la sección 09
+                    </div>
+
+                    <p class="image-caption">
+                        Título de la imagen
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 10 -->
+
+        <section id="seccion-10" class="gallery-section">
+            <h2 class="section-title">Título de la sección 10</h2>
+
+            <p class="section-description">
+                Descripción opcional de la sección 10.
+            </p>
+
+            <div class="images-grid">
+                <article class="image-card">
+                    <div class="image-placeholder">
+                        Imagen de la sección 10
+                    </div>
+
+                    <p class="image-caption">
+                        Título de la imagen
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 11 -->
+
+        <section id="seccion-11" class="gallery-section">
+            <h2 class="section-title">Título de la sección 11</h2>
+
+            <p class="section-description">
+                Descripción opcional de la sección 11.
+            </p>
+
+            <div class="images-grid">
+                <article class="image-card">
+                    <div class="image-placeholder">
+                        Imagen de la sección 11
+                    </div>
+
+                    <p class="image-caption">
+                        Título de la imagen
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- SECCIÓN 12 -->
+
+        <section id="seccion-12" class="gallery-section">
+            <h2 class="section-title">Título de la sección 12</h2>
+
+            <p class="section-description">
+                Descripción opcional de la sección 12.
+            </p>
+
+            <div class="images-grid">
+                <article class="image-card">
+                    <div class="image-placeholder">
+                        Imagen de la sección 12
+                    </div>
+
+                    <p class="image-caption">
+                        Título de la imagen
+                    </p>
+                </article>
+            </div>
+
+            <a href="#inicio-galeria" class="section-button">
+                ↑ Volver al inicio de la galería
+            </a>
+        </section>
+
+        <!-- NAVEGACIÓN FINAL -->
+
+        <div class="bottom-navigation">
+            <a href="index.html" class="nav-link">
+                ← Regresar al inicio
+            </a>
+
+            <a href="#inicio-galeria" class="nav-link">
+                ↑ Ir al principio
+            </a>
+        </div>
+
+    </main>
+
+    <footer>
+        <p style="margin: 0;">
+            <strong>Instituto Politécnico Nacional</strong>
+        </p>
+
+        <div class="footer-authors">
+            <strong>Autores:</strong>
+            Hernández Sánchez Carlos Enrique |
+            Cervantes García Lucero Nicole |
+            Santivañez Urbina Margarito Joaquín |
+            Pablo Bernal Luis Alberto
+        </div>
+
+        <div class="footer-date">
+            23 de septiembre de 2026
+        </div>
+    </footer>
+
+</body>
+</html>
